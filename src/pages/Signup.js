@@ -8,13 +8,12 @@ import { Container } from '@mui/system';
 export const Signup = () => {
   return (
     <>
-      <Container maxWidth="xl"  sx={{backgroundImage:`url(${signin_img})`, height:"100vh"}}>
+      <Container maxWidth="xl"  sx={{backgroundImage: `url(${signin_img})`, height:"100vh", backgroundSize: "100% 100%"}}>
 
 
         <Box
           component="form"
           sx={{
-            backgroundColor: "green",
             display: "flex",
             display: "grid",
             justifyContent: "center",
