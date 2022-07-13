@@ -13,14 +13,16 @@ import AdbIcon from '@mui/icons-material/Adb';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
+import Colors from './Colors.js'
 
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Logout'];
 
 const ResponsiveAppBar = () => {
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const main_color = Colors("main_color")
+    const main_color_dark = Colors("main_color_dark")
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -74,7 +76,7 @@ const ResponsiveAppBar = () => {
 
     return (
         <AppBar position="static">
-            <Container maxWidth="xl" sx={{backgroundColor: '#1a8a98'}}>
+            <Container maxWidth="xl" sx={{ backgroundColor: main_color_dark }}>
                 <Toolbar disableGutters>
                     <Typography
                         variant="h6"
@@ -114,7 +116,7 @@ const ResponsiveAppBar = () => {
                         EcomBUY
                     </Typography>
 
-                    <Box sx={{mr: '10px', ml: '100px', flexGrow: 1, display: { xs: 'none', md: 'flex' }}}>
+                    <Box sx={{ mr: '10px', ml: '100px', flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <Search>
                             <SearchIconWrapper>
                                 <SearchIcon />
