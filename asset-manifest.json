@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/jayeshkaushik2/ecom-frontend/static/css/main.e6c13ad2.css",
+    "main.js": "/jayeshkaushik2/ecom-frontend/static/js/main.11fb4f7a.js",
+    "static/js/787.fefa05b0.chunk.js": "/jayeshkaushik2/ecom-frontend/static/js/787.fefa05b0.chunk.js",
+    "static/media/background.jpg": "/jayeshkaushik2/ecom-frontend/static/media/background.94e956c8bfab8370ebf4.jpg",
+    "index.html": "/jayeshkaushik2/ecom-frontend/index.html",
+    "main.e6c13ad2.css.map": "/jayeshkaushik2/ecom-frontend/static/css/main.e6c13ad2.css.map",
+    "main.11fb4f7a.js.map": "/jayeshkaushik2/ecom-frontend/static/js/main.11fb4f7a.js.map",
+    "787.fefa05b0.chunk.js.map": "/jayeshkaushik2/ecom-frontend/static/js/787.fefa05b0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.11fb4f7a.js"
+  ]
+}
