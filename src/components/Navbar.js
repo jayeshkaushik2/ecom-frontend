@@ -16,12 +16,10 @@ import InputBase from '@mui/material/InputBase';
 import Colors from './Colors.js'
 
 
-const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Logout'];
 
 const ResponsiveAppBar = () => {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const main_color = Colors("main_color")
     const main_color_dark = Colors("main_color_dark")
 
     const handleOpenUserMenu = (event) => {
