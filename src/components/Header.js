@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Colors from './Colors.js'
 
+
 const categories = ['Products', 'Pricing', 'Blog'];
 
 export const Header = () => {
