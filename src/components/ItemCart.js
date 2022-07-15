@@ -10,7 +10,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Colors from './Colors.js'
 
-export default function ItemCart() {
+export default function ItemCart(props) {
     const main_color = Colors("main_color")
     const main_color_dark = Colors("main_color_dark")
 
@@ -20,17 +20,21 @@ export default function ItemCart() {
             backgroundColor: main_color_dark
         }
     }
+
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardMedia
                 component="img"
                 height="140"
-                image={background}
+                image={props.product.images[0]["image"]}
                 alt="green iguana"
             />
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div" sx={{margin: '0'}}>
-                    Lizard
+                <Typography gutterBottom variant="h6" component="div" sx={{margin: '0', fontWeight: 'bold'}}>
+                    {props.product.title}
+                </Typography>
+                <Typography gutterBottom component="div" variant="subtitle1" sx={{margin: '0'}}>
+                    {props.product.description.slice(0, 30)}...
                 </Typography>
             </CardContent>
             <CardActions>
