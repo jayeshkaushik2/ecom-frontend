@@ -8,13 +8,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
+import Colors from './Colors.js'
 
 
-const categories = ['Products', 'Pricing', 'Blog'];
 
-export const Header = () => {
+export const Header = (props) => {
+    const main_color = Colors("main_color")
     const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -25,9 +25,10 @@ export const Header = () => {
     };
 
 
+
     return (
         <AppBar position="static">
-            <Container maxWidth="xl" sx={{backgroundColor: '#26c6da'}}>
+            <Container maxWidth="xl" sx={{ backgroundColor: main_color }}>
                 <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                     <IconButton
                         size="large"
@@ -57,21 +58,21 @@ export const Header = () => {
                             display: { xs: 'block', md: 'none' },
                         }}
                     >
-                        {categories.map((category) => (
-                            <MenuItem key={category} onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">{category}</Typography>
+                        {props.Sub_categoryData.map((sub_category, index) => (
+                            <MenuItem key={index} onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">{sub_category["name"]}</Typography>
                             </MenuItem>
                         ))}
                     </Menu>
                 </Box>
                 <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                    {categories.map((category) => (
+                    {props.Sub_categoryData.map((sub_category, index) => (
                         <Button
-                            key={category}
+                            key={index}
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
-                            {category}
+                            {sub_category["name"]}
                         </Button>
                     ))}
                 </Box>
