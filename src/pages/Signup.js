@@ -11,6 +11,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import LoginIcon from '@mui/icons-material/Login';
 
 export const Signup = () => {
   return (
@@ -94,12 +95,12 @@ export const Signup = () => {
               variant="contained"
               sx={{ marginTop: 3, marginBottom: 2 }}
             >
-              Sign up
+              Sign up  <LoginIcon/>  
             </Button>
             <Grid container>
               <Grid item>
                 <Link href="#" variant="body2">
-                  {"Sign In?"}
+                  {"Sign In ?"}
                 </Link>
               </Grid>
             </Grid>
