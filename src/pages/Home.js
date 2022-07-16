@@ -17,19 +17,19 @@ export const Home = () => {
     }, [])
     
     const getCategory = async () => {
-        let response = await fetch("/category/")
+        let response = await fetch("https://ecom-backend-j.herokuapp.com/category/")
         let data = await response.json()
         setCategoryData(data)
     }
 
     const getSub_category = async () => {
-        let response = await fetch("/sub_category/")
+        let response = await fetch("https://ecom-backend-j.herokuapp.com/sub_category/")
         let data = await response.json()
         setSub_categoryData(data)
     }
 
     const getProduct = async () => {
-        let response = await fetch("/product/")
+        let response = await fetch("https://ecom-backend-j.herokuapp.com/product/")
         let data = await response.json()
         setProductData(data)
     }
