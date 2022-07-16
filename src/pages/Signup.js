@@ -24,7 +24,7 @@ export const Signup = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            width: "25%",
+            width: "100%",
             marginLeft: "auto",
             marginRight: "auto",
           }}
@@ -36,7 +36,7 @@ export const Signup = () => {
             Sign up
           </Typography>
 
-          <Box component="form" noValidate sx={{ marginTop: 1, width: "24vw", backgroundColor: "white", padding: "15px", borderRadius: "10px", marginBottom:"15px",}}>
+          <Box component="form" noValidate sx={{ marginTop: 1, width: "70%", backgroundColor: "white", padding: "15px", borderRadius: "10px", marginBottom:"15px",}}>
 
             <TextField
               margin="normal"
