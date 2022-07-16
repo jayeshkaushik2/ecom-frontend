@@ -15,8 +15,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 export const Signup = () => {
   return (
     <>
-      <Typography variant="body2" color="text.secondary" align="center"></Typography>
-      <Container maxWidth="xl" sx={{ backgroundImage: `url(${signin_img})`, height: "100vh", backgroundSize: "100% 100%", }}>
+      <Container maxWidth="xl" sx={{ backgroundImage: `url(${signin_img})`, height: "100%", backgroundSize: "100% 100%" }}>
 
         <Box
           component="form"
@@ -30,15 +29,25 @@ export const Signup = () => {
             marginRight: "auto",
           }}
         >
-          <Avatar sx={{ padding: 1, marginTop: 10, bgcolor: 'blue' }}>
+          <Avatar sx={{ padding: 1, marginTop: 1, bgcolor: 'blue' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign up
           </Typography>
 
-          <Box component="form" noValidate sx={{ marginTop: 1, width: "24vw", backgroundColor: "white", padding: "15px", borderRadius: "10px", }}>
+          <Box component="form" noValidate sx={{ marginTop: 1, width: "24vw", backgroundColor: "white", padding: "15px", borderRadius: "10px", marginBottom:"15px",}}>
 
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="name"
+              label="Full Name"
+              name="name"
+              autoComplete="name"
+              autoFocus
+            />
             <TextField
               margin="normal"
               required
@@ -47,6 +56,17 @@ export const Signup = () => {
               label="Email Address"
               name="email"
               autoComplete="email"
+              autoFocus
+            />
+
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
@@ -59,9 +79,14 @@ export const Signup = () => {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="conform_password"
+              label="Conform Password"
+              type="password"
+              id="conform_password"
             />
             <Button
               type="submit"
@@ -69,23 +94,19 @@ export const Signup = () => {
               variant="contained"
               sx={{ marginTop: 3, marginBottom: 2 }}
             >
-              Sign In
+              Sign up
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
                 <Link href="#" variant="body2">
-                  {"Sign Up"}
+                  {"Sign In?"}
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
       </Container>
+
     </>
   );
 }
