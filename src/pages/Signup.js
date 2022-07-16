@@ -4,41 +4,86 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import signin_img from '../assets/images/signin_img.jpg'
 import { Container } from '@mui/system';
+import Avatar from '@mui/material/Avatar';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 export const Signup = () => {
   return (
     <>
-      <Container maxWidth="xl"  sx={{backgroundImage: `url(${signin_img})`, height:"100vh", backgroundSize: "100% 100%"}}>
-
+      <Typography variant="body2" color="text.secondary" align="center"></Typography>
+      <Container maxWidth="xl" sx={{ backgroundImage: `url(${signin_img})`, height: "100vh", backgroundSize: "100% 100%", }}>
 
         <Box
           component="form"
           sx={{
-            display: "flex",
-            display: "grid",
-            justifyContent: "center",
-            '& .MuiTextField-root': { m: 1, width: '25ch' },
+            marginTop: "15",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            width: "25%",
+            marginLeft: "auto",
+            marginRight: "auto",
           }}
-          noValidate
-          autoComplete="off"
         >
-          <div>
+          <Avatar sx={{ padding: 1, marginTop: 10, bgcolor: 'blue' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+
+          <Box component="form" noValidate sx={{ marginTop: 1, width: "24vw", backgroundColor: "white", padding: "15px", borderRadius: "10px", }}>
+
             <TextField
+              margin="normal"
               required
-              id="outlined-required"
-              label="Name"
-              defaultValue="Enter Name"
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
             />
             <TextField
-              id="outlined-password-input"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
               label="Password"
               type="password"
+              id="password"
               autoComplete="current-password"
             />
-          </div>
-          <Button variant="contained">Contained</Button>
-          <Button variant="text" sx={{ backgroundColor: "red", }}>Text</Button>
-
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ marginTop: 3, marginBottom: 2 }}
+            >
+              Sign In
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="#" variant="body2">
+                  {"Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
         </Box>
       </Container>
     </>
