@@ -5,7 +5,6 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import background from '../assets/images/background.jpg'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Colors from './Colors.js'

@@ -7,10 +7,8 @@ import { Container } from '@mui/system';
 import Avatar from '@mui/material/Avatar';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import LoginIcon from '@mui/icons-material/Login';
 
 export const Signup = () => {
