@@ -58,7 +58,7 @@ export const Home = () => {
     }
 
     const getSearchedProduct = async (query) => {
-        let response = await fetch(`http://ecom-backend-j.herokuapp.com/product/?sub_category__name=${query}`)
+        let response = await fetch(`https://ecom-backend-j.herokuapp.com/product/?sub_category__name=${query}`)
         let data = await response.json()
         setProductData(data["results"])
     }
