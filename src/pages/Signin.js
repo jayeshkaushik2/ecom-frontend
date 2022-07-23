@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -12,8 +12,23 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import LoginIcon from '@mui/icons-material/Login';
+import AuthContext from '../context/AuthContext';
+
 
 export const Signin = () => {
+  let { loginUser } = useContext(AuthContext)
+  const handleLoginUser = (e) => {
+    e.preventDefault()
+    let data = {}
+    data["username"] = document.getElementById("username").value
+    data["password"] = document.getElementById("password").value
+    loginUser(e, data)
+  }
+
+  const handleForgotPass = () => {
+    console.log("send opt to user email...")
+  }
+
   return (
     <>
       <Typography variant="body2" color="text.secondary" align="center"></Typography>
@@ -38,16 +53,15 @@ export const Signin = () => {
             Sign in
           </Typography>
 
-          <Box component="form" noValidate sx={{ marginTop: 1, width: "70%", backgroundColor: "white", padding: "15px", borderRadius: "10px", }}>
-
+          <Box noValidate sx={{ marginTop: 1, width: "70%", backgroundColor: "white", padding: "15px", borderRadius: "10px", }}>
             <TextField
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="name"
               autoFocus
             />
             <TextField
@@ -61,25 +75,26 @@ export const Signin = () => {
               autoComplete="current-password"
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
+              control={<Checkbox value="remember" name="remember" id="remember" color="primary" />}
               label="Remember me"
             />
             <Button
               type="submit"
               fullWidth
               variant="contained"
+              onClick={(e) => handleLoginUser(e)}
               sx={{ marginTop: 3, marginBottom: 2 }}
             >
-              Sign In <LoginIcon/>
+              Sign In <LoginIcon />
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link onClick={handleForgotPass} variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Sign Up"}
                 </Link>
               </Grid>

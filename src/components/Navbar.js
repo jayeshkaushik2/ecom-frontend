@@ -14,19 +14,49 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import Colors from './Colors.js'
+import { useNavigate } from 'react-router-dom';
+import AuthContext from '../context/AuthContext'
 
-
-const settings = ['Profile', 'Logout'];
+const settings = ['Profile', 'Login'];
 
 const ResponsiveAppBar = () => {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const main_color_dark = Colors("main_color_dark")
+    let navigate = useNavigate();
+    let { user } = React.useContext(AuthContext)
+    let { logoutUser } = React.useContext(AuthContext)
+
+    React.useEffect(() => {
+        let interval = setInterval(() => {
+            if (user) {
+                settings.pop()
+                settings.push("Logout")
+            }
+            else {
+                settings.pop()
+                settings.push("Login")
+            }
+        }, 10*1000);
+        return () => {
+            clearInterval(interval)
+        }
+    }, [user,])
+
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
 
-    const handleCloseUserMenu = () => {
+    const handleCloseUserMenu = (page) => {
+        if (page === "Login") {
+            navigate("/signin")
+        }
+        else if (page === "Logout") {
+            logoutUser()
+        }
+        else if (page === "Profile") {
+            navigate("/profile")
+        }
         setAnchorElUser(null);
     };
 
@@ -149,7 +179,7 @@ const ResponsiveAppBar = () => {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                <MenuItem key={setting} onClick={() => handleCloseUserMenu(setting)}>
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
                             ))}

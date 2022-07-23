@@ -24,8 +24,10 @@ export const Header = (props) => {
     const handleCloseNavMenu = (e) => {
         // change route to the value
         let query = e.target.value
-        if (query === undefined){
+        console.log("query", query)
+        if (query === undefined || typeof(query) !== "string"){
             query = e.target.innerText
+            console.log("query 1", query)
         }
         if (query !== "") {
             navigate(`/?sub_category=${query}`, { state: { "query": query } })
