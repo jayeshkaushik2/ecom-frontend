@@ -29,14 +29,16 @@ const ResponsiveAppBar = () => {
     React.useEffect(() => {
         let interval = setInterval(() => {
             if (user) {
+                console.log("user not available")
                 settings.pop()
                 settings.push("Logout")
             }
             else {
+                console.log("user available")
                 settings.pop()
                 settings.push("Login")
             }
-        }, 10*1000);
+        }, 5*1000);
         return () => {
             clearInterval(interval)
         }
