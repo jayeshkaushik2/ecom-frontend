@@ -9,18 +9,29 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Colors from './Colors.js'
-
+import { useNavigate } from 'react-router-dom';
 
 
 export const Header = (props) => {
     const main_color = Colors("main_color")
     const [anchorElNav, setAnchorElNav] = React.useState(null);
+    let navigate = useNavigate();
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
 
-    const handleCloseNavMenu = () => {
+    const handleCloseNavMenu = (e) => {
+        // change route to the value
+        let query = e.target.value
+        console.log("query", query)
+        if (query === undefined || typeof(query) !== "string"){
+            query = e.target.innerText
+            console.log("query 1", query)
+        }
+        if (query !== "") {
+            navigate(`/?sub_category=${query}`, { state: { "query": query } })
+        }
         setAnchorElNav(null);
     };
 
@@ -59,8 +70,8 @@ export const Header = (props) => {
                         }}
                     >
                         {props.Sub_categoryData.map((sub_category, index) => (
-                            <MenuItem key={index} onClick={handleCloseNavMenu}>
-                                <Typography textAlign="center">{sub_category["name"]}</Typography>
+                            <MenuItem key={index} onClick={handleCloseNavMenu} value={sub_category["name"]}>
+                                <Typography textAlign="center" >{sub_category["name"]}</Typography>
                             </MenuItem>
                         ))}
                     </Menu>
@@ -70,6 +81,7 @@ export const Header = (props) => {
                         <Button
                             key={index}
                             onClick={handleCloseNavMenu}
+                            value={sub_category["name"]}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                             {sub_category["name"]}
