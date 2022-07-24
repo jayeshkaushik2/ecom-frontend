@@ -25,7 +25,7 @@ const CategoryCard = (props) => {
             <CardMedia
                 component="img"
                 height="140"
-                image={props.product.images[0]["image"]}
+                image={props.product.images.length>0? props.product.images[0]["image"] : ""}
                 alt="green iguana"
             />
             <CardContent>
