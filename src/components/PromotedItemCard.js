@@ -25,11 +25,11 @@ const PromotedItemCard = (props) => {
     }
 
     return (
-        <Card sx={{ maxWidth: "95%", marginLeft:"10px" }} textAlign="center">
+        <Card sx={{ maxWidth: "95%", marginLeft:"10px" }} >
             <CardMedia
                 component="img"
                 height="140"
-                image={props.product.images.length > 0 ? props.product.images[0]["image"] : defaultImage}
+                image={props.product.images?.length > 0 ? props.product.images[0]["image"] : defaultImage}
                 alt="green iguana"
             />
             <CardContent sx={{display:"flex"}}>

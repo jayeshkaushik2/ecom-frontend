@@ -52,7 +52,7 @@ const ItemCard = (props) => {
                 <CardMedia
                     component="img"
                     height="194"
-                    image={props.product.images.length > 0 ? props.product.images[0]["image"] : defaultImage}
+                    image={props.product.images?.length > 0 ? props.product.images[0]["image"] : defaultImage}
                     alt="promoted item image"
                 />
                 <CardContent>
@@ -90,7 +90,7 @@ const ItemCard = (props) => {
                             color: "grey",
                         }}>Price:{props.product.price}<CurrencyRupeeIcon sx={{ fontSize: "14px" }} /></Typography>
                         <Typography style={{ padding: "0px" }}>
-                            {props.product.description.length > 100 ? (
+                            {props.product.description?.length > 100 ? (
                                 props.product.description.slice(0, 100)
                             )
                                 : props.product.description}

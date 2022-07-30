@@ -75,7 +75,7 @@ export const Footer = (props) => {
                 </Container>
 
                 <Container sx={{ width: "fit-content", float: "right", margin: "10px", }}>
-                    {props.FooterData !== [] && props.FooterData?.founders.length > 0 ?
+                    {props.FooterData !== [] && props.FooterData?.founders?.length > 0 ?
                         <Typography varient="h6" sx={{ fontWeight: "bold" }}>
                             Founders
                         </Typography> : ""}
