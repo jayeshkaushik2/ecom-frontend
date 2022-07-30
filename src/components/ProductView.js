@@ -8,11 +8,12 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
+import defaultImage from '../assets/images/defaultImage.png'
 // import ProductView from "..components/ProductView";
 
 
 // const ProductView = () => {
-export default function MediaCard() {
+export default function ProductView() {
     return (
         <Card sx={{
             display: "flex",
@@ -24,7 +25,7 @@ export default function MediaCard() {
                 marginBottom: "auto",
                 borderRadius: "13px",
             }}
-                src={samsung}
+                src={defaultImage}
                 alt="samsung"
                 loading="lazy"
             />

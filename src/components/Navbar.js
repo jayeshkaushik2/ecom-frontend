@@ -29,21 +29,27 @@ const ResponsiveAppBar = () => {
     React.useEffect(() => {
         let interval = setInterval(() => {
             if (user) {
-                console.log("user not available")
+                console.log("user available")
                 settings.pop()
                 settings.push("Logout")
             }
             else {
-                console.log("user available")
+                console.log("user not available")
                 settings.pop()
                 settings.push("Login")
             }
-        }, 5*1000);
+        }, 5 * 1000);
         return () => {
             clearInterval(interval)
         }
     }, [user,])
 
+
+    const handleSearch = (e) => {
+        // search product from product api TODO have to add tags in product models to search
+        console.log("changed", e.target.value)
+    }
+    
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -152,7 +158,8 @@ const ResponsiveAppBar = () => {
                                 <SearchIcon />
                             </SearchIconWrapper>
                             <StyledInputBase
-                                placeholder="Search…"
+                                onKeyPress={(e) => { if (e.key === "Enter") { handleSearch(e) } }}
+                                placeholder="Search your product"
                                 inputProps={{ 'aria-label': 'search' }}
                             />
                         </Search>

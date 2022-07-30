@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Colors from './Colors.js'
+import defaultImage from '../assets/images/defaultImage.png'
 
 const CategoryCard = (props) => {
     const main_color = Colors("main_color")
@@ -25,7 +26,7 @@ const CategoryCard = (props) => {
             <CardMedia
                 component="img"
                 height="140"
-                image={props.product.images.length>0? props.product.images[0]["image"] : ""}
+                image={props.product.images.length>0? props.product.images[0]["image"] : defaultImage}
                 alt="green iguana"
             />
             <CardContent>
