@@ -25,7 +25,7 @@ const PromotedItemCard = (props) => {
     }
 
     return (
-        <Card sx={{ maxWidth: "95%" }}>
+        <Card sx={{ maxWidth: "95%", marginLeft:"10px" }} textAlign="center">
             <CardMedia
                 component="img"
                 height="140"
