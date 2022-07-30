@@ -6,16 +6,17 @@ import { useNavigate } from "react-router-dom";
 const AuthContext = createContext()
 export default AuthContext;
 
-
 export const AuthProvider = ({ children }) => {
     const [User, setUser] = useState(() => localStorage.getItem("AuthToken") ? jwt_decode(JSON.parse(localStorage.getItem("AuthToken")).access) : null)
     const [AuthToken, setAuthToken] = useState(() => localStorage.getItem("AuthToken") ? JSON.parse(localStorage.getItem("AuthToken")) : null)
     const history = useNavigate()
 
-    
+
+    let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
+
     let loginUser = async (e, user_info) => {
         console.log("authenticating with data...", user_info)
-        let response = await fetch("https://ecom-backend-j.herokuapp.com/token/", {
+        let response = await fetch(`${API_ENDPOINT}/token/`, {
             method: "post",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(user_info)
@@ -34,7 +35,7 @@ export const AuthProvider = ({ children }) => {
 
     let RefreshUserAccess = async () => {
         console.log("refreshing token...")
-        let response = await fetch("https://ecom-backend-j.herokuapp.com/token/refresh/", {
+        let response = await fetch(`${API_ENDPOINT}/token/refresh/`, {
             method: "post",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({ "refresh": AuthToken.refresh })

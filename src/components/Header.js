@@ -15,14 +15,16 @@ import { useNavigate } from 'react-router-dom';
 export const Header = (props) => {
     const main_color = Colors("main_color")
     const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const [SubCategory, setSubCategory] = React.useState(null)
     let navigate = useNavigate();
+    let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
+
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
 
     const handleCloseNavMenu = (e) => {
-        // change route to the value
         let query = e.target.value
         if (query === undefined || typeof(query) !== "string"){
             query = e.target.innerText
@@ -33,11 +35,20 @@ export const Header = (props) => {
         setAnchorElNav(null);
     };
 
+    const getSubCategory = async () => {
+        let response = await fetch(`${API_ENDPOINT}/sub_category/`)
+        let data = await response.json()
+        setSubCategory(data["results"])
+    }
+
+    React.useEffect(() => {
+        getSubCategory()
+    }, [])
 
 
     return (
-        <AppBar position="static">
-            <Container maxWidth="xl" sx={{ backgroundColor: main_color }}>
+        <AppBar position="static" sx={{maxWidth:"100%"}}>
+            <Box sx={{ backgroundColor: main_color }}>
                 <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                     <IconButton
                         size="large"
@@ -67,7 +78,7 @@ export const Header = (props) => {
                             display: { xs: 'block', md: 'none' },
                         }}
                     >
-                        {props.Sub_categoryData.map((sub_category, index) => (
+                        {SubCategory?.map((sub_category, index) => (
                             <MenuItem key={index} onClick={handleCloseNavMenu} value={sub_category["name"]}>
                                 <Typography textAlign="center" >{sub_category["name"]}</Typography>
                             </MenuItem>
@@ -75,7 +86,7 @@ export const Header = (props) => {
                     </Menu>
                 </Box>
                 <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                    {props.Sub_categoryData.map((sub_category, index) => (
+                    {SubCategory?.map((sub_category, index) => (
                         <Button
                             key={index}
                             onClick={handleCloseNavMenu}
@@ -86,7 +97,7 @@ export const Header = (props) => {
                         </Button>
                     ))}
                 </Box>
-            </Container>
+            </Box>
         </AppBar >
     );
 };

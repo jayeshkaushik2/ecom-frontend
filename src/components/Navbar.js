@@ -49,7 +49,7 @@ const ResponsiveAppBar = () => {
         // search product from product api TODO have to add tags in product models to search
         console.log("changed", e.target.value)
     }
-    
+
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -75,7 +75,7 @@ const ResponsiveAppBar = () => {
         '&:hover': {
             backgroundColor: alpha(theme.palette.common.white, 0.25),
         },
-        marginLeft: 0,
+        // marginLeft: "auto",
         width: '100%',
         [theme.breakpoints.up('sm')]: {
             marginLeft: theme.spacing(1),
@@ -111,8 +111,8 @@ const ResponsiveAppBar = () => {
     }));
 
     return (
-        <AppBar position="static">
-            <Container maxWidth="xl" sx={{ backgroundColor: main_color_dark }}>
+        <AppBar position="static" sx={{ position: "sticky", top: 0, zIndex: "100", maxWidth: "100%" }}>
+            <Box sx={{ backgroundColor: main_color_dark, paddingLeft: "10px", paddingRight: "10px" }}>
                 <Toolbar disableGutters>
                     <Typography
                         variant="h6"
@@ -152,7 +152,7 @@ const ResponsiveAppBar = () => {
                         EcomBUY
                     </Typography>
 
-                    <Box sx={{ mr: '10px', ml: '100px', flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                    <Box sx={{ mr: '10px', ml: '100px', flexGrow: 1, display: { xs: 'none', md: 'flex' }, marginLeft: "auto" }}>
                         <Search>
                             <SearchIconWrapper>
                                 <SearchIcon />
@@ -195,7 +195,7 @@ const ResponsiveAppBar = () => {
                         </Menu>
                     </Box>
                 </Toolbar>
-            </Container>
+            </Box>
         </AppBar>
     );
 };
