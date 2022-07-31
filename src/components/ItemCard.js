@@ -48,7 +48,7 @@ const ItemCard = (props) => {
 
     return (
         <Box id="promoted-items">
-            <Card sx={{ maxWidth: 345 }}>
+            <Card sx={{ maxWidth: "95%", marginLeft:"10px" }}>
                 <CardMedia
                     component="img"
                     height="194"

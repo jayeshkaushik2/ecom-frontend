@@ -15,7 +15,6 @@ export const AuthProvider = ({ children }) => {
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
 
     let loginUser = async (e, user_info) => {
-        console.log("authenticating with data...", user_info)
         let response = await fetch(`${API_ENDPOINT}/token/`, {
             method: "post",
             headers: { "content-type": "application/json" },
