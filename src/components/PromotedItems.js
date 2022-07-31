@@ -1,10 +1,7 @@
 import React from 'react'
 import { Grid, } from '@mui/material';
-import Container from '@mui/material/Container';
 import PromotedItemCard from './PromotedItemCard';
 import Colors from './Colors.js'
-import Button from '@mui/material/Button';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box';
 
@@ -41,20 +38,7 @@ const PromotedItems = (props) => {
     }, [])
 
     return (
-
-
         <Box sx={{ marginTop: '40px', marginBottom: '40px', maxWidth: "100%", flexGrow: 1 }} id="promoted-items">
-{/* 
-            <Box sx={{  }}>
-                <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                    {Array.from(Array(6)).map((_, index) => (
-                        <Grid item xs={2} sm={4} md={4} key={index} sx={{backgroundColor:"grey"}}>
-                        </Grid>
-                    ))}
-                </Grid>
-            </Box> */}
-
-
             <Grid container id="grid-id" spacing={{ xs: 2, md: 3, marginLeft: "auto" }} columns={{ xs: 2, sm: 8, md: 12 }}>
                 {Product?.map((data, index) => (
                     <Grid item xs={2} sm={4} md={4} key={index}>

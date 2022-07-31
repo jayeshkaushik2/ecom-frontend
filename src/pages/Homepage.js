@@ -3,6 +3,7 @@ import { Header } from '../components/Header'
 import Navbar from '../components/Navbar'
 import { Footer } from '../components/Footer'
 import { Home } from '../components/Home';
+import { CategoryList } from './CategoryList';
 
 
 export const Homepage = (props) => {
@@ -18,7 +19,15 @@ export const Homepage = (props) => {
 
     useEffect(() => {
         getFooter()
-    }, [])
+        let interval = setInterval(() => {
+            if (props.page !== undefined && props.page !== Page) {
+                setPage(props.page)
+            }
+        }, 1000)
+        return () => {
+            clearInterval(interval)
+        }
+    }, [props.page])
 
 
     return (
@@ -26,6 +35,7 @@ export const Homepage = (props) => {
             <Navbar />
             <Header />
             {Page === "home" ? <Home /> : null}
+            {Page === "subcategory" ? <CategoryList ProductData={null} /> : null}
             <Footer FooterData={FooterData} />
         </>
     )

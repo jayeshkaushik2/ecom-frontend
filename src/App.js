@@ -13,17 +13,25 @@ import { ItemsList } from './pages/ItemsList';
 import { Homepage } from './pages/Homepage'
 
 function App() {
+
   return (
     <Router>
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Homepage />} />
+          
+          <Route path="/category" element={<Homepage page="subcategory" />} />
+
           <Route path="/signup" element={<Signup />} />
+
           <Route path="/signin" element={<Signin />} />
+
           <Route path="/profile" element={<Profile />} />
+
           <Route path="/product-list" element={<ProductList />} />
-          <Route path="/category" element={<CategoryList />} />
+
           <Route path="/items" element={<ItemsList />} />
+
           <Route path="/no-data-found" element={<NoDataFound />} />
         </Routes>
       </AuthProvider>

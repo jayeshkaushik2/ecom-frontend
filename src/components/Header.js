@@ -25,12 +25,13 @@ export const Header = (props) => {
     };
 
     const handleCloseNavMenu = (e) => {
+        console.log("subcategory clicked...")
         let query = e.target.value
         if (query === undefined || typeof(query) !== "string"){
             query = e.target.innerText
         }
         if (query !== "") {
-            navigate(`/?sub_category=${query}`, { state: { "query": query, page:"category" } })
+            navigate(`/category/?sub_category=${query}`, { state: { "query": query } })
         }
         setAnchorElNav(null);
     };
