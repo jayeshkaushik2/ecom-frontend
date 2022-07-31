@@ -4,12 +4,11 @@ import { Signup } from './pages/Signup';
 import { Signin } from './pages/Signin';
 import { ProductList } from './pages/ProductList';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { CategoryList } from './pages/CategoryList';
 import NoDataFound from './pages/NoDataFound';
 import Profile from './pages/Profile';
 // import { PrivateRoute } from "./utils/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
-import { ItemsList } from './pages/ItemsList';
+import { ItemsList } from './components/ItemsList'
 import { Homepage } from './pages/Homepage'
 
 function App() {
@@ -21,6 +20,8 @@ function App() {
           <Route path="/" element={<Homepage />} />
           
           <Route path="/category" element={<Homepage page="subcategory" />} />
+
+          <Route path="/products" element={<Homepage page="products" />} />
 
           <Route path="/signup" element={<Signup />} />
 

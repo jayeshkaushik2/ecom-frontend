@@ -46,8 +46,13 @@ const ResponsiveAppBar = () => {
 
 
     const handleSearch = (e) => {
-        // search product from product api TODO have to add tags in product models to search
-        console.log("changed", e.target.value)
+        let query = e.target.value
+        if (query === undefined || typeof(query) !== "string"){
+            query = e.target.innerText
+        }
+        if (query !== "") {
+            navigate(`/products/?query=${query}`, { state: { "query": query } })
+        }
     }
 
 

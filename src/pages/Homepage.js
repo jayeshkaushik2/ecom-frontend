@@ -3,7 +3,8 @@ import { Header } from '../components/Header'
 import Navbar from '../components/Navbar'
 import { Footer } from '../components/Footer'
 import { Home } from '../components/Home';
-import { CategoryList } from './CategoryList';
+import { CategoryList } from '../components/CategoryList';
+import { ItemsList } from '../components/ItemsList';
 
 
 export const Homepage = (props) => {
@@ -35,6 +36,7 @@ export const Homepage = (props) => {
             <Navbar />
             <Header />
             {Page === "home" ? <Home /> : null}
+            {Page === "products" ? <ItemsList ProductData={null} /> : null}
             {Page === "subcategory" ? <CategoryList ProductData={null} /> : null}
             <Footer FooterData={FooterData} />
         </>

@@ -12,8 +12,7 @@ import defaultImage from '../assets/images/defaultImage.png'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import Rating from '@mui/material/Rating'
 
-
-const PromotedItemCard = (props) => {
+const SimpleCard = (props) => {
     const main_color = Colors("main_color")
     const main_color_dark = Colors("main_color_dark")
 
@@ -46,4 +45,4 @@ const PromotedItemCard = (props) => {
     );
 }
 
-export default PromotedItemCard;
+export default SimpleCard;

@@ -1,12 +1,12 @@
 import React from 'react'
 import { Grid, } from '@mui/material';
-import PromotedItemCard from './PromotedItemCard';
 import Colors from './Colors.js'
 import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box';
+import SimpleCard from './SimpleCard'
 
 
-const PromotedItems = (props) => {
+const PromotedItemsList = (props) => {
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
     const main_color = Colors("main_color")
     const main_color_dark = Colors("main_color_dark")
@@ -42,7 +42,7 @@ const PromotedItems = (props) => {
             <Grid container id="grid-id" spacing={{ xs: 2, md: 3, marginLeft: "auto" }} columns={{ xs: 2, sm: 8, md: 12 }}>
                 {Product?.map((data, index) => (
                     <Grid item xs={2} sm={4} md={4} key={index}>
-                        <PromotedItemCard product={data} />
+                        <SimpleCard product={data} />
                     </Grid>
                 ))}
             </Grid>
@@ -52,4 +52,4 @@ const PromotedItems = (props) => {
 
 
 
-export default PromotedItems
+export default PromotedItemsList

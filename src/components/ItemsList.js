@@ -1,5 +1,5 @@
 import React from 'react'
-import ItemCard from '../components/ItemCard'
+import ItemCard from './ItemCard'
 import { Grid, } from '@mui/material';
 import Container from '@mui/material/Container';
 
