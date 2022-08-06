@@ -4,38 +4,37 @@ import { Signup } from './pages/Signup';
 import { Signin } from './pages/Signin';
 import { ProductList } from './pages/ProductList';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import NoDataFound from './pages/NoDataFound';
-import Profile from './pages/Profile';
-// import { PrivateRoute } from "./utils/PrivateRoute";
-import { AuthProvider } from "./context/AuthContext";
 import { ItemsList } from './components/ItemsList'
 import { Homepage } from './pages/Homepage'
+import AuthState from './context/AuthState'
+import NoDataFound from './pages/NoDataFound';
+import Profile from './pages/Profile';
 
 function App() {
 
   return (
     <Router>
-      <AuthProvider>
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          
-          <Route path="/category" element={<Homepage page="subcategory" />} />
+      <AuthState>
+          <Routes>
+            <Route path="/" element={<Homepage page="home" />} />
 
-          <Route path="/products" element={<Homepage page="products" />} />
+            <Route path="/category" element={<Homepage page="subcategory" />} />
 
-          <Route path="/signup" element={<Signup />} />
+            <Route path="/products" element={<Homepage page="products" />} />
 
-          <Route path="/signin" element={<Signin />} />
+            <Route path="/signup" element={<Signup />} />
 
-          <Route path="/profile" element={<Profile />} />
+            <Route path="/signin" element={<Signin />} />
 
-          <Route path="/product-list" element={<ProductList />} />
+            <Route path="/profile" element={<Profile />} />
 
-          <Route path="/items" element={<ItemsList />} />
+            <Route path="/product-list" element={<ProductList />} />
 
-          <Route path="/no-data-found" element={<NoDataFound />} />
-        </Routes>
-      </AuthProvider>
+            <Route path="/items" element={<ItemsList />} />
+
+            <Route path="/no-data-found" element={<NoDataFound />} />
+          </Routes>
+      </AuthState>
     </Router>
   );
 }

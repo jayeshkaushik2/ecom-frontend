@@ -11,6 +11,8 @@ import Colors from './Colors.js'
 import defaultImage from '../assets/images/defaultImage.png'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import Rating from '@mui/material/Rating'
+import Link from '@mui/material/Link';
+
 
 const SimpleCard = (props) => {
     const main_color = Colors("main_color")
@@ -24,14 +26,14 @@ const SimpleCard = (props) => {
     }
 
     return (
-        <Card sx={{ maxWidth: "95%", marginLeft:"10px" }} >
+        <Card sx={{ maxWidth: "95%", marginLeft: "10px" }} >
             <CardMedia
                 component="img"
                 height="140"
                 image={props.product.images?.length > 0 ? props.product.images[0]["image"] : defaultImage}
                 alt="green iguana"
             />
-            <CardContent sx={{display:"flex"}}>
+            <CardContent sx={{ display: "flex" }}>
                 <Typography gutterBottom variant="h6" component="div" sx={{ margin: '0', fontSize: "17px" }}>
                     Price: {props.product.price}<CurrencyRupeeIcon sx={{ fontSize: "14px" }} />
                 </Typography>
@@ -39,7 +41,9 @@ const SimpleCard = (props) => {
             </CardContent>
             <CardActions>
                 <Button size="small" variant="contained" sx={buttonStyle}>Add to cart <ShoppingCartIcon /></Button>
-                <Button size="small" variant="text" sx={{ marginLeft: 'auto', color: main_color_dark }}>View More <ArrowForwardIcon sx={{ fontSize: '15px' }} /></Button>
+                <Link href="#" underline="none" color="inherit">
+                    <Button size="small" variant="text" sx={{ marginLeft: 'auto', color: main_color_dark }}>View details<ArrowForwardIcon sx={{ fontSize: '15px' }} /></Button>
+                </Link>
             </CardActions>
         </Card>
     );

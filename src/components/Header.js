@@ -5,19 +5,18 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Colors from './Colors.js'
-import { useNavigate } from 'react-router-dom';
+import Link from '@mui/material/Link';
+import { getSubCategory } from '../context/Apis'
 
 
 export const Header = (props) => {
     const main_color = Colors("main_color")
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [SubCategory, setSubCategory] = React.useState(null)
-    let navigate = useNavigate();
-    let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
+    const preventDefault = (event) => event.preventDefault();
 
 
     const handleOpenNavMenu = (event) => {
@@ -25,30 +24,27 @@ export const Header = (props) => {
     };
 
     const handleCloseNavMenu = (e) => {
-        console.log("subcategory clicked...")
-        let query = e.target.value
-        if (query === undefined || typeof(query) !== "string"){
-            query = e.target.innerText
-        }
-        if (query !== "") {
-            navigate(`/category/?sub_category=${query}`, { state: { "query": query } })
-        }
         setAnchorElNav(null);
     };
 
-    const getSubCategory = async () => {
-        let response = await fetch(`${API_ENDPOINT}/sub_category/`)
-        let data = await response.json()
-        setSubCategory(data["results"])
+    const getData = async () => {
+        try {
+            const data = await getSubCategory()
+            setSubCategory(data["results"])
+        }
+        catch (error) {
+            console.log(error)
+        }
+
     }
 
     React.useEffect(() => {
-        getSubCategory()
+        getData()
     }, [])
 
 
     return (
-        <AppBar position="static" sx={{maxWidth:"100%"}}>
+        <AppBar position="static" sx={{ maxWidth: "100%" }}>
             <Box sx={{ backgroundColor: main_color }}>
                 <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                     <IconButton
@@ -81,21 +77,23 @@ export const Header = (props) => {
                     >
                         {SubCategory?.map((sub_category, index) => (
                             <MenuItem key={index} onClick={handleCloseNavMenu} value={sub_category["name"]}>
-                                <Typography textAlign="center" >{sub_category["name"]}</Typography>
+                                <Link href={`/category/?query=${sub_category.name}`} underline="none" color="inherit">
+                                    <Typography textAlign="center" >{sub_category.name}</Typography>
+                                </Link>
                             </MenuItem>
                         ))}
                     </Menu>
                 </Box>
                 <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                     {SubCategory?.map((sub_category, index) => (
-                        <Button
-                            key={index}
-                            onClick={handleCloseNavMenu}
-                            value={sub_category["name"]}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                            {sub_category["name"]}
-                        </Button>
+                        <Link href={`/category/?query=${sub_category.name}`} key={index} underline="none" color="inherit" params={{ query: sub_category.name }}>
+                            <Button
+                                value={sub_category.name}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                {sub_category["name"]}
+                            </Button>
+                        </Link>
                     ))}
                 </Box>
             </Box>

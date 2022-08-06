@@ -2,13 +2,11 @@ import React from 'react'
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import PromotedItemsList from '../components/PromotedItemsList'
-// import PromotedSubCategory from '../components/PromotedSubCategory'
 
-const Default = (props) => {
+const Default = () => {
     return (
-        <Box maxWidth="xl" style={{ backgorundColor: "#fbf5ef" }} id="default-page">
-            {/* <PromotedSubCategory subCategoryData={props.sub_categoryData.slice(0, 1)} /> */}
-            <PromotedItemsList productData={props.productData? props.productData.slice(0, 6) : null} />
+        <Box style={{ backgorundColor: "#fbf5ef", minHeight: "350px" }} id="default-page">
+            Loading page...
         </Box>
     )
 }

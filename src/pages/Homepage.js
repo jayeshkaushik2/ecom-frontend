@@ -1,33 +1,38 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Header } from '../components/Header'
 import Navbar from '../components/Navbar'
 import { Footer } from '../components/Footer'
 import { Home } from '../components/Home';
 import { CategoryList } from '../components/CategoryList';
 import { ItemsList } from '../components/ItemsList';
-
+import { getFooter } from '../context/Apis'
+import Default from './Default'
 
 export const Homepage = (props) => {
-    let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
-    const [Page, setPage] = useState("home")
+    const [Page, setPage] = useState("")
     const [FooterData, setFooterData] = useState(null)
-
-    const getFooter = async () => {
-        let response = await fetch(`${API_ENDPOINT}/details/`)
-        let data = await response.json()
-        setFooterData(data)
-    }
-
-    useEffect(() => {
-        getFooter()
-        let interval = setInterval(() => {
-            if (props.page !== undefined && props.page !== Page) {
-                setPage(props.page)
+    
+    const getData = async () =>{
+        try{
+            const data = await getFooter()
+            setFooterData(data)
+            let interval = setInterval(() => {
+                if (props.page !== undefined && props.page !== Page) {
+                    setPage(props.page)
+                }
+            }, 1000)
+            return () => {
+                clearInterval(interval)
             }
-        }, 1000)
-        return () => {
-            clearInterval(interval)
         }
+        catch (error) {
+            console.log(error)
+        }
+
+    }
+    
+    useEffect(() => {
+        getData()
     }, [props.page])
 
 
@@ -35,6 +40,7 @@ export const Homepage = (props) => {
         <>
             <Navbar />
             <Header />
+            {Page === "" ? <Default /> : null}
             {Page === "home" ? <Home /> : null}
             {Page === "products" ? <ItemsList ProductData={null} /> : null}
             {Page === "subcategory" ? <CategoryList ProductData={null} /> : null}

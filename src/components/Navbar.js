@@ -5,7 +5,6 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,46 +12,22 @@ import AdbIcon from '@mui/icons-material/Adb';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import Colors from './Colors.js'
-import { useNavigate } from 'react-router-dom';
-import AuthContext from '../context/AuthContext'
+import Colors from './Colors.js';
+import AuthContext from '../context/AuthContext';
+import Link from '@mui/material/Link';
 
-const settings = ['Profile', 'Login'];
 
 const ResponsiveAppBar = () => {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const main_color_dark = Colors("main_color_dark")
-    let navigate = useNavigate();
-    let { user } = React.useContext(AuthContext)
-    let { logoutUser } = React.useContext(AuthContext)
+    const preventDefault = (event) => event.preventDefault();
 
-    React.useEffect(() => {
-        let interval = setInterval(() => {
-            if (user) {
-                console.log("user available")
-                settings.pop()
-                settings.push("Logout")
-            }
-            else {
-                console.log("user not available")
-                settings.pop()
-                settings.push("Login")
-            }
-        }, 5 * 1000);
-        return () => {
-            clearInterval(interval)
-        }
-    }, [user,])
-
+    let userData = React.useContext(AuthContext)
 
     const handleSearch = (e) => {
         let query = e.target.value
-        if (query === undefined || typeof(query) !== "string"){
-            query = e.target.innerText
-        }
-        if (query !== "") {
-            navigate(`/products/?query=${query}`, { state: { "query": query } })
-        }
+        console.log("query is", query)
+        
     }
 
 
@@ -60,16 +35,7 @@ const ResponsiveAppBar = () => {
         setAnchorElUser(event.currentTarget);
     };
 
-    const handleCloseUserMenu = (page) => {
-        if (page === "Login") {
-            navigate("/signin")
-        }
-        else if (page === "Logout") {
-            logoutUser()
-        }
-        else if (page === "Profile") {
-            navigate("/profile")
-        }
+    const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
 
@@ -169,7 +135,6 @@ const ResponsiveAppBar = () => {
                             />
                         </Search>
                     </Box>
-
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -192,11 +157,27 @@ const ResponsiveAppBar = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={() => handleCloseUserMenu(setting)}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                            {userData?.user ?
+                                <MenuItem onClick={() => handleCloseUserMenu()}>
+                                    <Link href="/profile" underline="none" color="inherit">
+                                        <Typography textAlign="center">Profile</Typography>
+                                    </Link>
                                 </MenuItem>
-                            ))}
+                                : null}
+
+                            {userData?.login === "Login" && userData.user === null ?
+                                <MenuItem onClick={() => handleCloseUserMenu()}>
+                                    <Link href="/signin" underline="none" color="inherit">
+                                        <Typography textAlign="center">Login</Typography>
+                                    </Link>
+                                </MenuItem>
+                                :
+
+                                <MenuItem onClick={() => handleCloseUserMenu()}>
+                                    <Link href="/" underline="none" color="inherit">
+                                        <Typography textAlign="center" onClick={userData.logoutUser}>Logout</Typography>
+                                    </Link>
+                                </MenuItem>}
                         </Menu>
                     </Box>
                 </Toolbar>
