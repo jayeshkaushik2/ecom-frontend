@@ -29,9 +29,10 @@ const SimpleCard = (props) => {
         <Card sx={{ maxWidth: "95%", marginLeft: "10px" }} >
             <CardMedia
                 component="img"
-                height="140"
+                height="200"
                 image={props.product.images?.length > 0 ? props.product.images[0]["image"] : defaultImage}
                 alt="green iguana"
+                sx={{objectFit:"contain"}}
             />
             <CardContent sx={{ display: "flex" }}>
                 <Typography gutterBottom variant="h6" component="div" sx={{ margin: '0', fontSize: "17px" }}>

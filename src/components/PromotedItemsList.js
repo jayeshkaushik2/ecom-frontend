@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box';
 import SimpleCard from './SimpleCard'
 import { getProductData_WithFilter } from '../context/Apis'
+import Button from '@mui/material/Button';
 
 
 const PromotedItemsList = (props) => {
@@ -14,8 +15,13 @@ const PromotedItemsList = (props) => {
     let navigate = useNavigate();
 
     const buttonStyle = {
+        marginLeft: "auto",
+        marginRight: "auto",
+        display: "flex",
+        width: "80%",
+        marginBottom: "10px",
+        marginTop: "-17px",
         backgroundColor: main_color,
-        mt: "15px",
         '&:hover': {
             backgroundColor: main_color_dark
         }
@@ -30,7 +36,7 @@ const PromotedItemsList = (props) => {
     const getData = async () => {
         try {
             const data = await getProductData_WithFilter({ search_with: "is_promoted", query: true })
-            setProductData(data["results"])
+            setProductData(data["results"].slice(0, 6))
         }
         catch (error) {
             console.log(error)
@@ -43,7 +49,7 @@ const PromotedItemsList = (props) => {
     }, [])
 
     return (
-        <Box minHeight="300px">
+        <Box minHeight="300px" sx={{ backgroundColor: "#fff4e0", paddingBottom:"10px", bottom: "0px" }}>
             <Box sx={{ marginTop: '40px', marginBottom: '40px', maxWidth: "100%", flexGrow: 1 }} id="promoted-items">
                 <Grid container id="grid-id" spacing={{ xs: 2, md: 3, marginLeft: "auto" }} columns={{ xs: 2, sm: 8, md: 12 }}>
                     {Product?.map((data, index) => (
@@ -53,6 +59,7 @@ const PromotedItemsList = (props) => {
                     ))}
                 </Grid>
             </Box>
+            {Product? <Button variant="contained" sx={buttonStyle}>View ALL Products</Button> : ""}
         </Box>
     );
 }
