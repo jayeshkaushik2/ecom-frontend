@@ -63,7 +63,7 @@ const PromotedItemsList = (props) => {
                             ))}
                         </Grid>
                     </Box>
-                    {Product ? <Button variant="contained" sx={buttonStyle}>View ALL Products</Button> : ""}
+                    {Product ? <Button variant="contained" sx={buttonStyle} style={{marginTop:"10px"}}>View ALL Products</Button> : ""}
                 </Box>
                 : <Default />}
         </>
