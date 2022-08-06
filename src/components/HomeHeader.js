@@ -6,11 +6,29 @@ import Typography from '@mui/material/Typography';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import Colors from './Colors.js'
+import { getHomepageData } from '../context/Apis'
+
 
 const HomeHeader = (props) => {
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
     const main_color = Colors("main_color")
     const main_color_dark = Colors("main_color_dark")
+
+    const [HomepageData, setHomepageData] = React.useState(null)
+
+    const getData = async () => {
+        try {
+            const data = await getHomepageData()
+            setHomepageData(data)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    React.useEffect(() => {
+        getData()
+    }, [])
 
     const LeftbuttonStyle = {
         position: 'absolute',
@@ -34,17 +52,17 @@ const HomeHeader = (props) => {
 
     return (
         <Box id="promoted-subcategory" minHeight="300px" sx={{ backgroundColor: "#fff4e0" }}>
-            <Box sx={{position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", color:"white"}}>
+            <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", color: "white" }}>
                 <Typography variant="h5" sx={{ textAlign: "center" }}>
-                    {props.HomepageData ? props.HomepageData["title"] : "Title"}
+                    {HomepageData ? HomepageData["title"] : "Title"}
                 </Typography>
 
                 <Typography sx={{ textAlign: "center", color: "grey" }}>
-                    {props.HomepageData ? props.HomepageData["description"] : "Description"}
+                    {HomepageData ? HomepageData["description"] : "Description"}
                 </Typography>
             </Box>
 
-            {props.HomepageData ? props.HomepageData["images"].slice(0, 1).map((data) => (
+            {HomepageData ? HomepageData["images"].slice(0, 1).map((data) => (
                 <Box key={data} height="inherit">
                     <img
                         width="100%"
@@ -68,7 +86,7 @@ const HomeHeader = (props) => {
                     </Button>
                 </Box>
             ))
-                : ""}
+                : null}
 
         </Box >
     )

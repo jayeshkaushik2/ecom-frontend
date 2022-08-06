@@ -48,12 +48,13 @@ const ItemCard = (props) => {
 
     return (
         <Box id="promoted-items">
-            <Card sx={{ maxWidth: "95%", marginLeft:"10px" }}>
+            <Card sx={{ maxWidth: "95%", marginLeft: "10px" }}>
                 <CardMedia
                     component="img"
-                    height="194"
+                    height="200"
                     image={props.product.images?.length > 0 ? props.product.images[0]["image"] : defaultImage}
                     alt="promoted item image"
+                    sx={{objectFit:"contain"}}
                 />
                 <CardContent>
                     <Typography variant="body2" color="text.secondary">

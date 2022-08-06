@@ -7,13 +7,14 @@ import { CategoryList } from '../components/CategoryList';
 import { ItemsList } from '../components/ItemsList';
 import { getFooter } from '../context/Apis'
 import Default from './Default'
+import NoDataFound from './NoDataFound'
 
 export const Homepage = (props) => {
     const [Page, setPage] = useState("")
     const [FooterData, setFooterData] = useState(null)
-    
-    const getData = async () =>{
-        try{
+
+    const getData = async () => {
+        try {
             const data = await getFooter()
             setFooterData(data)
             let interval = setInterval(() => {
@@ -30,11 +31,11 @@ export const Homepage = (props) => {
         }
 
     }
-    
+
     useEffect(() => {
+        console.log(props.page)
         getData()
     }, [props.page])
-
 
     return (
         <>

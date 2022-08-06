@@ -32,14 +32,21 @@ const SimpleCard = (props) => {
                 height="200"
                 image={props.product.images?.length > 0 ? props.product.images[0]["image"] : defaultImage}
                 alt="green iguana"
-                sx={{objectFit:"contain"}}
+                sx={{ objectFit: "contain" }}
             />
+            <CardContent style={{ display: "flex", paddingBottom: "0", marginBottom: "0" }}>
+                <Typography gutterBottom variant="h5" component="div" style={{ paddingBottom: "0", marginBottom: "0" }}>
+                    {props.product.title.slice(0, 30)}
+                </Typography>
+            </CardContent>
+
             <CardContent sx={{ display: "flex" }}>
                 <Typography gutterBottom variant="h6" component="div" sx={{ margin: '0', fontSize: "17px" }}>
                     Price: {props.product.price}<CurrencyRupeeIcon sx={{ fontSize: "14px" }} />
                 </Typography>
                 <Rating name="read-only" value={props.product.rating ? props.product.rating : 0} readOnly />
             </CardContent>
+
             <CardActions>
                 <Button size="small" variant="contained" sx={buttonStyle}>Add to cart <ShoppingCartIcon /></Button>
                 <Link href="#" underline="none" color="inherit">

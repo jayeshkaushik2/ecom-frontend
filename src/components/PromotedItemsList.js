@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import SimpleCard from './SimpleCard'
 import { getProductData_WithFilter } from '../context/Apis'
 import Button from '@mui/material/Button';
+import Default from '../pages/Default'
 
 
 const PromotedItemsList = (props) => {
@@ -49,18 +50,22 @@ const PromotedItemsList = (props) => {
     }, [])
 
     return (
-        <Box minHeight="300px" sx={{ backgroundColor: "#fff4e0", paddingBottom:"10px", bottom: "0px" }}>
-            <Box sx={{ marginTop: '40px', marginBottom: '40px', maxWidth: "100%", flexGrow: 1 }} id="promoted-items">
-                <Grid container id="grid-id" spacing={{ xs: 2, md: 3, marginLeft: "auto" }} columns={{ xs: 2, sm: 8, md: 12 }}>
-                    {Product?.map((data, index) => (
-                        <Grid item xs={2} sm={4} md={4} key={index}>
-                            <SimpleCard product={data} />
+        <>
+            {Product ?
+                <Box minHeight="300px" sx={{ backgroundColor: "#fff4e0", paddingBottom: "10px", bottom: "0px" }}>
+                    <Box sx={{ marginTop: '20px', marginBottom: '20px', maxWidth: "100%", flexGrow: 1 }} id="promoted-items">
+                        <Grid container id="grid-id" spacing={{ xs: 2, md: 3, marginLeft: "auto" }} columns={{ xs: 2, sm: 8, md: 12 }}>
+                            {Product?.map((data, index) => (
+                                <Grid item xs={2} sm={4} md={4} key={index}>
+                                    <SimpleCard product={data} />
+                                </Grid>
+                            ))}
                         </Grid>
-                    ))}
-                </Grid>
-            </Box>
-            {Product? <Button variant="contained" sx={buttonStyle}>View ALL Products</Button> : ""}
-        </Box>
+                    </Box>
+                    {Product ? <Button variant="contained" sx={buttonStyle}>View ALL Products</Button> : ""}
+                </Box>
+                : <Default />}
+        </>
     );
 }
 

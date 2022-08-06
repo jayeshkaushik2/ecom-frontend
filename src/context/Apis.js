@@ -38,3 +38,14 @@ export async function getProductData_WithFilter({search_with:search_with, query:
         throw response;
     }
 }
+
+export async function getHomepageData() {
+    let response = await fetch(`${API_ENDPOINT}/homepage/`)
+    let data = await response.json()
+    if (response.ok) {
+        return data
+    }
+    else {
+        throw response;
+    }
+}

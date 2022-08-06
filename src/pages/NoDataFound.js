@@ -1,11 +1,13 @@
 import React from 'react'
-import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import No_Data_Found from '../assets/images/no_data_found.jpg'
 
 const NoDataFound = () => {
+  console.log("new 1")
   return (
-    <Container>
-        No Data Found!
-    </Container>
+    <Box>
+      <img width="100%" src={No_Data_Found} alt="no data found" />
+    </Box>
   )
 }
 

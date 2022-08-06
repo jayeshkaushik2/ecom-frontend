@@ -1,12 +1,19 @@
 import React from 'react'
-import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import DefaultSkelton from './DefaultSkelton'
 import Box from '@mui/material/Box';
-import PromotedItemsList from '../components/PromotedItemsList'
 
 const Default = () => {
     return (
-        <Box style={{ backgorundColor: "#fbf5ef", minHeight: "350px" }} id="default-page">
-            Loading page...
+        <Box style={{ backgorundColor: "#fff4e0", minHeight: "300px", marginTop: "40px", marginBottom: "40px", marginLeft: "10px", marginRight: "10px" }} id="default-page">
+
+            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 12 }}>
+                {Array.from(Array(3)).map((_, index) => (
+                    <Grid item xs={2} sm={4} md={4} key={index}>
+                        <DefaultSkelton />
+                    </Grid>
+                ))}
+            </Grid>
         </Box>
     )
 }

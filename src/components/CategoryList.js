@@ -4,6 +4,7 @@ import { Grid, } from '@mui/material';
 import { useLocation } from 'react-router-dom'
 import Box from '@mui/material/Box';
 import { getProductData_WithFilter } from '../context/Apis'
+import Default from '../pages/Default'
 
 export const CategoryList = (props) => {
     let location = useLocation()
@@ -12,7 +13,7 @@ export const CategoryList = (props) => {
     const getData = async () => {
         try {
             let query = new URLSearchParams(location.search).get("query")
-            const data = await getProductData_WithFilter({search_with:"sub_category__name", query:query})
+            const data = await getProductData_WithFilter({ search_with: "sub_category__name", query: query })
             setProductData(data["results"])
         }
         catch (error) {
@@ -26,14 +27,20 @@ export const CategoryList = (props) => {
     }, [])
 
     return (
-        <Box sx={{ marginTop: '40px', marginBottom: '40px', minHeight: "300px" }}>
-            <Grid container spacing={{ xs: 2, md: 3, marginLeft: "auto" }} columns={{ xs: 2, sm: 8, md: 12 }}>
-                {ProductData?.map((data, index) => (
-                    <Grid item xs={2} sm={4} md={4} key={index}>
-                        <SimpleCard product={data} />
-                    </Grid>
-                ))}
-            </Grid>
-        </Box>
+        <>
+            {ProductData ?
+                <Box minHeight="300px" sx={{ backgroundColor: "#fff4e0", paddingBottom: "10px", bottom: "0px" }}>
+                    <Box sx={{ marginTop: '20px', marginBottom: '20px' }}>
+                        <Grid container spacing={{ xs: 2, md: 3, marginLeft: "auto" }} columns={{ xs: 2, sm: 8, md: 12 }}>
+                            {ProductData?.map((data, index) => (
+                                <Grid item xs={2} sm={4} md={4} key={index}>
+                                    <SimpleCard product={data} />
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </Box>
+                </Box>
+                : <Default />}
+        </>
     )
 }
