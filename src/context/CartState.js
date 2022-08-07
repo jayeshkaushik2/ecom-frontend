@@ -10,12 +10,17 @@ const CartState = ({ children }) => {
 
     const getCart = async () => {
         let token = null
-        if (userData?.AuthToken?.access !== null) {
+        if (localStorage.getItem("AuthToken") !== null && localStorage.getItem("AuthToken")?.access !== null) {
             token = `Bearer ${JSON.parse(localStorage.getItem("AuthToken"))?.access}`
+            let data = await getCartRef({ token: token })
+            setCart(data)
+            localStorage.setItem("Cart", JSON.stringify(data))
         }
-        let data = await getCartRef({token:token})
-        setCart(data)
-        localStorage.setItem("Cart", JSON.stringify(data))
+        else {
+            let data = await getCartRef({token:null})
+            setCart(data)
+            localStorage.setItem("Cart", JSON.stringify(data))
+        }
     }
 
 
