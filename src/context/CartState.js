@@ -1,10 +1,8 @@
-import { useState, useEffect, useContext } from "react"
+importt  { useState, useEffect } from "react"
 import { getCartRef } from "./Apis"
 import CartContext from './CartContext'
-import AuthContext from "./AuthContext"
 
 const CartState = ({ children }) => {
-    const userData = useContext(AuthContext)
 
     const [Cart, setCart] = useState(localStorage.getItem("Cart") ? localStorage.getItem("Cart").ref : null)
 
