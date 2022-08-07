@@ -1,4 +1,4 @@
-importt  { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { getCartRef } from "./Apis"
 import CartContext from './CartContext'
 
