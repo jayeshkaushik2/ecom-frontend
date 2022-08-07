@@ -66,7 +66,10 @@ export async function getCartRef({token:token}) {
 }
 
 export async function getCartRefData({token:token, ref:ref}) {
-    let response = await fetch(`${API_ENDPOINT}/update_cart/${ref}/`)
+    let response = await fetch(`${API_ENDPOINT}/update_cart/${ref}/`, {
+        method: "GET",
+        headers: {}
+    })
     let data = await response.json()
     if (response.ok) {
         return data
@@ -74,4 +77,13 @@ export async function getCartRefData({token:token, ref:ref}) {
     else {
         throw response;
     }
+}
+
+
+export async function PostCartRefData({token:token, ref:ref, data:data}) {
+    let response = await fetch(`${API_ENDPOINT}/update_cart/${ref}/`, {
+        method: "GET",
+        headers: {}
+        // body: data. ``
+    })
 }

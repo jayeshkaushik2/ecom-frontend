@@ -104,7 +104,7 @@ export const Header = (props) => {
 
                         ))}
                         <MenuItem sx={YourCartMobileStyle}>
-                            <Link href="#" underline="none" color="inherit">
+                            <Link href="/order" underline="none" color="inherit">
                                 Your Cart
                             </Link>
                         </MenuItem>
@@ -122,7 +122,7 @@ export const Header = (props) => {
                         </Link>
                     ))}
                     <Box style={YourCartStyle}>
-                        <Link href="#" underline="none" color="inherit">
+                        <Link href="/order" underline="none" color="inherit">
                             <ShoppingCartCheckoutIcon sx={{ fontSize: "30px" }} />
                         </Link>
                     </Box>

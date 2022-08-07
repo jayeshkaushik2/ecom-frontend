@@ -12,6 +12,7 @@ import defaultImage from '../assets/images/defaultImage.png'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import Rating from '@mui/material/Rating'
 import Link from '@mui/material/Link';
+// import { PostCartRefData } from "../context/Apis"
 
 
 const SimpleCard = (props) => {
@@ -22,6 +23,12 @@ const SimpleCard = (props) => {
         backgroundColor: main_color,
         '&:hover': {
             backgroundColor: main_color_dark
+        }
+    }
+
+    const handlePostCartData = () => {
+        let data = {
+            product: 1
         }
     }
 
@@ -48,7 +55,7 @@ const SimpleCard = (props) => {
             </CardContent>
 
             <CardActions>
-                <Button size="small" variant="contained" sx={buttonStyle}>Add to cart <ShoppingCartIcon /></Button>
+                <Button size="small" variant="contained" onClick={handlePostCartData} sx={buttonStyle}>Add to cart <ShoppingCartIcon /></Button>
                 <Link href="#" underline="none" color="inherit">
                     <Button size="small" variant="text" sx={{ marginLeft: 'auto', color: main_color_dark }}>View details<ArrowForwardIcon sx={{ fontSize: '15px' }} /></Button>
                 </Link>
