@@ -1,12 +1,10 @@
 import AuthContext from './AuthContext'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 
-
 const AuthState = ({ children }) => {
-
     const [User, setUser] = useState(() => localStorage.getItem("AuthToken") ? jwt_decode(JSON.parse(localStorage.getItem("AuthToken")).access) : null)
 
     const [AuthToken, setAuthToken] = useState(() => localStorage.getItem("AuthToken") ? JSON.parse(localStorage.getItem("AuthToken")) : null)
@@ -29,6 +27,7 @@ const AuthState = ({ children }) => {
             setLogin("Logout")
             setUser(jwt_decode(data.access))
             localStorage.setItem("AuthToken", JSON.stringify(data))
+            localStorage.removeItem("Cart")
             history("/")
         }
         else {
@@ -61,6 +60,7 @@ const AuthState = ({ children }) => {
         setUser(null)
         setLogin("Login")
         localStorage.removeItem("AuthToken")
+        localStorage.removeItem("Cart")
     }
 
     let userData = {

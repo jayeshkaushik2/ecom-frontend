@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ItemsList } from './components/ItemsList'
 import { Homepage } from './pages/Homepage'
 import AuthState from './context/AuthState'
+import CartState from './context/CartState'
 import NoDataFound from './pages/NoDataFound';
 import Profile from './pages/Profile';
 
@@ -15,6 +16,7 @@ function App() {
   return (
     <Router>
       <AuthState>
+        <CartState>
           <Routes>
             <Route path="/" element={<Homepage page="home" />} />
 
@@ -34,6 +36,7 @@ function App() {
 
             <Route path="/no-data-found" element={<NoDataFound />} />
           </Routes>
+        </CartState>
       </AuthState>
     </Router>
   );

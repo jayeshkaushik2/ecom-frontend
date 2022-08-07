@@ -49,3 +49,29 @@ export async function getHomepageData() {
         throw response;
     }
 }
+
+
+export async function getCartRef({token:token}) {
+    let response = await fetch(`${API_ENDPOINT}/create_cart/`, {
+        method: "GET",
+        headers:  {"Authorization" : token}
+    })
+    let data = await response.json()
+    if (response.ok) {
+        return data
+    }
+    else {
+        throw response;
+    }
+}
+
+export async function getCartRefData({token:token, ref:ref}) {
+    let response = await fetch(`${API_ENDPOINT}/update_cart/${ref}/`)
+    let data = await response.json()
+    if (response.ok) {
+        return data
+    }
+    else {
+        throw response;
+    }
+}
