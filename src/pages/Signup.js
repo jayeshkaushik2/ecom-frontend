@@ -35,7 +35,7 @@ export const Signup = () => {
             Sign up
           </Typography>
 
-          <Box component="form" noValidate sx={{ marginTop: 1, width: "70%", backgroundColor: "white", padding: "15px", borderRadius: "10px", marginBottom:"15px",}}>
+          <Box component="form" noValidate sx={{ marginTop: 1, maxWidth: "360px", backgroundColor: "white", padding: "15px", borderRadius: "10px", marginBottom:"15px",}}>
 
             <TextField
               margin="normal"

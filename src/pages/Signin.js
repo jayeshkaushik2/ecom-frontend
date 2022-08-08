@@ -53,7 +53,7 @@ export const Signin = () => {
             Sign in
           </Typography>
 
-          <Box noValidate sx={{ marginTop: 1, width: "70%", backgroundColor: "white", padding: "15px", borderRadius: "10px", }}>
+          <Box noValidate sx={{ marginTop: 1,maxWidth: "360px", backgroundColor: "white", padding: "15px", borderRadius: "10px", }}>
             <TextField
               margin="normal"
               required
