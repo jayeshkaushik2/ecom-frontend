@@ -26,7 +26,7 @@ export async function getSubCategory() {
     }
 }
 
-export async function getProductData_WithFilter({search_with:search_with, query:query}) {
+export async function getProductData_WithFilter({ search_with: search_with, query: query }) {
     let response = await fetch(`${API_ENDPOINT}/product/?${search_with}=${query}`, {
         method: "GET",
     })
@@ -51,10 +51,10 @@ export async function getHomepageData() {
 }
 
 
-export async function getCartRef({token:token}) {
+export async function getCartRef({ token: token }) {
     let response = await fetch(`${API_ENDPOINT}/create_cart/`, {
         method: "GET",
-        headers:  {"Authorization" : token}
+        headers: { "Authorization": token }
     })
     let data = await response.json()
     if (response.ok) {
@@ -65,10 +65,10 @@ export async function getCartRef({token:token}) {
     }
 }
 
-export async function getCartRefData({token:token, ref:ref}) {
+export async function getCartRefData({ token: token, ref: ref }) {
     let response = await fetch(`${API_ENDPOINT}/update_cart/${ref}/`, {
         method: "GET",
-        headers: {}
+        headers: { "Authorization": token }
     })
     let data = await response.json()
     if (response.ok) {
@@ -80,10 +80,33 @@ export async function getCartRefData({token:token, ref:ref}) {
 }
 
 
-export async function PostCartRefData({token:token, ref:ref, data:data}) {
+export async function PostCartRefData({ token: token, ref: ref, lineData: lineData }) {
     let response = await fetch(`${API_ENDPOINT}/update_cart/${ref}/`, {
-        method: "GET",
-        headers: {}
+        method: "POST",
+        headers: { "Authorization": token }
         // body: data. ``
     })
+    let data = await response.json()
+    if (response.ok) {
+        return data
+    }
+    else {
+        throw response;
+    }
+}
+
+export async function DeleteCartLine({ token: token, ref: ref, line_ids: line_ids }) {
+    let response = await fetch(`${API_ENDPOINT}/update_cart/${ref}/`, {
+        method: "DELETE",
+        headers: { "Authorization": token, "Content-Type": "application/json" },
+        body: JSON.stringify(line_ids)
+    })
+    let data = await response.json()
+    console.log("delete data from api", data)
+    if (response.ok) {
+        return data
+    }
+    else {
+        throw response;
+    }
 }
