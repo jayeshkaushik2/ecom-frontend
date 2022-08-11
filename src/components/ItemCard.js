@@ -16,6 +16,10 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import defaultImage from '../assets/images/defaultImage.png'
+import { PostCartRefData } from '../context/Apis'
+import CartContext from '../context/CartContext'
+import AuthContext from '../context/AuthContext'
+
 
 
 const ExpandMore = styled((props) => {
@@ -30,8 +34,36 @@ const ExpandMore = styled((props) => {
 }));
 
 const ItemCard = (props) => {
+    let cart = React.useContext(CartContext)
+    let user = React.useContext(AuthContext)
     const main_color = Colors("main_color")
     const main_color_dark = Colors("main_color_dark")
+
+    const postCartLineData = async (lineData) => {
+        try {
+            let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
+            let ref = cart?.cartRef
+            const data = await PostCartRefData({ token: token, ref: ref, lineData: { lines: [lineData] } })
+            alert("product added to cart")
+            // props.getUpdatedData()
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handlePostCartData = (e) => {
+        // get ref, cart_id,
+        console.log("adding to cart...", e.target.value)
+        let dataIs = {
+            cart: cart?.cart_id,
+            product: e.target.value,
+            ref: cart?.cartRef,
+        }
+        console.log("data have to post", dataIs)
+        postCartLineData(dataIs)
+
+    }
 
     const [expanded, setExpanded] = React.useState(false);
 
@@ -54,7 +86,7 @@ const ItemCard = (props) => {
                     height="200"
                     image={props.product.images?.length > 0 ? props.product.images[0]["image"] : defaultImage}
                     alt="promoted item image"
-                    sx={{objectFit:"contain"}}
+                    sx={{ objectFit: "contain" }}
                 />
                 <CardContent>
                     <Typography variant="body2" color="text.secondary">
@@ -76,13 +108,14 @@ const ItemCard = (props) => {
                     <CardContent>
                         <Box sx={{ display: "flex" }}>
                             <Button size="small" variant="contained" sx={buttonStyle}>Buy now<ShoppingCartIcon /></Button>
-                            <Button size="small" variant="outlined" sx={{
-                                color: main_color, '&:hover': {
-                                    color: main_color_dark
-                                },
-                                marginLeft: '20px'
-
-                            }}>Add to cart<ShoppingCartIcon /></Button>
+                            <Button size="small" variant="outlined"
+                                value={props.product.id}
+                                onClick={handlePostCartData} sx={{
+                                    color: main_color, '&:hover': {
+                                        color: main_color_dark
+                                    },
+                                    marginLeft: '20px'
+                                }}>Add to cart<ShoppingCartIcon /></Button>
                         </Box>
                         <Typography variant="h6" sx={{
                             borderRadius: "5px",

@@ -18,13 +18,14 @@ const CartLine = (props) => {
     let cart = React.useContext(CartContext)
     let user = React.useContext(AuthContext)
 
-    const deleteData = async (line_ids) => {
+    const deleteData = async (ids) => {
         try {
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             let ref = cart?.cartRef
-            const data = await DeleteCartLine({ token: token, ref: ref, line_ids: line_ids })
+            console.log("::::", { token: token, ref: ref, line_ids: ids })
+            DeleteCartLine({ token: token, ref: ref, line_ids: {line_ids:ids} })
             alert("deleted successfully, please refresh the page")
-            // props.getUpdatedData()
+            props.getUpdatedData()
         }
         catch(error) {
             console.log(error)
@@ -35,9 +36,7 @@ const CartLine = (props) => {
     const handleLineDelete = (e) => {
         let ids = []
         ids.push(e.target.value)
-        let line_ids = {line_ids:ids}
-        console.log("line ids", line_ids)
-        deleteData(line_ids)
+        deleteData(ids)
     }
 
 

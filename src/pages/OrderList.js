@@ -21,7 +21,6 @@ const OrderList = () => {
             const data = await getCartRefData({ token: token, ref: ref })
             setCartData(data)
             setCartLines(data.lines)
-            console.log("updated here")
         }
         catch (error) {
             console.log(error)
@@ -37,7 +36,7 @@ const OrderList = () => {
             <Box style={{ background: "white", padding: "10px" }}>
                 <Typography variant="h5" style={{padding:"5px"}}>Shopping Cart</Typography>
                 <hr/>
-                {cartLines? cartLines.map((line, index) => (
+                {cartLines?.length > 0? cartLines.map((line, index) => (
                     <CartLine key={index} line={line} getUpdatedData={getData} />
                 )) : <NoDataFound/>}
             </Box>

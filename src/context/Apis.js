@@ -83,8 +83,8 @@ export async function getCartRefData({ token: token, ref: ref }) {
 export async function PostCartRefData({ token: token, ref: ref, lineData: lineData }) {
     let response = await fetch(`${API_ENDPOINT}/update_cart/${ref}/`, {
         method: "POST",
-        headers: { "Authorization": token }
-        // body: data. ``
+        headers: { "Authorization": token, "Content-Type": "application/json" },
+        body: JSON.stringify(lineData)
     })
     let data = await response.json()
     if (response.ok) {
@@ -102,7 +102,6 @@ export async function DeleteCartLine({ token: token, ref: ref, line_ids: line_id
         body: JSON.stringify(line_ids)
     })
     let data = await response.json()
-    console.log("delete data from api", data)
     if (response.ok) {
         return data
     }
