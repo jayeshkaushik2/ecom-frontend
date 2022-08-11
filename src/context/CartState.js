@@ -23,8 +23,8 @@ const CartState = ({ children }) => {
 
 
     let CartData = {
-        cartRef: Cart.ref,
-        cart_id: Cart.id
+        cartRef: Cart?.ref,
+        cart_id: Cart?.id
     }
 
     useEffect(() => {
