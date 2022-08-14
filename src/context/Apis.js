@@ -1,4 +1,13 @@
+import AuthContext from './AuthContext'
+import { useContext } from 'react'
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
+
+export function GetToken() {
+    const user = useContext(AuthContext);
+    let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null;
+    return token;
+}
+
 
 export async function getFooter() {
     let response = await fetch(`${API_ENDPOINT}/details/`, {
@@ -100,6 +109,23 @@ export async function DeleteCartLine({ token: token, ref: ref, line_ids: line_id
         method: "DELETE",
         headers: { "Authorization": token, "Content-Type": "application/json" },
         body: JSON.stringify(line_ids)
+    })
+    let data = await response.json()
+    if (response.ok) {
+        return data
+    }
+    else {
+        throw response;
+    }
+}
+
+
+// user login, logout, create-user apis
+export async function PostUserData({ token: token, userData: userData }) {
+    let response = await fetch(`${API_ENDPOINT}/user-profile/`, {
+        method: "POST",
+        headers: { "Authorization": token, "Content-Type": "application/json" },
+        body: JSON.stringify(userData)
     })
     let data = await response.json()
     if (response.ok) {
