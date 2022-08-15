@@ -26,11 +26,11 @@ function App() {
 
             <Route path="/order" element={<Homepage page="order" />} />
 
+            <Route path="/profile" element={<Homepage page="profile" />} />
+
             <Route path="/signup" element={<Signup />} />
 
             <Route path="/signin" element={<Signin />} />
-
-            <Route path="/profile" element={<Profile />} />
 
             <Route path="/product-list" element={<ProductList />} />
 

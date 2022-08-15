@@ -1,84 +1,83 @@
 import React from 'react'
-// import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
-import { Container } from '@mui/system';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import profile_d from '../assets/images/profile_d.jpg'
 import Button from '@mui/material/Button';
 import camera_icon from '../assets/images/camera_icon.png'
-
-
+import { getUserData } from '../context/Apis'
+import AuthContext from '../context/AuthContext'
 
 const Profile = () => {
-  return (
-    <>
-      <container style={{
-        display: "flex",
-        flexWrap: "wrap ",
-      }}>
-        <Container style={{ maxWidth: "100%", height: "246px", backgroundColor: " rgb(172, 172, 172) ", marginTop: "10px" }}>Profile
-        <Button
-              type="submit"
-              smallWidth
-              variant=" text"
-              sx={{
-                marginTop: " 205px",
-                width: "33px",
-                float: " inline-end",
-                borderRadius:"15px"
-              }}
-            >
-              <img style={{ width: "34px", height: "30px",  }} src={camera_icon} alt="" />             
-            </Button>
-        </Container>
-        <Stack direction="row" spacing={2} sx={{ width: 56, height: 56 }}>
-          <Avatar style={{
-            width: "130px",
-            height: "130px",
-            display: "flex",
-            marginTop: "-72px",
-            marginLeft: "32px",
-          }} alt="Remy Sharp"
-          >
-            <img style={{
-              width: "100%",
-              position: "absolute"
-            }}
-              src={profile_d}
-              alt="samsung"
-              loading="lazy"
-            />
-            <Button
-              type="submit"
-              // smallWidth
-              variant="text"
-              style={{marginTop:"80px", borderRadius:"15px"}}
-             
-            >
-              <img style={{ width: "33px" }} src={camera_icon} alt="" />
-              {/* Sign In  */}
-            </Button>
-          </Avatar>
-        </Stack>
-        <Typography component="h1" variant="h5" style={{
-          marginLeft: "125px",
-          marginTop: "10px", display: "inline-block",
-        }}>
-          Aman Rajput
-        </Typography>
-        
-      </container>
-      {/* <Typography component="h1" variant="h5" style={{
-          marginLeft: "125px",
-          marginTop: "10px", display: "inline-block",
-        }}>
-          Edit your profile
-        </Typography> */}
-        
-    </>
-  );
+    let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
+    let user = React.useContext(AuthContext)
+    const [userData, setUserData] = React.useState(null)
+
+    const getData = async () => {
+        try {
+            let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
+            const data = await getUserData({ token: token })
+            console.log("profile data", data)
+            setUserData(data)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    React.useEffect(() => {
+        getData()
+    }, [])
+
+
+    return (
+        <>
+            <Box style={{
+                flexWrap: "wrap ",
+                marginTop: "-10px",
+                marginBottom: "70px",
+            }}>
+                <Box style={{ maxWidth: "100%", height: "246px", backgroundColor: "rgb(172, 172, 172) ", marginTop: "10px" }}>
+                    {userData ?
+                        <img
+                            width="100%"
+                            src={userData.banner_image ? `${API_ENDPOINT}${userData.banner_image}` : null}
+                            alt="homepage image"
+                            height="246px"
+                        />
+                        : null}
+                </Box>
+                <Stack direction="row" spacing={2} sx={{ width: 56, height: 56 }}>
+                    <Avatar style={{
+                        width: "120px",
+                        height: "120px",
+                        display: "flex",
+                        marginTop: "-50px",
+                        marginLeft: "30px",
+                        border: "5px solid",
+                        boxShadow: "4px 3px 6px grey",
+                    }} alt="Remy Sharp"
+                    >
+                        <img style={{ width: "100%", position: "absolute" }}
+                            src={userData?.profile_image ? `${API_ENDPOINT}${userData.profile_image}` : profile_d}
+                            alt="profile image"
+                            loading="lazy" />
+                        <Button type="submit"
+                            variant="text"
+                            style={{ marginTop: "80px", borderRadius: "15px" }}>
+                            <img style={{ width: "33px" }} src={camera_icon} alt="" />
+                        </Button>
+                    </Avatar>
+                </Stack>
+                <Typography component="h1" variant="h5" style={{ textAlign: "center", marginTop: "-50px", marginLeft: "100px" }}>
+                    {userData?.name ? userData.name : "Anonymous"}
+                </Typography>
+
+            </Box>
+        </>
+    );
 }
 
 
-export default Profile
+export default Profile;

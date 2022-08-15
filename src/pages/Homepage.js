@@ -10,7 +10,7 @@ import Default from './Default'
 import OrderList from './OrderList'
 import CartContext from '../context/CartContext'
 import AuthContext from '../context/AuthContext'
-
+import Profile from './Profile'
 
 export const Homepage = (props) => {
     let cart = React.useContext(CartContext)
@@ -59,11 +59,19 @@ export const Homepage = (props) => {
         <>
             <Navbar />
             <Header num_product={NumProduct} />
+
             {Page === "" ? <Default /> : null}
+
             {Page === "home" ? <Home getNumProduct={getNumProduct} /> : null}
+
             {Page === "products" ? <ItemsList ProductData={null} getNumProduct={getNumProduct} /> : null}
+
             {Page === "subcategory" ? <CategoryList ProductData={null} getNumProduct={getNumProduct} /> : null}
+
             {Page === "order" ? <OrderList ProductData={null} getNumProduct={getNumProduct} /> : null}
+
+            {Page === "profile" ? <Profile getNumProduct={getNumProduct} /> : null}
+
             <Footer FooterData={FooterData} />
         </>
     )

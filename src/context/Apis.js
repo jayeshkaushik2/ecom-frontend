@@ -120,12 +120,28 @@ export async function DeleteCartLine({ token: token, ref: ref, line_ids: line_id
 }
 
 
-// user login, logout, create-user apis
+// user profile apis -> POST
 export async function PostUserData({ token: token, userData: userData }) {
     let response = await fetch(`${API_ENDPOINT}/user-profile/`, {
         method: "POST",
         headers: { "Authorization": token, "Content-Type": "application/json" },
         body: JSON.stringify(userData)
+    })
+    let data = await response.json()
+    if (response.ok) {
+        return data
+    }
+    else {
+        throw response;
+    }
+}
+
+
+// user profile apis -> GET
+export async function getUserData({ token: token }) {
+    let response = await fetch(`${API_ENDPOINT}/user-profile/`, {
+        method: "GET",
+        headers: { "Authorization": token }
     })
     let data = await response.json()
     if (response.ok) {
