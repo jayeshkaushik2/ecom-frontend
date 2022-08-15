@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import NoDataFound from './NoDataFound'
 
 
-const OrderList = () => {
+const OrderList = (props) => {
     const [cartData, setCartData] = React.useState(null)
     const [cartLines, setCartLines] = React.useState(null)
     let cart = React.useContext(CartContext)
@@ -37,7 +37,7 @@ const OrderList = () => {
                 <Typography variant="h5" style={{padding:"5px"}}>Shopping Cart</Typography>
                 <hr/>
                 {cartLines?.length > 0? cartLines.map((line, index) => (
-                    <CartLine key={index} line={line} getUpdatedData={getData} />
+                    <CartLine key={index} line={line} getUpdatedData={getData} getNumProduct={props.getNumProduct} />
                 )) : <NoDataFound/>}
             </Box>
         </Box>
