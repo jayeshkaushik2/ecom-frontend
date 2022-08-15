@@ -5,13 +5,31 @@ import { Footer } from '../components/Footer'
 import { Home } from '../components/Home';
 import { CategoryList } from '../components/CategoryList';
 import { ItemsList } from '../components/ItemsList';
-import { getFooter } from '../context/Apis'
+import { getFooter, getCartRefData } from '../context/Apis'
 import Default from './Default'
 import OrderList from './OrderList'
+import CartContext from '../context/CartContext'
+import AuthContext from '../context/AuthContext'
+
 
 export const Homepage = (props) => {
+    let cart = React.useContext(CartContext)
+    let user = React.useContext(AuthContext)
     const [Page, setPage] = useState("")
     const [FooterData, setFooterData] = useState(null)
+    const [NumProduct, setNumProduct] = React.useState(0);
+
+    const getNumProduct = async () => {
+        try {
+            let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
+            let ref = cart?.cartRef
+            const data = await getCartRefData({ token: token, ref: ref })
+            setNumProduct(data.lines?.length)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
 
     const getData = async () => {
         try {
@@ -33,19 +51,19 @@ export const Homepage = (props) => {
     }
 
     useEffect(() => {
-        console.log(props.page)
         getData()
+        getNumProduct()
     }, [props.page])
 
     return (
         <>
             <Navbar />
-            <Header />
+            <Header num_product={NumProduct} />
             {Page === "" ? <Default /> : null}
-            {Page === "home" ? <Home /> : null}
-            {Page === "products" ? <ItemsList ProductData={null} /> : null}
-            {Page === "subcategory" ? <CategoryList ProductData={null} /> : null}
-            {Page === "order" ? <OrderList ProductData={null} /> : null}
+            {Page === "home" ? <Home getNumProduct={getNumProduct} /> : null}
+            {Page === "products" ? <ItemsList ProductData={null} getNumProduct={getNumProduct} /> : null}
+            {Page === "subcategory" ? <CategoryList ProductData={null} getNumProduct={getNumProduct} /> : null}
+            {Page === "order" ? <OrderList ProductData={null} getNumProduct={getNumProduct} /> : null}
             <Footer FooterData={FooterData} />
         </>
     )

@@ -37,7 +37,7 @@ const SimpleCard = (props) => {
             let ref = cart?.cartRef
             const data = await PostCartRefData({ token: token, ref: ref, lineData: {lines:[lineData]} })
             alert("product added to cart")
-            // props.getUpdatedData()
+            props.getNumProduct()
         }
         catch (error) {
             console.log(error)

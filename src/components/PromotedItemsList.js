@@ -58,7 +58,7 @@ const PromotedItemsList = (props) => {
                         <Grid container id="grid-id" spacing={{ xs: 2, md: 3, marginLeft: "auto" }} columns={{ xs: 2, sm: 8, md: 12 }}>
                             {Product?.map((data, index) => (
                                 <Grid item xs={2} sm={4} md={4} key={index}>
-                                    <SimpleCard product={data} />
+                                    <SimpleCard product={data} getNumProduct={props.getNumProduct} />
                                 </Grid>
                             ))}
                         </Grid>

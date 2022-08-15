@@ -11,13 +11,12 @@ import Colors from './Colors.js'
 import Link from '@mui/material/Link';
 import { getSubCategory } from '../context/Apis'
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import Badge from '@mui/material/Badge';
 
 
 export const Header = (props) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [SubCategory, setSubCategory] = React.useState(null)
-    const preventDefault = (event) => event.preventDefault();
-
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -35,9 +34,7 @@ export const Header = (props) => {
         catch (error) {
             console.log(error)
         }
-
     }
-
     React.useEffect(() => {
         getData()
     }, [])
@@ -58,7 +55,7 @@ export const Header = (props) => {
         marginTop: "22px",
         borderRadius: "50%",
         height: "50%",
-        marginTop: "14px",
+        marginTop: "0px",
         padding: "6px",
     }
 
@@ -105,7 +102,7 @@ export const Header = (props) => {
                         ))}
                         <MenuItem sx={YourCartMobileStyle}>
                             <Link href="/order" underline="none" color="inherit">
-                                Your Cart
+                                Your Cart ({props.num_product})
                             </Link>
                         </MenuItem>
                     </Menu>
@@ -122,9 +119,13 @@ export const Header = (props) => {
                         </Link>
                     ))}
                     <Box style={YourCartStyle}>
-                        <Link href="/order" underline="none" color="inherit">
-                            <ShoppingCartCheckoutIcon sx={{ fontSize: "30px" }} />
-                        </Link>
+                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                            <Badge badgeContent={props.num_product} color="error">
+                                <Link href="/order" underline="none" color="inherit">
+                                    <ShoppingCartCheckoutIcon sx={{ fontSize: "30px" }} />
+                                </Link>
+                            </Badge>
+                        </IconButton>
                     </Box>
                 </Box>
             </Box>
