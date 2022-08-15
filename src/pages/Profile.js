@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import profile_d from '../assets/images/profile_d.jpg'
 import Button from '@mui/material/Button';
 import camera_icon from '../assets/images/camera_icon.png'
-import profile_photo from '../assets/images/profile_photo.png'
 
 
 
