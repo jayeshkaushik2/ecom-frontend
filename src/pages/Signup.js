@@ -17,28 +17,68 @@ import { useNavigate } from "react-router-dom";
 
 
 export const Signup = () => {
-  return (
-    <>
-      <Container maxWidth="xl" sx={{ backgroundImage: `url(${signin_img})`, height: "100%", backgroundSize: "100% 100%" }}>
+    let redirect = useNavigate();
+    let user = React.useContext(AuthContext);
+    const [FirstName, setFirstName] = React.useState(null);
+    const [LastName, setLastName] = React.useState(null);
+    const [Username, setUsername] = React.useState(null);
+    const [Email, setEmail] = React.useState(null);
+    const [Password, setPassword] = React.useState(null);
+    const [Password2, setPassword2] = React.useState(null);
 
-        <Box
-          component="form"
-          sx={{
-            marginTop: "15",
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: "100%",
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
-        >
-          <Avatar sx={{ padding: 1, marginTop: 1, bgcolor: 'blue' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
+    const postData = async (data) => {
+        try {
+            let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
+            const resp_data = await PostUserData({ token: token, userData: data })
+            alert("user created")
+            //TODO have to add a opt authentication system for new users
+            redirect("/signin")
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    const handleSignUp = (e) => {
+        e.preventDefault()
+        if (Password !== Password2) {
+            alert("your passwords are not matching!")
+        }
+        else {
+            let data = {
+                first_name: FirstName,
+                last_name: LastName,
+                email: Email,
+                username: Username,
+                password: Password,
+            }
+            postData(data)
+        }
+    }
+
+    return (
+        <>
+            <Container maxWidth="xl" sx={{ backgroundImage: `url(${signin_img})`, height: "100%", backgroundSize: "100% 100%" }}>
+
+                <Box
+                    component="form"
+                    sx={{
+                        marginTop: "15",
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        width: "100%",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                    }}
+                >
+                    <Avatar sx={{ padding: 1, marginTop: 1, bgcolor: 'blue' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign up
+                    </Typography>
 
                     <Box component="form" noValidate sx={{ marginTop: 1, maxWidth: "360px", backgroundColor: "white", padding: "15px", borderRadius: "10px", marginBottom: "15px", }}>
 
