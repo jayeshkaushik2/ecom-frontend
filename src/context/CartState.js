@@ -4,7 +4,7 @@ import CartContext from './CartContext'
 
 const CartState = ({ children }) => {
 
-    const [Cart, setCart] = useState(localStorage.getItem("Cart") ? localStorage.getItem("Cart").ref : null)
+    const [Cart, setCart] = useState(localStorage.getItem("Cart") ? JSON.parse(localStorage.getItem("Cart")) : null)
 
     const getCart = async () => {
         let token = null
@@ -15,7 +15,7 @@ const CartState = ({ children }) => {
             localStorage.setItem("Cart", JSON.stringify(data))
         }
         else {
-            let data = await getCartRef({token:null})
+            let data = await getCartRef({ token: null })
             setCart(data)
             localStorage.setItem("Cart", JSON.stringify(data))
         }
@@ -23,7 +23,8 @@ const CartState = ({ children }) => {
 
 
     let CartData = {
-        cart: Cart
+        cartRef: Cart?.ref,
+        cart_id: Cart?.id
     }
 
     useEffect(() => {

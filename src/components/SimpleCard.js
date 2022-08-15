@@ -12,10 +12,15 @@ import defaultImage from '../assets/images/defaultImage.png'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import Rating from '@mui/material/Rating'
 import Link from '@mui/material/Link';
-// import { PostCartRefData } from "../context/Apis"
+import { PostCartRefData } from "../context/Apis"
+import CartContext from '../context/CartContext'
+import AuthContext from '../context/AuthContext'
+
 
 
 const SimpleCard = (props) => {
+    let cart = React.useContext(CartContext)
+    let user = React.useContext(AuthContext)
     const main_color = Colors("main_color")
     const main_color_dark = Colors("main_color_dark")
 
@@ -26,10 +31,30 @@ const SimpleCard = (props) => {
         }
     }
 
-    const handlePostCartData = () => {
-        let data = {
-            product: 1
+    const postCartLineData = async (lineData) => {
+        try {
+            let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
+            let ref = cart?.cartRef
+            const data = await PostCartRefData({ token: token, ref: ref, lineData: {lines:[lineData]} })
+            alert("product added to cart")
+            // props.getUpdatedData()
         }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handlePostCartData = (e) => {
+        // get ref, cart_id,
+        console.log("adding to cart...", e.target.value)
+        let dataIs = {
+            cart: cart?.cart_id,
+            product: e.target.value,
+            ref: cart?.cartRef,
+        }
+        console.log("data have to post", dataIs)
+        postCartLineData(dataIs)
+
     }
 
     return (
@@ -55,7 +80,7 @@ const SimpleCard = (props) => {
             </CardContent>
 
             <CardActions>
-                <Button size="small" variant="contained" onClick={handlePostCartData} sx={buttonStyle}>Add to cart <ShoppingCartIcon /></Button>
+                <Button size="small" variant="contained" value={props.product.id} onClick={(e) => handlePostCartData(e)} sx={buttonStyle}>Add to cart <ShoppingCartIcon /></Button>
                 <Link href="#" underline="none" color="inherit">
                     <Button size="small" variant="text" sx={{ marginLeft: 'auto', color: main_color_dark }}>View details<ArrowForwardIcon sx={{ fontSize: '15px' }} /></Button>
                 </Link>

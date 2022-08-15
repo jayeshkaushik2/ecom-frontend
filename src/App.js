@@ -10,7 +10,6 @@ import AuthState from './context/AuthState'
 import CartState from './context/CartState'
 import NoDataFound from './pages/NoDataFound';
 import Profile from './pages/Profile';
-import OrderList from './pages/OrderList'
 
 function App() {
 
@@ -25,6 +24,8 @@ function App() {
 
             <Route path="/products" element={<Homepage page="products" />} />
 
+            <Route path="/order" element={<Homepage page="order" />} />
+
             <Route path="/signup" element={<Signup />} />
 
             <Route path="/signin" element={<Signin />} />
@@ -34,8 +35,6 @@ function App() {
             <Route path="/product-list" element={<ProductList />} />
 
             <Route path="/items" element={<ItemsList />} />
-
-            <Route path="/order" element={<OrderList />} />
 
             <Route path="/no-data-found" element={<NoDataFound />} />
           </Routes>
