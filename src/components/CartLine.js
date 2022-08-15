@@ -26,6 +26,7 @@ const CartLine = (props) => {
             DeleteCartLine({ token: token, ref: ref, line_ids: {line_ids:ids} })
             alert("deleted successfully, please refresh the page")
             props.getUpdatedData()
+            props.getNumProduct()
         }
         catch(error) {
             console.log(error)

@@ -45,6 +45,7 @@ const ItemCard = (props) => {
             let ref = cart?.cartRef
             const data = await PostCartRefData({ token: token, ref: ref, lineData: { lines: [lineData] } })
             alert("product added to cart")
+            props.getNumProduct()
             // props.getUpdatedData()
         }
         catch (error) {
