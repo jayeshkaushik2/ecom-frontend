@@ -10,10 +10,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Colors from './Colors.js'
 import Link from '@mui/material/Link';
 import { getSubCategory } from '../context/Apis'
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
 
 export const Header = (props) => {
-    const main_color = Colors("main_color")
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [SubCategory, setSubCategory] = React.useState(null)
     const preventDefault = (event) => event.preventDefault();
@@ -41,6 +41,26 @@ export const Header = (props) => {
     React.useEffect(() => {
         getData()
     }, [])
+
+
+    const main_color = Colors("main_color")
+    const main_color_dark = Colors("main_color_dark")
+
+    const YourCartMobileStyle = {
+        color: "white",
+        backgroundColor: main_color,
+        '&:hover': {
+            backgroundColor: main_color_dark
+        }
+    }
+
+    const YourCartStyle = {
+        marginTop: "22px",
+        borderRadius: "50%",
+        height: "50%",
+        marginTop: "14px",
+        padding: "6px",
+    }
 
 
     return (
@@ -81,7 +101,13 @@ export const Header = (props) => {
                                     <Typography textAlign="center" >{sub_category.name}</Typography>
                                 </Link>
                             </MenuItem>
+
                         ))}
+                        <MenuItem sx={YourCartMobileStyle}>
+                            <Link href="/order" underline="none" color="inherit">
+                                Your Cart
+                            </Link>
+                        </MenuItem>
                     </Menu>
                 </Box>
                 <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -95,6 +121,11 @@ export const Header = (props) => {
                             </Button>
                         </Link>
                     ))}
+                    <Box style={YourCartStyle}>
+                        <Link href="/order" underline="none" color="inherit">
+                            <ShoppingCartCheckoutIcon sx={{ fontSize: "30px" }} />
+                        </Link>
+                    </Box>
                 </Box>
             </Box>
         </AppBar >

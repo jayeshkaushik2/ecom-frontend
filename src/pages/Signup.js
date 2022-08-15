@@ -10,6 +10,11 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import LoginIcon from '@mui/icons-material/Login';
+import { PostUserData } from '../context/Apis'
+import AuthContext from '../context/AuthContext'
+// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+
 
 export const Signup = () => {
   return (
@@ -35,77 +40,94 @@ export const Signup = () => {
             Sign up
           </Typography>
 
-          <Box component="form" noValidate sx={{ marginTop: 1, maxWidth: "360px", backgroundColor: "white", padding: "15px", borderRadius: "10px", marginBottom:"15px",}}>
+                    <Box component="form" noValidate sx={{ marginTop: 1, maxWidth: "360px", backgroundColor: "white", padding: "15px", borderRadius: "10px", marginBottom: "15px", }}>
 
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="name"
-              label="Full Name"
-              name="name"
-              autoComplete="name"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="first_name"
+                            label="First Name"
+                            name="first_name"
+                            autoComplete="first_name"
+                            autoFocus
+                            onChange={(e) => setFirstName(e.target.value)}
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="last_name"
+                            label="Last Name"
+                            name="last_name"
+                            autoComplete="last_name"
+                            autoFocus
+                            onChange={(e) => setLastName(e.target.value)}
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
 
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="conform_password"
-              label="Conform Password"
-              type="password"
-              id="conform_password"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ marginTop: 3, marginBottom: 2 }}
-            >
-              Sign up  <LoginIcon/>  
-            </Button>
-            <Grid container>
-              <Grid item>
-                <Link href="/signin" variant="body2">
-                  {"Sign In?"}
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-      </Container>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="username"
+                            label="Username"
+                            name="username"
+                            autoComplete="username"
+                            autoFocus
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="confirm_password"
+                            label="Confirm Password"
+                            type="password"
+                            id="conform_password"
+                            onChange={(e) => setPassword2(e.target.value)}
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ marginTop: 3, marginBottom: 2 }}
+                            onClick={(e) => handleSignUp(e)}
+                        >
+                            Sign up  <LoginIcon />
+                        </Button>
+                        <Grid container>
+                            <Grid item>
+                                <Link href="/signin" variant="body2">
+                                    {"Sign In?"}
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Box>
+            </Container>
 
-    </>
-  );
+        </>
+    );
 }

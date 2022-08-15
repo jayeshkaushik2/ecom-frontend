@@ -19,7 +19,7 @@ const PromotedItemsList = (props) => {
         marginLeft: "auto",
         marginRight: "auto",
         display: "flex",
-        width: "80%",
+        width: "95%",
         marginTop: "10px",
         marginBottom: "10px",
         marginTop: "-17px",
