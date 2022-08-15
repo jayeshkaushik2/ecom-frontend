@@ -42,7 +42,7 @@ const CartLine = (props) => {
 
 
     return (
-        <Card sx={{ marginLeft: "auto", marginRight: "auto", maxWidth: "100", marginTop: "10px" }}>
+        <Card sx={{ marginLeft: "auto", marginRight: "auto", maxWidth: "100", marginTop: "30px", boxShadow: "3px 3px 12px grey" }}>
             <Box style={{ display: "flex" }}>
                 <Box style={{ maxWidth: "500px", minWidth: "200px" }}>
                     <CardMedia
