@@ -11,7 +11,7 @@ import Colors from './Colors.js'
 import defaultImage from '../assets/images/defaultImage.png'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import Rating from '@mui/material/Rating'
-import Link from '@mui/material/Link';
+import Box from '@mui/material/Box';
 import { PostCartRefData } from "../context/Apis"
 import CartContext from '../context/CartContext'
 import AuthContext from '../context/AuthContext'
@@ -35,7 +35,7 @@ const SimpleCard = (props) => {
         try {
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             let ref = cart?.cartRef
-            const data = await PostCartRefData({ token: token, ref: ref, lineData: {lines:[lineData]} })
+            const data = await PostCartRefData({ token: token, ref: ref, lineData: { lines: [lineData] } })
             alert("product added to cart")
             props.getNumProduct()
         }
@@ -54,19 +54,61 @@ const SimpleCard = (props) => {
         }
         console.log("data have to post", dataIs)
         postCartLineData(dataIs)
-
     }
 
     return (
         <Card sx={{ maxWidth: "95%", marginLeft: "10px" }} >
-            <CardMedia
-                component="img"
-                height="200"
-                image={props.product.images?.length > 0 ? props.product.images[0]["image"] : defaultImage}
-                alt="green iguana"
-                sx={{ objectFit: "contain" }}
-            />
-            <CardContent style={{ display: "flex", paddingBottom: "0", marginBottom: "0" }}>
+            <Box style={{ maxWidth: "100%", minWidth: "100px", width: "100%" }}>
+                <CardMedia
+                    component="img"
+                    width="100%"
+                    style={{ maxHeight: "250px", minHeight: "250px" }}
+                    image={props.product.images?.length > 0 ? props.product.images[0]["image"] : defaultImage}
+                    alt="green iguana"
+                    sx={{ objectFit: "contain" }}
+                />
+            </Box>
+
+            <CardContent>
+                <Box sx={{ display: "flex" }}>
+                    <Button size="small" variant="contained" sx={buttonStyle}>
+                        Buy now<ShoppingCartIcon />
+                    </Button>
+                    <Button size="small" variant="outlined"
+                        value={props.product.id}
+                        onClick={handlePostCartData} marginLeft='20px' sx={{
+                            color: main_color, '&:hover': {
+                                color: main_color_dark
+                            },
+                            marginLeft: "30px",
+                        }}>
+                        Add to cart<ShoppingCartIcon />
+                    </Button>
+                </Box>
+
+                <Typography variant="h6" sx={{
+                    borderRadius: "5px",
+                    width: "fit-content",
+                    paddingTop: "10px",
+                    paddingBottom: "5px",
+                    color: "grey",
+                }}>
+                    Price:{props.product.price}<CurrencyRupeeIcon sx={{ fontSize: "14px" }} />
+                    <Rating name="read-only" value={props.product.rating ? props.product.rating : 0} readOnly />
+                </Typography>
+
+                <Typography style={{ padding: "0px" }}>
+                    {props.product.description?.length > 100 ? (
+                        props.product.description.slice(0, 100)
+                    )
+                        : props.product.description}
+                </Typography>
+
+                <Button size="small" variant="text" sx={{ marginLeft: 'auto', color: main_color_dark }}>View More <ArrowForwardIcon sx={{ fontSize: '15px' }} /></Button>
+            </CardContent>
+
+
+            {/* <CardContent style={{ display: "flex", paddingBottom: "0", marginBottom: "0" }}>
                 <Typography gutterBottom variant="h5" component="div" style={{ paddingBottom: "0", marginBottom: "0" }}>
                     {props.product.title.slice(0, 30)}
                 </Typography>
@@ -84,7 +126,7 @@ const SimpleCard = (props) => {
                 <Link href="#" underline="none" color="inherit">
                     <Button size="small" variant="text" sx={{ marginLeft: 'auto', color: main_color_dark }}>View details<ArrowForwardIcon sx={{ fontSize: '15px' }} /></Button>
                 </Link>
-            </CardActions>
+            </CardActions> */}
         </Card>
     );
 }

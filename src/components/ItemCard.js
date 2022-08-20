@@ -113,7 +113,12 @@ const ItemCard = (props) => {
                             </Button>
                             <Button size="small" variant="outlined"
                                 value={props.product.id}
-                                onClick={handlePostCartData} marginLeft='20px' sx={buttonStyle}>
+                                onClick={handlePostCartData} marginLeft='20px' sx={{
+                                    color: main_color, '&:hover': {
+                                        color: main_color_dark
+                                    },
+                                    marginLeft:"10px",
+                                }}>
                                 Add to cart<ShoppingCartIcon />
                             </Button>
                         </Box>
