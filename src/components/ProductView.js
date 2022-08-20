@@ -60,7 +60,7 @@ export default function ProductView(props) {
                     component="img"
                     sx={{maxHeight:"300px"}}
                     width="100%"
-                    image={props.productData?.images ? props.productData.images[0].image : defaultImage}
+                    image={props.productData?.images?.length > 0 ? props.productData.images[0].image : defaultImage}
                     alt="green iguana"
                 />
             </Box>
