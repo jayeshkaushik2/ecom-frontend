@@ -30,17 +30,24 @@ const OrderList = (props) => {
 
     React.useEffect(() => {
         getData()
-    // eslint-disable-next-line
+        // eslint-disable-next-line
     }, [])
 
     return (
         <Box>
-            <Box style={{ background: "white", padding: "10px", minHeight:"300px" }}>
-                <Typography variant="h5" style={{padding:"5px"}}>Shopping Cart</Typography>
-                <hr style={{marginBottom:"30px"}}/>
-                {cartLines?.length > 0? cartLines.map((line, index) => (
-                    <CartLine key={index} line={line} getUpdatedData={getData} getNumProduct={props.getNumProduct}/>
-                )) : <NoDataFound/>}
+            <Box style={{ background: "white", padding: "10px", minHeight: "300px" }}>
+                <Typography variant="h5" style={{ padding: "5px" }}>Shopping Cart</Typography>
+                <hr style={{ marginBottom: "30px" }} />
+                {cartLines?.length > 0 ? cartLines.map((line, index) => (
+                    <CartLine key={index} line={line} getUpdatedData={getData} getNumProduct={props.getNumProduct} />
+                )) :
+                    <Box sx={{
+                        maxWidth: "100%",
+                        maxHeight: "270px",
+                        overflow: "hidden"
+                    }}>
+                        <NoDataFound />
+                    </Box>}
             </Box>
         </Box>
     )

@@ -6,6 +6,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import NoDataFound from './NoDataFound';
 
 export const ProductList = (props) => {
   const [ProductsData, setProductsData] = React.useState(null)
@@ -54,12 +55,12 @@ export const ProductList = (props) => {
     zIndex: "1",
     height: "fit-content",
     overflow: "auto",
-    maxHeight:"580px",
+    maxHeight: "580px",
   }
 
   return (
     <Box sx={{ display: "flex", padding: "15px", background: "#f1f1f1", marginBottom: "-40px", minHeight: "300px", maxWidth: "100%" }}>
-      <Box  sx={filterStyle}>
+      <Box sx={filterStyle}>
         <Typography variant="h6">
           Filters
         </Typography>
@@ -122,10 +123,18 @@ export const ProductList = (props) => {
 
       </Box >
 
-      <Box sx={{ padding: "15px", marginLeft: "15px" }}>
-        {ProductsData?.map((data, index) => (
+      <Box sx={{ padding: "15px", marginLeft: "15px", maxWidth:"100%" }}>
+        {ProductsData?.length > 0 ? ProductsData.map((data, index) => (
           <ProductView key={index} productData={data} PriceRange={PriceRange} getNumProduct={props.getNumProduct} />
-        ))}
+        )) :
+          <Box sx={{
+            maxWidth: "100%",
+            maxHeight: "270px",
+            overflow: "hidden"
+          }}>
+            <NoDataFound />
+          </Box>
+        }
       </Box>
     </Box >
   )

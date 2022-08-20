@@ -16,13 +16,30 @@ import Colors from './Colors.js';
 import AuthContext from '../context/AuthContext';
 import Link from '@mui/material/Link';
 import { useNavigate } from 'react-router-dom';
+import { getUserData } from '../context/Apis'
 
 const ResponsiveAppBar = (props) => {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const main_color_dark = Colors("main_color_dark")
-    const preventDefault = (event) => event.preventDefault();
     let redirect = useNavigate()
     let userData = React.useContext(AuthContext)
+    let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
+    const [ProfileuserData, setProfileuserData] = React.useState(null)
+
+    const getData = async () => {
+        try {
+            let token = userData.AuthToken ? `Bearer ${userData.AuthToken.access}` : null
+            const data = await getUserData({ token: token })
+            setProfileuserData(data)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    React.useEffect(() => {
+        getData()
+    }, [])
 
     const handleSearch = (e) => {
         let query = e.target.value
@@ -46,7 +63,6 @@ const ResponsiveAppBar = (props) => {
         '&:hover': {
             backgroundColor: alpha(theme.palette.common.white, 0.25),
         },
-        // marginLeft: "auto",
         width: '100%',
         [theme.breakpoints.up('sm')]: {
             marginLeft: theme.spacing(1),
@@ -138,7 +154,9 @@ const ResponsiveAppBar = (props) => {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                <Avatar alt="Remy Sharp" 
+                                src={ProfileuserData?.profile_image ? `${API_ENDPOINT}${ProfileuserData.profile_image}` : "/static/images/avatar/1.jpg"} />
+                                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
                             </IconButton>
                         </Tooltip>
                         <Menu

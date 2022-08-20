@@ -42,7 +42,7 @@ const Profile = () => {
                     {userData ?
                         <img
                             width="100%"
-                            src={userData.banner_image ? `${API_ENDPOINT}${userData.banner_image}` : null}
+                            src={userData?.banner_image ? `${API_ENDPOINT}${userData.banner_image}` : null}
                             alt="homepage image"
                             height="246px"
                         />
