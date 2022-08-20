@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, } from '@mui/material';
+import { Grid, Link } from '@mui/material';
 import Colors from './Colors.js'
 import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box';
@@ -53,7 +53,7 @@ const PromotedItemsList = (props) => {
     return (
         <>
             {Product ?
-                <Box minHeight="300px" sx={{  paddingBottom: "10px", bottom: "0px" }}>
+                <Box minHeight="300px" sx={{ paddingBottom: "10px", bottom: "0px" }}>
                     <Box sx={{ marginTop: '20px', marginBottom: '20px', maxWidth: "100%", flexGrow: 1 }} id="promoted-items">
                         <Grid container id="grid-id" spacing={{ xs: 2, md: 3, marginLeft: "auto" }} columns={{ xs: 2, sm: 8, md: 12 }}>
                             {Product?.map((data, index) => (
@@ -63,7 +63,13 @@ const PromotedItemsList = (props) => {
                             ))}
                         </Grid>
                     </Box>
-                    {Product ? <Button variant="contained" sx={buttonStyle} style={{marginTop:"10px"}}>View ALL Products</Button> : ""}
+                    {Product ?
+                        <Link href="/all-products" sx={{ color: "white", textDecoration: "none" }}>
+                            <Button variant="contained" sx={buttonStyle} style={{ marginTop: "10px" }}>
+                                View ALL Products
+                            </Button>
+                        </Link>
+                        : ""}
                 </Box>
                 : <Default />}
         </>

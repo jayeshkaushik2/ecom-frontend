@@ -15,6 +15,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 
 export const Footer = (props) => {
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
+    // eslint-disable-next-line
     const main_color = Colors("main_color")
     const main_color_dark = Colors("main_color_dark")
 
@@ -28,9 +29,24 @@ export const Footer = (props) => {
 
     const containerStyle = { width: "fit-content", float: "left", margin: "10px", }
 
+    const footerStyle = {
+        color: "#fff",
+        height: "auto",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        backgroundColor: "#26c6da",
+        textAlign: "center",
+    }
+
+    const temp = {
+        backgroundColor: "#26c6da",
+        bottom: "0",
+        position: "absolute",
+        width: "100%"
+    }
 
     return (
-        <Box style={{ textAlign: "center", backgroundColor: "#26c6da", bottom: "0", }}>
+        <Box style={footerStyle}>
             <Box sx={{ marginTop: "40px", marginBottom: "30px", color: "white" }}>
                 <Container sx={containerStyle}>
                     <Typography varient="h6" sx={{ fontWeight: "bold" }}>

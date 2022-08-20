@@ -42,12 +42,13 @@ const CartLine = (props) => {
 
 
     return (
-        <Card sx={{ marginLeft: "auto", marginRight: "auto", maxWidth: "100", marginTop: "30px", boxShadow: "3px 3px 12px grey" }}>
+        <Card sx={{ marginLeft: "auto", marginRight: "auto", maxWidth: "99%", borderRadius:"15px", marginTop: "0px", boxShadow: "3px 3px 12px grey", marginBottom:"10px" }}>
             <Box style={{ display: "flex" }}>
-                <Box style={{ maxWidth: "500px", minWidth: "200px" }}>
+                <Box style={{ maxWidth: "300px", minWidth: "100px", width:"100%" }}>
                     <CardMedia
                         component="img"
-                        height="160"
+                        height="100%"
+                        width="100%"
                         image={props.line?.product.images ? `${API_ENDPOINT}${props.line.product.images[0].image}` : defaultImage}
                         alt="green iguana"
                     />
