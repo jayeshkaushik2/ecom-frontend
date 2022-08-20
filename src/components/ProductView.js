@@ -1,60 +1,107 @@
 import React from 'react'
-
-import samsung from '../assets/images/samsung.jpg'
 import Typography from '@mui/material/Typography';
-
-
+import { Box } from '@mui/material';
+import CardMedia from '@mui/material/CardMedia';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import defaultImage from '../assets/images/defaultImage.png'
-// import ProductView from "..components/ProductView";
+import Colors from './Colors.js'
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import { PostCartRefData } from '../context/Apis'
+import CartContext from '../context/CartContext'
+import AuthContext from '../context/AuthContext'
 
 
-// const ProductView = () => {
-export default function ProductView() {
+export default function ProductView(props) {
+    let cart = React.useContext(CartContext)
+    let user = React.useContext(AuthContext)
+
+    const main_color = Colors("main_color")
+    const main_color_dark = Colors("main_color_dark")
+    const buttonStyle = {
+        backgroundColor: main_color,
+        '&:hover': {
+            backgroundColor: main_color_dark
+        }
+    }
+
+    const postCartLineData = async (lineData) => {
+        try {
+            let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
+            let ref = cart?.cartRef
+            const data = await PostCartRefData({ token: token, ref: ref, lineData: { lines: [lineData] } })
+            alert("product added to cart")
+            props.getNumProduct()
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handlePostCartData = (e) => {
+        // get ref, cart_id,
+        let dataIs = {
+            cart: cart?.cart_id,
+            product: e.target.value,
+            ref: cart?.cartRef,
+        }
+        console.log("data have to post", dataIs)
+        postCartLineData(dataIs)
+
+    }
+
     return (
+        // have to add maxHeight:"200px" in card
         <Card sx={{
-            display: "flex",
-            backgroundColor: "#bababa",
-            // fontSize:"14px",
+            marginLeft: "auto", marginRight: "auto", maxWidth: "99%", borderRadius: "15px", marginTop: "0px", boxShadow: "3px 3px 12px grey", marginBottom: "10px", display: "flex",
         }}>
-            <img style={{
-                marginTop: "auto",
-                marginBottom: "auto",
-                borderRadius: "13px",
-            }}
-                src={defaultImage}
-                alt="samsung"
-                loading="lazy"
-            />
-            <CardContent>
+            <Box style={{ maxWidth: "300px", minWidth: "100px", width: "100%" }}>
+                <CardMedia
+                    component="img"
+                    height="100%"
+                    width="100%"
+                    image={props.productData?.images ? props.productData.images[0].image : defaultImage}
+                    alt="green iguana"
+                />
+            </Box>
 
-                <Typography className='text' gutterBottom variant="h5" component="div" style={{}}>
-                    Samsung Galaxy M33 5G (Deep Ocean Blue, 6GB, 128GB Storage) | 5nm Processor | 6000mAh Battery | Voice Focus | Upto 12GB RAM with RAM Plus|Travel Adapter to be Purchased Separately
-                   
+            <CardContent>
+                <Typography className='text' gutterBottom variant="h6" component="div">
+                    {props.productData?.title}
                 </Typography>
-                <Typography variant="body1"
-                    padding="5px" marginBottom="10px">
-                    {/* variant="body1" */}
+                <Typography variant="body2"
+                    padding="5px">
                     Limited time deal
                 </Typography>
 
-                <Typography variant="" color="white" backgroundColor="red" borderRadius="5px"
-                    padding="5px" fontSize="17px" >
-                    <sup>₹</sup>17,999
-                </Typography>
+                <Box sx={{ display: "flex", marginLeft:"5px"}}>
+                    {props.productData?.discount_pct && props.productData?.discount_pct !== 0 ?
+                        <Typography color="white" backgroundColor="red" borderRadius="5px"
+                            padding="5px" fontSize="17px" lineHeight="0.5"  marginRight="10px">
+                            <s>{props.productData?.price} <CurrencyRupeeIcon sx={{ fontSize: "15px" }} /></s>
+                        </Typography>
+                        : null}
 
-                <Typography variant="" color="" padding="5px" >
-                    ₹<sub>15000</sub>
-                </Typography>
+                    <Typography >
+                        <Button size="small" variant="outlined" style={{ color: "green", marginRight: "10px", fontWeight: "bold" }}>
+                            Price: {props.productData?.discount_pct && props.productData?.discount_pct !== 0 ?
+                                (props.productData?.price - (props.productData?.price * props.productData?.discount_pct) / 100)
+                                : props.productData?.price} <CurrencyRupeeIcon sx={{ fontSize: "15px" }} />
 
-                <Typography variant="" color="" padding="5px" >
-                    (28% off)
-                </Typography>
+                            {/* {(props.productData?.price * props.productData?.discount_pct) / 100} <CurrencyRupeeIcon sx={{ fontSize: "15px" }} /> */}
+                        </Button>
+                    </Typography>
 
-                <Typography variant="body2" color="" padding="5px" marginBottom="10px">
+                    {props.productData?.discount_pct && props.productData?.discount_pct !== 0 ?
+                        <Typography fontSize="15px" margin="-4px">
+                            ({props.productData?.discount_pct * 100}% off)
+                        </Typography>
+                        : null}
+                </Box>
+
+                <Typography variant="body2" padding="5px">
                     Flat INR 2000 Off on ICICI BankCards
                 </Typography>
 
@@ -69,15 +116,13 @@ export default function ProductView() {
                     FREE Delivery by Amazon
                 </Typography>
 
-                <CardActions>
-                    <Button size="small">Buy Now</Button>
-                    <Button size="small">Add to Cart</Button>
+                <CardActions padding="4px" margin="0px">
+                    <Button size="small" variant="contained" sx={buttonStyle}>Buy Now</Button>
+                    <Button size="small" variant="contained" value={props.productData?.id} sx={buttonStyle} onClick={handlePostCartData}>Add to Cart</Button>
                 </CardActions>
-                
-
             </CardContent>
 
-        </Card>
+        </Card >
     )
 }
 

@@ -108,16 +108,16 @@ const ItemCard = (props) => {
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
                         <Box sx={{ display: "flex" }}>
-                            <Button size="small" variant="contained" sx={buttonStyle}>Buy now<ShoppingCartIcon /></Button>
+                            <Button size="small" variant="contained" sx={buttonStyle}>
+                                Buy now<ShoppingCartIcon />
+                            </Button>
                             <Button size="small" variant="outlined"
                                 value={props.product.id}
-                                onClick={handlePostCartData} sx={{
-                                    color: main_color, '&:hover': {
-                                        color: main_color_dark
-                                    },
-                                    marginLeft: '20px'
-                                }}>Add to cart<ShoppingCartIcon /></Button>
+                                onClick={handlePostCartData} marginLeft='20px' sx={buttonStyle}>
+                                Add to cart<ShoppingCartIcon />
+                            </Button>
                         </Box>
+
                         <Typography variant="h6" sx={{
                             borderRadius: "5px",
                             width: "fit-content",

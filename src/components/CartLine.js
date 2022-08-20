@@ -23,12 +23,12 @@ const CartLine = (props) => {
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             let ref = cart?.cartRef
             console.log("::::", { token: token, ref: ref, line_ids: ids })
-            DeleteCartLine({ token: token, ref: ref, line_ids: {line_ids:ids} })
+            DeleteCartLine({ token: token, ref: ref, line_ids: { line_ids: ids } })
             alert("deleted successfully, please refresh the page")
             props.getUpdatedData()
             props.getNumProduct()
         }
-        catch(error) {
+        catch (error) {
             console.log(error)
         }
     }
@@ -42,13 +42,13 @@ const CartLine = (props) => {
 
 
     return (
-        <Card sx={{ marginLeft: "auto", marginRight: "auto", maxWidth: "99%", borderRadius:"15px", marginTop: "0px", boxShadow: "3px 3px 12px grey", marginBottom:"10px" }}>
+        <Card sx={{ marginLeft: "auto", marginRight: "auto", maxWidth: "99%", borderRadius: "15px", marginTop: "0px", boxShadow: "3px 3px 12px grey", marginBottom: "10px" }}>
             <Box style={{ display: "flex" }}>
-                <Box style={{ maxWidth: "300px", minWidth: "100px", width:"100%" }}>
+                <Box style={{ maxWidth: "300px", minWidth: "100px", width: "100%" }}>
                     <CardMedia
                         component="img"
-                        height="100%"
                         width="100%"
+                        style={{ maxHeight: "250px", minHeight: "250px" }}
                         image={props.line?.product.images ? `${API_ENDPOINT}${props.line.product.images[0].image}` : defaultImage}
                         alt="green iguana"
                     />
@@ -65,7 +65,10 @@ const CartLine = (props) => {
                             <Button size="small" variant="outlined" style={{ marginRight: "10px" }}>
                                 Qty: {props.line?.quantity ? props.line.quantity : 1}
                             </Button>
-                            Price: {props.line?.price ? props.line.price : 0}<CurrencyRupeeIcon style={{ fontSize: "15px", marginTop: "10px" }} />
+
+                            <Button size="small" variant="outlined" style={{ color: "green", marginRight: "10px", }}>
+                                Price: {props.line?.price ? props.line.price : 0}<CurrencyRupeeIcon style={{ fontSize: "15px" }} />
+                            </Button>
                         </Typography>
                         <Button size="small" variant="text" color="error" value={props.line?.id} onClick={(e) => handleLineDelete(e)} style={{ float: "right", marginBottom: "10px" }}>Delete <DeleteIcon /></Button>
                     </CardContent>

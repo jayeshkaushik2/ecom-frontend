@@ -11,6 +11,7 @@ import OrderList from './OrderList'
 import CartContext from '../context/CartContext'
 import AuthContext from '../context/AuthContext'
 import Profile from './Profile'
+import { ProductList } from './ProductList'
 
 export const Homepage = (props) => {
     let cart = React.useContext(CartContext)
@@ -58,6 +59,7 @@ export const Homepage = (props) => {
     return (
         <>
             <Navbar />
+
             <Header num_product={NumProduct} />
 
             {Page === "" ? <Default /> : null}
@@ -65,6 +67,8 @@ export const Homepage = (props) => {
             {Page === "home" ? <Home getNumProduct={getNumProduct} /> : null}
 
             {Page === "products" ? <ItemsList ProductData={null} getNumProduct={getNumProduct} /> : null}
+
+            {Page === "all_products" ? <ProductList ProductData={null} getNumProduct={getNumProduct} /> : null}
 
             {Page === "subcategory" ? <CategoryList ProductData={null} getNumProduct={getNumProduct} /> : null}
 

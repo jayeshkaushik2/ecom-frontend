@@ -35,6 +35,19 @@ export async function getSubCategory() {
     }
 }
 
+export async function getProductData() {
+    let response = await fetch(`${API_ENDPOINT}/product/`, {
+        method: "GET",
+    })
+    let data = await response.json()
+    if (response.ok) {
+        return data
+    }
+    else {
+        throw response;
+    }
+}
+
 export async function getProductData_WithFilter({ search_with: search_with, query: query }) {
     let response = await fetch(`${API_ENDPOINT}/product/?${search_with}=${query}`, {
         method: "GET",
