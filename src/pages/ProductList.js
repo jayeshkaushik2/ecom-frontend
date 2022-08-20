@@ -1,13 +1,11 @@
 import React from 'react'
 import ProductView from '../components/ProductView'
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { getProductData } from '../context/Apis'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 
 export const ProductList = (props) => {
   const [ProductsData, setProductsData] = React.useState(null)
@@ -55,7 +53,7 @@ export const ProductList = (props) => {
   }
 
   return (
-    <Box maxWidth="100%" sx={{ display: "flex", padding: "15px", background:"#f1f1f1", marginBottom:"-40px", }}>
+    <Box maxWidth="100%" sx={{ display: "flex", padding: "15px", background:"#f1f1f1", marginBottom:"-40px", minHeight:"300px" }}>
       <Box maxHeight="580px" sx={filterStyle}>
         <Typography variant="h6">
           Filters

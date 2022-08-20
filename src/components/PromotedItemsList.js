@@ -53,7 +53,7 @@ const PromotedItemsList = (props) => {
     return (
         <>
             {Product ?
-                <Box minHeight="300px" sx={{ paddingBottom: "10px", bottom: "0px", background:"#f1f1f1", marginBottom:"-40px", }}>
+                <Box minHeight="300px" sx={{ paddingBottom: "10px", bottom: "0px", background:"#f1f1f1", marginBottom:"-40px", minHeight:"300px"}}>
                     <Box sx={{ marginTop: '20px', marginBottom: '20px', maxWidth: "100%", flexGrow: 1 }} id="promoted-items">
                         <Grid container id="grid-id" spacing={{ xs: 2, md: 3, marginLeft: "auto" }} columns={{ xs: 2, sm: 8, md: 12 }}>
                             {Product?.map((data, index) => (

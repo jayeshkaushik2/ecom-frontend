@@ -35,7 +35,7 @@ const OrderList = (props) => {
 
     return (
         <Box>
-            <Box style={{ background: "white", padding: "10px" }}>
+            <Box style={{ background: "white", padding: "10px", minHeight:"300px" }}>
                 <Typography variant="h5" style={{padding:"5px"}}>Shopping Cart</Typography>
                 <hr style={{marginBottom:"30px"}}/>
                 {cartLines?.length > 0? cartLines.map((line, index) => (
