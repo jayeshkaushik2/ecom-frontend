@@ -22,7 +22,7 @@ function App() {
 
             <Route path="/category" element={<Homepage page="subcategory" />} />
 
-            <Route path="/products" element={<Homepage page="products" />} />
+            <Route path="/products" element={<Homepage page="searched_products" />} />
 
             <Route path="/all-products" element={<Homepage page="all_products" />} />
 

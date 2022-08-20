@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom'
 import Box from '@mui/material/Box';
 import { getProductData_WithFilter } from '../context/Apis'
 import Default from '../pages/Default'
-import ItemCard from './ItemCard'
 
 
 export const CategoryList = (props) => {
@@ -31,12 +30,12 @@ export const CategoryList = (props) => {
     return (
         <>
             {ProductData ?
-                <Box minHeight="300px" sx={{  paddingBottom: "10px", bottom: "0px" }}>
+                <Box minHeight="300px" sx={{  paddingBottom: "10px", bottom: "0px", background:"#f1f1f1", marginBottom:"-40px", }}>
                     <Box sx={{ marginTop: '20px', marginBottom: '20px' }}>
                         <Grid container spacing={{ xs: 2, md: 3, marginLeft: "auto" }} columns={{ xs: 2, sm: 8, md: 12 }}>
                             {ProductData?.map((data, index) => (
                                 <Grid item xs={2} sm={4} md={4} key={index}>
-                                    <ItemCard product={data} getNumProduct={props.getNumProduct} />
+                                    <SimpleCard product={data} getNumProduct={props.getNumProduct} />
                                 </Grid>
                             ))}
                         </Grid>

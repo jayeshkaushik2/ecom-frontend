@@ -60,7 +60,7 @@ export default function ProductView(props) {
             <Box style={{ maxWidth: "300px", minWidth: "100px", width: "100%" }}>
                 <CardMedia
                     component="img"
-                    height="100%"
+                    maxHeight="300px"
                     width="100%"
                     image={props.productData?.images ? props.productData.images[0].image : defaultImage}
                     alt="green iguana"

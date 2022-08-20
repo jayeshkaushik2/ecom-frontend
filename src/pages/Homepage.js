@@ -66,9 +66,9 @@ export const Homepage = (props) => {
 
             {Page === "home" ? <Home getNumProduct={getNumProduct} /> : null}
 
-            {Page === "products" ? <ItemsList ProductData={null} getNumProduct={getNumProduct} /> : null}
+            {Page === "searched_products" ? <ProductList ProductData={null} getNumProduct={getNumProduct} /> : null}
 
-            {Page === "all_products" ? <ProductList ProductData={null} getNumProduct={getNumProduct} /> : null}
+            {Page === "all_products" ? <ItemsList ProductData={null} getNumProduct={getNumProduct} /> : null}
 
             {Page === "subcategory" ? <CategoryList ProductData={null} getNumProduct={getNumProduct} /> : null}
 
