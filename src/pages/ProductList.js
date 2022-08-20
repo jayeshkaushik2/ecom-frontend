@@ -123,7 +123,7 @@ export const ProductList = (props) => {
 
       </Box >
 
-      <Box sx={{ padding: "15px", marginLeft: "15px", maxWidth:"100%" }}>
+      <Box sx={{ padding: "15px", marginLeft: "15px", width:"100%" }}>
         {ProductsData?.length > 0 ? ProductsData.map((data, index) => (
           <ProductView key={index} productData={data} PriceRange={PriceRange} getNumProduct={props.getNumProduct} />
         )) :
