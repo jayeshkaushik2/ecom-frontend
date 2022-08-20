@@ -76,7 +76,7 @@ const SimpleCard = (props) => {
                     </Button>
                     <Button size="small" variant="outlined"
                         value={props.product.id}
-                        onClick={handlePostCartData} marginLeft='20px' sx={{
+                        onClick={handlePostCartData} sx={{
                             color: main_color, '&:hover': {
                                 color: main_color_dark
                             },

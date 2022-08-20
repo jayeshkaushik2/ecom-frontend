@@ -15,19 +15,19 @@ import InputBase from '@mui/material/InputBase';
 import Colors from './Colors.js';
 import AuthContext from '../context/AuthContext';
 import Link from '@mui/material/Link';
+import { useNavigate } from 'react-router-dom';
 
-
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = (props) => {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const main_color_dark = Colors("main_color_dark")
     const preventDefault = (event) => event.preventDefault();
-
+    let redirect = useNavigate()
     let userData = React.useContext(AuthContext)
 
     const handleSearch = (e) => {
         let query = e.target.value
-        console.log("query is", query)
-        
+        props.setQuery(query)
+        redirect("/products")
     }
 
 

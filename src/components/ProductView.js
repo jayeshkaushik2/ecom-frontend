@@ -41,7 +41,6 @@ export default function ProductView(props) {
     }
 
     const handlePostCartData = (e) => {
-        // get ref, cart_id,
         let dataIs = {
             cart: cart?.cart_id,
             product: e.target.value,
@@ -53,14 +52,13 @@ export default function ProductView(props) {
     }
 
     return (
-        // have to add maxHeight:"200px" in card
         <Card sx={{
             marginLeft: "auto", marginRight: "auto", maxWidth: "99%", borderRadius: "15px", marginTop: "0px", boxShadow: "3px 3px 12px grey", marginBottom: "10px", display: "flex",
         }}>
             <Box style={{ maxWidth: "300px", minWidth: "100px", width: "100%" }}>
                 <CardMedia
                     component="img"
-                    maxHeight="300px"
+                    sx={{maxHeight:"300px"}}
                     width="100%"
                     image={props.productData?.images ? props.productData.images[0].image : defaultImage}
                     alt="green iguana"

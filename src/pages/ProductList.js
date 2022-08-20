@@ -1,7 +1,7 @@
 import React from 'react'
 import ProductView from '../components/ProductView'
 import { Box, Typography } from '@mui/material';
-import { getProductData } from '../context/Apis'
+import { getProductData_WithFilter } from '../context/Apis'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -12,6 +12,8 @@ export const ProductList = (props) => {
   const [PriceRange, setPriceRange] = React.useState('');
   const [Rating, setRating] = React.useState('');
   const [Discount, setDiscount] = React.useState('');
+  const [Prev_query, setPrev_query] = React.useState('');
+
 
   const handlePriceFilterChange = (event) => {
     setPriceRange(event.target.value);
@@ -27,16 +29,18 @@ export const ProductList = (props) => {
 
   const getData = async () => {
     try {
-      const data = await getProductData()
+      const data = await getProductData_WithFilter({ search_with: "sub_category__name", query: props.Query })
       setProductsData(data["results"])
     }
     catch (error) {
       console.log(error)
     }
   }
-  React.useEffect(() => {
+
+  if (props.Query !== Prev_query) {
+    setPrev_query(props.Query)
     getData()
-  }, [])
+  }
 
   const filterStyle = {
     minWidth: "20%",
@@ -50,11 +54,12 @@ export const ProductList = (props) => {
     zIndex: "1",
     height: "fit-content",
     overflow: "auto",
+    maxHeight:"580px",
   }
 
   return (
-    <Box maxWidth="100%" sx={{ display: "flex", padding: "15px", background:"#f1f1f1", marginBottom:"-40px", minHeight:"300px" }}>
-      <Box maxHeight="580px" sx={filterStyle}>
+    <Box sx={{ display: "flex", padding: "15px", background: "#f1f1f1", marginBottom: "-40px", minHeight: "300px", maxWidth: "100%" }}>
+      <Box  sx={filterStyle}>
         <Typography variant="h6">
           Filters
         </Typography>

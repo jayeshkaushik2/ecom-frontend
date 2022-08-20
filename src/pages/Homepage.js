@@ -19,6 +19,8 @@ export const Homepage = (props) => {
     const [Page, setPage] = useState("")
     const [FooterData, setFooterData] = useState(null)
     const [NumProduct, setNumProduct] = React.useState(0);
+    const [Query, setQuery] = React.useState("");
+
 
     const getNumProduct = async () => {
         try {
@@ -36,19 +38,13 @@ export const Homepage = (props) => {
         try {
             const data = await getFooter()
             setFooterData(data)
-            let interval = setInterval(() => {
-                if (props.page !== undefined && props.page !== Page) {
-                    setPage(props.page)
-                }
-            }, 1000)
-            return () => {
-                clearInterval(interval)
+            if (props.page !== undefined && props.page !== Page) {
+                setPage(props.page)
             }
         }
         catch (error) {
             console.log(error)
         }
-
     }
 
     useEffect(() => {
@@ -58,7 +54,7 @@ export const Homepage = (props) => {
 
     return (
         <>
-            <Navbar />
+            <Navbar setQuery={setQuery} setPage={setPage}/>
 
             <Header num_product={NumProduct} />
 
@@ -66,7 +62,7 @@ export const Homepage = (props) => {
 
             {Page === "home" ? <Home getNumProduct={getNumProduct} /> : null}
 
-            {Page === "searched_products" ? <ProductList ProductData={null} getNumProduct={getNumProduct} /> : null}
+            {Page === "searched_products" ? <ProductList ProductData={null} Query={Query} getNumProduct={getNumProduct} /> : null}
 
             {Page === "all_products" ? <ItemsList ProductData={null} getNumProduct={getNumProduct} /> : null}
 
