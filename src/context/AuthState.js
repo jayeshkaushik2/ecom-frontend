@@ -11,7 +11,7 @@ const AuthState = ({ children }) => {
 
     const [Login, setLogin] = useState(localStorage.getItem("AuthToken") ? "Logout" : "Login")
 
-    const history = useNavigate()
+    const redirect = useNavigate()
 
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
 
@@ -28,7 +28,7 @@ const AuthState = ({ children }) => {
             setUser(jwt_decode(data.access))
             localStorage.setItem("AuthToken", JSON.stringify(data))
             localStorage.removeItem("Cart")
-            history("/")
+            redirect("/")
         }
         else {
             alert("unable to login")
@@ -61,6 +61,7 @@ const AuthState = ({ children }) => {
         setLogin("Login")
         localStorage.removeItem("AuthToken")
         localStorage.removeItem("Cart")
+        redirect("/")
     }
 
     let userData = {

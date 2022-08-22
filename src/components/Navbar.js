@@ -56,6 +56,10 @@ const ResponsiveAppBar = (props) => {
         setAnchorElUser(null);
     };
 
+    const handleLogout = () => {
+        userData.logoutUser()
+    }
+
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -192,8 +196,8 @@ const ResponsiveAppBar = (props) => {
                                 :
 
                                 <MenuItem onClick={() => handleCloseUserMenu()}>
-                                    <Link href="/" underline="none" color="inherit">
-                                        <Typography textAlign="center" onClick={userData.logoutUser}>Logout</Typography>
+                                    <Link onClick={handleLogout} underline="none" color="inherit">
+                                        <Typography textAlign="center">Logout</Typography>
                                     </Link>
                                 </MenuItem>}
                         </Menu>
