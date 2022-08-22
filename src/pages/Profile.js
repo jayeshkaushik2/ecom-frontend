@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import profile_d from '../assets/images/profile_d.jpg'
+import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
 import camera_icon from '../assets/images/camera_icon.png'
 import { getUserData } from '../context/Apis'
@@ -13,11 +14,17 @@ const Profile = () => {
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
     let user = React.useContext(AuthContext)
     const [userData, setUserData] = React.useState(null)
+    const [ProfileImage, setProfileImage] = React.useState(null)
+
+    const handleBtnClick = () => {
+        document.getElementById("imageUpload").click()
+    }
+
+    console.log("profile image", ProfileImage)
 
     const getData = async () => {
         try {
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
-            console.log(token, user.Login, user.AuthToken)
             if (token !== null && user.Login !== "Login" && user.AuthToken !== null) {
                 const data = await getUserData({ token: token })
                 setUserData(data)
@@ -67,9 +74,12 @@ const Profile = () => {
                             loading="lazy" />
                         <Button type="submit"
                             variant="text"
+                            onClick={handleBtnClick}
                             style={{ marginTop: "80px", borderRadius: "15px" }}>
                             <img style={{ width: "33px" }} src={camera_icon} alt="" />
                         </Button>
+                        <Input type="file" id="imageUpload" accept="image/*" style={{ display: "none" }} onChange={(e) => setProfileImage(e.target.value)}></Input>
+
                     </Avatar>
                 </Stack>
                 <Typography component="h1" variant="h5" style={{ textAlign: "center", marginTop: "-50px", marginLeft: "100px" }}>
