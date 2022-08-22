@@ -31,8 +31,8 @@ export const Signup = (props) => {
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             const resp_data = await PostUserData({ token: token, userData: data })
             alert("user created")
-            //TODO have to add a opt authentication system for new users
-            redirect("/authentication")
+            props.setAuthPage("signin")
+            // redirect("/authentication")
         }
         catch (error) {
             console.log(error)
