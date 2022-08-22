@@ -16,7 +16,7 @@ import AuthContext from '../context/AuthContext'
 import { useNavigate } from "react-router-dom";
 
 
-export const Signup = () => {
+export const Signup = (props) => {
     let redirect = useNavigate();
     let user = React.useContext(AuthContext);
     const [FirstName, setFirstName] = React.useState(null);
@@ -32,7 +32,7 @@ export const Signup = () => {
             const resp_data = await PostUserData({ token: token, userData: data })
             alert("user created")
             //TODO have to add a opt authentication system for new users
-            redirect("/signin")
+            redirect("/authentication")
         }
         catch (error) {
             console.log(error)
@@ -59,7 +59,7 @@ export const Signup = () => {
 
     return (
         <>
-            <Container maxWidth="xl" sx={{ backgroundImage: `url(${signin_img})`, height: "100%", backgroundSize: "100% 100%" }}>
+            <Container maxWidth="xl" sx={{ height: "100%", backgroundSize: "100% 100%", maxWidth: "100%", paddingTop: "20px", paddingBottom: "20px" }}>
 
                 <Box
                     component="form"
@@ -80,7 +80,7 @@ export const Signup = () => {
                         Sign up
                     </Typography>
 
-                    <Box component="form" noValidate sx={{ marginTop: 1, maxWidth: "360px", backgroundColor: "white", padding: "15px", borderRadius: "10px", marginBottom: "15px", }}>
+                    <Box component="form" noValidate sx={{ marginTop: 1, maxWidth: "360px", backgroundColor: "#e3e3e3", padding: "15px", borderRadius: "10px", marginBottom: "15px", }}>
 
                         <TextField
                             margin="normal"
@@ -159,9 +159,9 @@ export const Signup = () => {
                         </Button>
                         <Grid container>
                             <Grid item>
-                                <Link href="/signin" variant="body2">
+                                <Button onClick={() => { props.setAuthPage("signin") }} variant="outlined">
                                     {"Sign In?"}
-                                </Link>
+                                </Button>
                             </Grid>
                         </Grid>
                     </Box>

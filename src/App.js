@@ -10,6 +10,7 @@ import AuthState from './context/AuthState'
 import CartState from './context/CartState'
 import NoDataFound from './pages/NoDataFound';
 import Profile from './pages/Profile';
+import Authentication from './pages/Authentication'
 
 function App() {
 
@@ -32,7 +33,7 @@ function App() {
 
             <Route path="/signup" element={<Signup />} />
 
-            <Route path="/signin" element={<Signin />} />
+            <Route path="/authentication" element={<Authentication />} />
 
             <Route path="/product-list" element={<ProductList />} />
 
