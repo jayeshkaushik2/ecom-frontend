@@ -17,9 +17,11 @@ const Profile = () => {
     const getData = async () => {
         try {
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
-            const data = await getUserData({ token: token })
-            console.log("profile data", data)
-            setUserData(data)
+            console.log(token, user.Login, user.AuthToken)
+            if (token !== null && user.Login !== "Login" && user.AuthToken !== null) {
+                const data = await getUserData({ token: token })
+                setUserData(data)
+            }
         }
         catch (error) {
             console.log(error)

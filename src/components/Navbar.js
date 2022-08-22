@@ -29,8 +29,10 @@ const ResponsiveAppBar = (props) => {
     const getData = async () => {
         try {
             let token = userData.AuthToken ? `Bearer ${userData.AuthToken.access}` : null
-            const data = await getUserData({ token: token })
-            setProfileuserData(data)
+            if (token !== null && userData.Login !== "Login" && userData.AuthToken !== null) {
+                const data = await getUserData({ token: token })
+                setProfileuserData(data)
+            }
         }
         catch (error) {
             console.log(error)
@@ -158,8 +160,8 @@ const ResponsiveAppBar = (props) => {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" 
-                                src={ProfileuserData?.profile_image ? `${API_ENDPOINT}${ProfileuserData.profile_image}` : "/static/images/avatar/1.jpg"} />
+                                <Avatar alt="Remy Sharp"
+                                    src={ProfileuserData?.profile_image ? `${API_ENDPOINT}${ProfileuserData.profile_image}` : "/static/images/avatar/1.jpg"} />
                                 {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
                             </IconButton>
                         </Tooltip>
