@@ -15,7 +15,7 @@ const HomeHeader = (props) => {
     const main_color_dark = Colors("main_color_dark")
 
     const [HomepageData, setHomepageData] = React.useState(null)
-
+    const [CurrentImageIndex, setCurrentImageIndex] = React.useState(0)
     const getData = async () => {
         try {
             const data = await getHomepageData()
@@ -26,9 +26,23 @@ const HomeHeader = (props) => {
         }
     }
 
+
+
     React.useEffect(() => {
         getData()
     }, [])
+
+    const handleRightImageClick = (e) => {
+        if (CurrentImageIndex + 1 < HomepageData?.images?.length) {
+            setCurrentImageIndex(CurrentImageIndex-1)
+         }
+    }
+
+    const handleLeftImageClick = (e) => {
+        if (CurrentImageIndex - 1 > -1) {
+            setCurrentImageIndex(CurrentImageIndex-1)
+         }
+    }
 
     const LeftbuttonStyle = {
         position: 'absolute',
@@ -62,30 +76,29 @@ const HomeHeader = (props) => {
                 </Typography>
             </Box>
 
-            {HomepageData ? HomepageData["images"].slice(0, 1).map((data) => (
-                <Box key={data} height="inherit">
+            {HomepageData !== null && HomepageData["images"]?.length > 0 ?
+                <Box height="inherit">
                     <img
                         width="100%"
-                        src={data.image ? `${API_ENDPOINT}${data.image}` : defaultImage}
+                        src={HomepageData["images"]?.length >= CurrentImageIndex ? `${API_ENDPOINT}${HomepageData["images"][CurrentImageIndex]?.image}` : defaultImage}
                         alt="homepage image"
                         height="350px"
                     />
                     <Button
                         type="btn"
                         variant="contained"
-                        // onClick={(e) => handleLoginUser(e)}
+                        onClick={(e) => handleLeftImageClick(e)}
                         sx={LeftbuttonStyle}>
                         <ArrowCircleLeftIcon />
                     </Button>
                     <Button
                         type="btn"
                         variant="contained"
-                        // onClick={(e) => handleLoginUser(e)}
+                        onClick={(e) => handleRightImageClick(e)}
                         sx={RightbuttonStyle}>
                         <ArrowCircleRightIcon />
                     </Button>
                 </Box>
-            ))
                 : null}
 
         </Box >
