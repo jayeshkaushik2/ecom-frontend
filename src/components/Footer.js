@@ -36,6 +36,7 @@ export const Footer = (props) => {
         justifyContent: "space-between",
         backgroundColor: "#26c6da",
         textAlign: "center",
+        minHeight: "200px",
     }
 
     const temp = {
@@ -55,7 +56,7 @@ export const Footer = (props) => {
                     <Typography>
                         <img
                             width="45px"
-                            src={props.FooterData ? `${API_ENDPOINT}${props.FooterData.logo}` : defaultImage}
+                            src={props.FooterData !== null && props.FooterData?.logo !== null ? `${API_ENDPOINT}${props.FooterData.logo}` : defaultImage}
                             alt="Logo"
                         />
                     </Typography>
@@ -63,9 +64,11 @@ export const Footer = (props) => {
                 </Container>
 
                 <Container sx={containerStyle}>
-                    <Typography varient="h6" sx={{ fontWeight: "bold" }}>
-                        Contact us
-                    </Typography>
+                    {props.FooterData !== null && props.FooterData?.contact !== null ?
+                        <Typography varient="h6" sx={{ fontWeight: "bold" }}>
+                            Contact us
+                        </Typography>
+                        : ""}
 
                     <Typography>
                         {props.FooterData ? props.FooterData.email : ""}
@@ -106,36 +109,30 @@ export const Footer = (props) => {
 
             </Box>
 
-            <hr style={{ color: "white", width: "90%" }} />
-
             <Box>
-                {props.FooterData ?
+                {props.FooterData !== null && props.FooterData?.twitter_link !== null ?
                     <Link target="_blank" href={props.FooterData.twitter_link} >
                         <TwitterIcon style={{ color: "white", marginRight: "25px", marginTop: "10px" }} />
                     </Link>
                     : ""}
 
-                {props.FooterData ?
+                {props.FooterData !== null && props.FooterData?.facebook_link !== null ?
                     <Link target="_blank" href={props.FooterData.facebook_link} >
                         <FacebookIcon style={{ color: "white", marginRight: "25px", marginTop: "10px" }} />
                     </Link>
                     : ""}
 
-                {props.FooterData ?
+                {props.FooterData !== null && props.FooterData?.instagram_link !== null ?
                     <Link target="_blank" href={props.FooterData.instagram_link} >
                         <InstagramIcon style={{ color: "white", marginRight: "25px", marginTop: "10px" }} />
                     </Link>
                     : ""}
 
-                {props.FooterData ?
+                {props.FooterData !== null && props.FooterData?.youtube_link !== null ?
                     <Link target="_blank" href={props.FooterData.youtube_link} >
                         <YouTubeIcon style={{ color: "white", marginTop: "10px" }} />
                     </Link>
                     : ""}
-
-                <Box style={{ display: "flex", justifyContent: "center", height: "60px", marginTop: " 13px", color: "white", fontSize: "larger", }}>
-                    Copyright <CopyrightIcon />  All Rights Reserved
-                </Box>
             </Box>
         </Box >
     )
