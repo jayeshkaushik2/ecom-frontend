@@ -26,22 +26,32 @@ const HomeHeader = (props) => {
         }
     }
 
-
-
     React.useEffect(() => {
         getData()
+        let interval = setInterval(() => {
+            document.getElementById("right-btn").click()
+        }, 5 * 1000)
+        return () => {
+            clearInterval(interval)
+        }
     }, [])
 
     const handleRightImageClick = (e) => {
+        if (CurrentImageIndex + 1 >= HomepageData?.images?.length) {
+            setCurrentImageIndex(0)
+        }
         if (CurrentImageIndex + 1 < HomepageData?.images?.length) {
-            setCurrentImageIndex(CurrentImageIndex-1)
-         }
+            setCurrentImageIndex(CurrentImageIndex + 1)
+        }
     }
 
     const handleLeftImageClick = (e) => {
+        if (CurrentImageIndex - 1 <= -1) {
+            setCurrentImageIndex(HomepageData?.images?.length - 1)
+        }
         if (CurrentImageIndex - 1 > -1) {
-            setCurrentImageIndex(CurrentImageIndex-1)
-         }
+            setCurrentImageIndex(CurrentImageIndex - 1)
+        }
     }
 
     const LeftbuttonStyle = {
@@ -65,7 +75,7 @@ const HomeHeader = (props) => {
     }
 
     return (
-        <Box id="promoted-subcategory" minHeight="300px" sx={{ backgroundColor: "#fff4e0" }}>
+        <Box id="promoted-subcategory" minHeight="300px" sx={{ backgroundColor: "#fff4e0", maxHeight: "450px", overflow: "hidden" }}>
             <Box sx={{ position: "absolute", top: "40%", left: "50%", transform: "translate(-50%, -50%)", color: "white" }}>
                 <Typography variant="h5" sx={{ textAlign: "center" }}>
                     {HomepageData ? HomepageData["title"] : "Title"}
@@ -80,9 +90,9 @@ const HomeHeader = (props) => {
                 <Box height="inherit">
                     <img
                         width="100%"
+                        height="100%"
                         src={HomepageData["images"]?.length >= CurrentImageIndex ? `${API_ENDPOINT}${HomepageData["images"][CurrentImageIndex]?.image}` : defaultImage}
                         alt="homepage image"
-                        height="350px"
                     />
                     <Button
                         type="btn"
@@ -94,6 +104,7 @@ const HomeHeader = (props) => {
                     <Button
                         type="btn"
                         variant="contained"
+                        id="right-btn"
                         onClick={(e) => handleRightImageClick(e)}
                         sx={RightbuttonStyle}>
                         <ArrowCircleRightIcon />
