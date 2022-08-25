@@ -35,13 +35,14 @@ export const ItemsList = (props) => {
     //     }
     // }, [location.state])
 
+    console.log("props", props)
     return (
         <Box sx={{ paddingBottom: "10px", bottom: "0px", background: "#f1f1f1", marginBottom: "-40px", }}>
             <Box sx={{ marginTop: '20px', marginBottom: '20px', maxWidth: "100%", flexGrow: 1 }} id="promoted-items">
                 <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 12 }}>
                     {ProductData?.map((data, index) => (
                         <Grid item xs={2} sm={4} md={4} key={index}>
-                            <SimpleCard product={data} getNumProduct={props.getNumProduct} />
+                            <SimpleCard product={data} getNumProduct={props.getNumProduct} setPage={props.setPage} />
                         </Grid>
                     ))}
                 </Grid>

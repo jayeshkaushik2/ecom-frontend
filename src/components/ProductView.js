@@ -51,6 +51,10 @@ export default function ProductView(props) {
 
     }
 
+    const handleBuyNow = () => {
+        
+    }
+
     return (
         <Card sx={{
             marginLeft: "auto", marginRight: "auto", maxWidth: "99%", borderRadius: "15px", marginTop: "0px", boxShadow: "3px 3px 12px grey", marginBottom: "10px", display: "flex",
@@ -115,7 +119,7 @@ export default function ProductView(props) {
                 </Typography>
 
                 <CardActions padding="4px" margin="0px">
-                    <Button size="small" variant="contained" sx={buttonStyle}>Buy Now</Button>
+                    <Button size="small" variant="contained" sx={buttonStyle} onClick={handleBuyNow}>Buy Now</Button>
                     <Button size="small" variant="contained" value={props.productData?.id} sx={buttonStyle} onClick={handlePostCartData}>Add to Cart</Button>
                 </CardActions>
             </CardContent>

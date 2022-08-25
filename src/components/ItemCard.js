@@ -72,6 +72,10 @@ const ItemCard = (props) => {
         setExpanded(!expanded)
     };
 
+    const handleBuyNow = () => {
+        
+    }
+
     const buttonStyle = {
         backgroundColor: main_color,
         '&:hover': {
@@ -108,7 +112,7 @@ const ItemCard = (props) => {
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
                         <Box sx={{ display: "flex" }}>
-                            <Button size="small" variant="contained" sx={buttonStyle}>
+                            <Button size="small" variant="contained" sx={buttonStyle} onClick={handleBuyNow}>
                                 Buy now<ShoppingCartIcon />
                             </Button>
                             <Button size="small" variant="outlined"

@@ -56,6 +56,10 @@ const SimpleCard = (props) => {
         postCartLineData(dataIs)
     }
 
+    const handleBuyNow = () => {
+        props.setPage("checkout")
+    }
+
     return (
         <Card sx={{ maxWidth: "95%", marginLeft: "10px" }} >
             <Box style={{ maxWidth: "100%", minWidth: "100px", width: "100%" }}>
@@ -71,7 +75,7 @@ const SimpleCard = (props) => {
 
             <CardContent>
                 <Box sx={{ display: "flex" }}>
-                    <Button size="small" variant="contained" sx={buttonStyle}>
+                    <Button size="small" variant="contained" sx={buttonStyle} onClick={handleBuyNow}>
                         Buy now<ShoppingCartIcon />
                     </Button>
                     <Button size="small" variant="outlined"
