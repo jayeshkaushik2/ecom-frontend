@@ -7,7 +7,7 @@ import { CategoryList } from '../components/CategoryList';
 import { ItemsList } from '../components/ItemsList';
 import { getFooter, getCartRefData } from '../context/Apis'
 import Default from './Default'
-import OrderList from './OrderList'
+import OrderList from './CartList'
 import CartContext from '../context/CartContext'
 import AuthContext from '../context/AuthContext'
 import Profile from './Profile'

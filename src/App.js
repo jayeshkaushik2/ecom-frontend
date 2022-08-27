@@ -1,7 +1,6 @@
 import './App.css';
 import * as React from 'react';
 import { Signup } from './pages/Signup';
-import { Signin } from './pages/Signin';
 import { ProductList } from './pages/ProductList';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ItemsList } from './components/ItemsList'
@@ -9,7 +8,6 @@ import { Homepage } from './pages/Homepage'
 import AuthState from './context/AuthState'
 import CartState from './context/CartState'
 import NoDataFound from './pages/NoDataFound';
-import Profile from './pages/Profile';
 import Authentication from './pages/Authentication'
 
 function App() {
@@ -30,6 +28,8 @@ function App() {
             <Route path="/order" element={<Homepage page="order" />} />
 
             <Route path="/profile" element={<Homepage page="profile" />} />
+
+            <Route path="/checkout" element={<Homepage page="checkout" />} />
 
             <Route path="/signup" element={<Signup />} />
 

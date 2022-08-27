@@ -6,6 +6,7 @@ import CartLine from '../components/CartLine'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography';
 import NoDataFound from './NoDataFound'
+import { Button, Link } from '@mui/material'
 
 
 const OrderList = (props) => {
@@ -30,8 +31,8 @@ const OrderList = (props) => {
 
     React.useEffect(() => {
         getData()
-        // eslint-disable-next-line
     }, [])
+
 
     return (
         <Box>
@@ -48,6 +49,7 @@ const OrderList = (props) => {
                     }}>
                         <NoDataFound />
                     </Box>}
+                <Link variant="contained" href="/checkout">Buy All items</Link>
             </Box>
         </Box>
     )

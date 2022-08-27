@@ -13,9 +13,9 @@ export async function getFooter() {
     let response = await fetch(`${API_ENDPOINT}/details/`, {
         method: "GET",
     })
-    let data = await response.json()
+    let details_data = await response.json()
     if (response.ok) {
-        return data
+        return details_data
     }
     else {
         throw response;
@@ -26,9 +26,9 @@ export async function getSubCategory() {
     let response = await fetch(`${API_ENDPOINT}/sub_category/`, {
         method: "GET",
     })
-    let data = await response.json()
+    let sub_category_data = await response.json()
     if (response.ok) {
-        return data
+        return sub_category_data
     }
     else {
         throw response;
@@ -39,9 +39,9 @@ export async function getProductData() {
     let response = await fetch(`${API_ENDPOINT}/product/`, {
         method: "GET",
     })
-    let data = await response.json()
+    let product_data = await response.json()
     if (response.ok) {
-        return data
+        return product_data
     }
     else {
         throw response;
@@ -52,9 +52,9 @@ export async function getProductData_WithFilter({ search_with: search_with, quer
     let response = await fetch(`${API_ENDPOINT}/product/?${search_with}=${query}`, {
         method: "GET",
     })
-    let data = await response.json()
+    let filtered_product_data = await response.json()
     if (response.ok) {
-        return data
+        return filtered_product_data
     }
     else {
         throw response;
@@ -63,9 +63,9 @@ export async function getProductData_WithFilter({ search_with: search_with, quer
 
 export async function getHomepageData() {
     let response = await fetch(`${API_ENDPOINT}/homepage/`)
-    let data = await response.json()
+    let homepage_data = await response.json()
     if (response.ok) {
-        return data
+        return homepage_data
     }
     else {
         throw response;
@@ -78,9 +78,9 @@ export async function getCartRef({ token: token }) {
         method: "GET",
         headers: { "Authorization": token }
     })
-    let data = await response.json()
+    let create_data = await response.json()
     if (response.ok) {
-        return data
+        return create_data
     }
     else {
         throw response;
@@ -92,9 +92,9 @@ export async function getCartRefData({ token: token, ref: ref }) {
         method: "GET",
         headers: { "Authorization": token }
     })
-    let data = await response.json()
+    let cart_data = await response.json()
     if (response.ok) {
-        return data
+        return cart_data
     }
     else {
         throw response;
@@ -108,9 +108,9 @@ export async function PostCartRefData({ token: token, ref: ref, lineData: lineDa
         headers: { "Authorization": token, "Content-Type": "application/json" },
         body: JSON.stringify(lineData)
     })
-    let data = await response.json()
+    let cart_updated_data = await response.json()
     if (response.ok) {
-        return data
+        return cart_updated_data
     }
     else {
         throw response;
@@ -123,9 +123,9 @@ export async function DeleteCartLine({ token: token, ref: ref, line_ids: line_id
         headers: { "Authorization": token, "Content-Type": "application/json" },
         body: JSON.stringify(line_ids)
     })
-    let data = await response.json()
+    let deleted_data = await response.json()
     if (response.ok) {
-        return data
+        return deleted_data
     }
     else {
         throw response;
@@ -140,9 +140,9 @@ export async function PostUserData({ token: token, userData: userData }) {
         headers: { "Authorization": token, "Content-Type": "application/json" },
         body: JSON.stringify(userData)
     })
-    let data = await response.json()
+    let user_updated_data = await response.json()
     if (response.ok) {
-        return data
+        return user_updated_data
     }
     else {
         throw response;
@@ -156,9 +156,85 @@ export async function getUserData({ token: token }) {
         method: "GET",
         headers: { "Authorization": token }
     })
-    let data = await response.json()
+    let user_data = await response.json()
     if (response.ok) {
-        return data
+        return user_data
+    }
+    else {
+        throw response;
+    }
+}
+
+
+// order apis
+export async function getOrderData({ token: token, ref: ref }) {
+    let response = await fetch(`${API_ENDPOINT}/order/${ref}/`, {
+        method: "GET",
+        headers: { "Authorization": token, "Content-Type": "application/json" }
+    })
+
+    let order_data = await response.json()
+    if (response.ok) {
+        return order_data
+    }
+    else {
+        throw response;
+    }
+}
+
+export async function PostOrderData({ token: token, ref: ref, orderData: orderData }) {
+    let response = await fetch(`${API_ENDPOINT}/order/${ref}/`, {
+        method: "POST",
+        headers: { "Authorization": token, "Content-Type": "application/json" },
+        body: JSON.stringify(orderData)
+    })
+    let order_data = await response.json()
+    if (response.ok) {
+        return order_data
+    }
+    else {
+        throw response;
+    }
+}
+
+export async function PostPlaceOrder({ token: token, ref: ref, orderData: orderData }) {
+    let response = await fetch(`${API_ENDPOINT}/place-order/${ref}/`, {
+        method: "GET",
+        headers: { "Authorization": token, "Content-Type": "application/json" }
+    })
+
+    let place_order_data = await response.json()
+    if (response.ok) {
+        return place_order_data
+    }
+    else {
+        throw response;
+    }
+}
+
+// order address
+export async function getOrderAddresses({ token: token, }) {
+    let response = await fetch(`${API_ENDPOINT}/adresses/`, {
+        method: "GET",
+        headers: { "Authorization": token, "Content-Type": "application/json" }
+    })
+    let order_address_data = await response.json()
+    if (response.ok) {
+        return order_address_data
+    }
+    else {
+        throw response;
+    }
+}
+
+export async function getOrderDetailAddress({ token: token, id: id }) {
+    let response = await fetch(`${API_ENDPOINT}/addresses/${id}/`, {
+        method: "GET",
+        headers: { "Authorization": token, "Content-Type": "application/json" }
+    })
+    let order_address_data = await response.json()
+    if (response.ok) {
+        return order_address_data
     }
     else {
         throw response;

@@ -21,10 +21,15 @@ const CartState = ({ children }) => {
         }
     }
 
+    const clearCart = () => {
+        localStorage.removeItem("Cart")
+    }
+
 
     let CartData = {
         cartRef: Cart?.ref,
-        cart_id: Cart?.id
+        cart_id: Cart?.id,
+        clearCart:clearCart,
     }
 
     useEffect(() => {
