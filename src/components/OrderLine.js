@@ -19,7 +19,7 @@ const OrderLine = (props) => {
 
 
     return (
-        <Box sx={{background:"white", paddingTop:"10px" }}>
+        <Box sx={{background:"#f1f1f1", paddingTop:"10px" }}>
             <Box style={{ display: "flex" }}>
                 <Box style={{ maxWidth: "300px", minWidth: "100px", width: "100%" }}>
                     <CardMedia

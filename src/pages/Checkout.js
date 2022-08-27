@@ -84,9 +84,9 @@ export const Checkout = (props) => {
     }
 
     return (
-        <Box sx={{ padding: "10px" }}>
+        <Box sx={{ padding: "20px", background:"#f1f1f1", marginBottom:"-40px" }}>
             {cartLines?.length === 0 ? <NoDataFound /> :
-                <Card sx={{ padding: "15px", background: "antiquewhite", borderRadius: "20px" }}>
+                <Card sx={{ padding: "15px", background: "white", borderRadius: "20px" }}>
                     <Typography variant='h5'>Place Order</Typography>
                     <hr />
                     <Box sx={{ display: "flex" }}>
@@ -112,7 +112,7 @@ export const Checkout = (props) => {
                             <Box sx={{ padding: "5px", paddingLeft: "0px", paddingTop: "0px", float: "right" }}>
                                 <Typography sx={{ fontWeight: "bold" }}>
                                     Delivery address ({OrderAddress?.full_name})
-                                    <IconButton aria-label="edit" sx={{ float: "right", marginTop:"-8px" }}><EditIcon /></IconButton>
+                                    <IconButton aria-label="edit" sx={{ float: "right", marginTop: "-8px" }}><EditIcon /></IconButton>
                                 </Typography>
                                 <Typography variant="body2">
                                     phone: {OrderAddress?.phone}, {OrderAddress?.alternate_phone}
@@ -128,14 +128,16 @@ export const Checkout = (props) => {
                         </Box>
                     </Box>
 
-                    <Box sx={{ borderRadius: "20px", background: "white", padding: "5px" }}>
-                        {cartLines?.map((data, index) => (
-                            <Box key={index}>
-                                <OrderLine line={data} />
-                                <hr />
-                            </Box>
-                        ))}
-                        <Box sx={{ padding: "10px" }}>
+                    <Box sx={{ borderRadius: "20px", background: "#f1f1f1", padding: "10px" }}>
+                        <Box sx={{maxHeight:"500px", overflow:"auto"}}>
+                            {cartLines?.map((data, index) => (
+                                <Box key={index}>
+                                    <OrderLine line={data} />
+                                </Box>
+                            ))}
+                        </Box>
+                    </Box>
+                    <Box sx={{ padding: "10px" }}>
                             <Typography sx={{ color: "green", fontWeight: "bold" }}>
                                 Your order will be delivered in 3 to 5 working days.
                             </Typography>
@@ -163,8 +165,7 @@ export const Checkout = (props) => {
                                 <Button variant="contained" disabled={OrderData?.payment_method === "cash" ? false : true} size="small" sx={{ width: "100%" }} onClick={handleConfirmOrder}>{OrderData?.payment_method !== "cash" ? "please select payment type cash on delivery" : "Confirm order"}
                                 </Button>
                             </Box>
-                        </Box>
-                    </Box>
+                        </Box>  
                 </Card >
             }
         </Box >
