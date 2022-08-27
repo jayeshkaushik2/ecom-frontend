@@ -7,7 +7,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography';
 import NoDataFound from './NoDataFound'
 import { Button, Link } from '@mui/material'
-
+import { useNavigate } from 'react-router-dom'
 
 const OrderList = (props) => {
     // eslint-disable-next-line
@@ -15,6 +15,7 @@ const OrderList = (props) => {
     const [cartLines, setCartLines] = React.useState(null)
     let cart = React.useContext(CartContext)
     let user = React.useContext(AuthContext)
+    let redirect = useNavigate()
 
     const getData = async () => {
         try {
@@ -33,6 +34,9 @@ const OrderList = (props) => {
         getData()
     }, [])
 
+    const handleContinueToBuy = () => {
+        redirect("/checkout")
+    }
 
     return (
         <Box>
@@ -49,7 +53,7 @@ const OrderList = (props) => {
                     }}>
                         <NoDataFound />
                     </Box>}
-                <Link variant="contained" href="/checkout">Buy All items</Link>
+                <Button variant="contained" sx={{ width: "100%" }} onClick={handleContinueToBuy}>Continue to buy</Button>
             </Box>
         </Box>
     )
