@@ -1,9 +1,8 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import { Alert } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 
 export default function Notifications(props) {
 
@@ -12,6 +11,10 @@ export default function Notifications(props) {
       return;
     }
   };
+
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
   const [state, setState] = React.useState({
     open: false,
