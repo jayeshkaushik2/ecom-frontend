@@ -42,7 +42,7 @@ export default function Notifications(props) {
     <div>
       <Snackbar open={props.ShowMsg?.show} key={vertical + horizontal} anchorOrigin={{ vertical, horizontal }} autoHideDuration={5 * 6000} onClose={handleOnClose}>
         <Alert onClose={handleOnClose} severity={props.ShowMsg?.type} sx={{ width: '100%' }}>
-          {props.ShowMsg?.msg ? props.ShowMsg?.msg : "not msg added"}
+          {props.ShowMsg?.msg ? props.ShowMsg?.msg : null}
         </Alert>
       </Snackbar>
     </div>

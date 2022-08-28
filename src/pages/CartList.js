@@ -35,7 +35,14 @@ const OrderList = (props) => {
     }, [])
 
     const handleContinueToBuy = () => {
-        redirect("/checkout")
+        // check if user is logged in or not
+        console.log("user.user", user.user)
+        if (user.user === null){
+            redirect("/authentication")
+        }
+        else{
+            redirect("/checkout")
+        }
     }
 
     return (
@@ -53,7 +60,7 @@ const OrderList = (props) => {
                     }}>
                         <NoDataFound />
                     </Box>}
-                <Button variant="contained" sx={{ width: "100%" }} onClick={handleContinueToBuy}>Continue to buy</Button>
+                <Button variant="contained" sx={{ width: "100%" }} disabled={cartLines?.length === 0? true: false} onClick={handleContinueToBuy}>Continue to buy</Button>
             </Box>
         </Box>
     )

@@ -71,9 +71,8 @@ export const Checkout = (props) => {
     const handleConfirmOrder = async () => {
         try {
             let response = await PostPlaceOrder({ token: token, ref: ref })
-            console.log("place order response", response.json())
-            cart.clearCart()
             props.setShowMsg({show:true, type:"success", msg:"your order has been placed"})
+            cart.clearCart()
             redirect("/")
         }
         catch (error) {
