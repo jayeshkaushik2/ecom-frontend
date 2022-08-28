@@ -42,7 +42,7 @@ export const ItemsList = (props) => {
                 <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 12 }}>
                     {ProductData?.map((data, index) => (
                         <Grid item xs={2} sm={4} md={4} key={index}>
-                            <SimpleCard product={data} getNumProduct={props.getNumProduct} setPage={props.setPage} />
+                            <SimpleCard setPage={props.setPage} product={data} getNumProduct={props.getNumProduct} setShowMsg={props.setShowMsg} />
                         </Grid>
                     ))}
                 </Grid>

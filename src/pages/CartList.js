@@ -44,7 +44,7 @@ const OrderList = (props) => {
                 <Typography variant="h5" style={{ padding: "5px" }}>Shopping Cart</Typography>
                 <hr style={{ marginBottom: "30px" }} />
                 {cartLines?.length > 0 ? cartLines.map((line, index) => (
-                    <CartLine key={index} line={line} getUpdatedData={getData} getNumProduct={props.getNumProduct} />
+                    <CartLine setShowMsg={props.setShowMsg} key={index} line={line} getUpdatedData={getData} getNumProduct={props.getNumProduct} />
                 )) :
                     <Box sx={{
                         maxWidth: "100%",

@@ -125,7 +125,7 @@ export const ProductList = (props) => {
 
       <Box sx={{ padding: "15px", marginLeft: "15px", width:"100%" }}>
         {ProductsData?.length > 0 ? ProductsData.map((data, index) => (
-          <ProductView key={index} productData={data} PriceRange={PriceRange} getNumProduct={props.getNumProduct} />
+          <ProductView setShowMsg={props.setShowMsg} key={index} productData={data} PriceRange={PriceRange} getNumProduct={props.getNumProduct} />
         )) :
           <Box sx={{
             maxWidth: "100%",

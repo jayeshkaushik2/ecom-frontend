@@ -35,7 +35,7 @@ export const CategoryList = (props) => {
                         <Grid container spacing={{ xs: 2, md: 3, marginLeft: "auto" }} columns={{ xs: 2, sm: 8, md: 12 }}>
                             {ProductData?.map((data, index) => (
                                 <Grid item xs={2} sm={4} md={4} key={index}>
-                                    <SimpleCard product={data} setPage={props.setPage} getNumProduct={props.getNumProduct} />
+                                    <SimpleCard setShowMsg={props.setShowMsg} product={data} setPage={props.setPage} getNumProduct={props.getNumProduct} />
                                 </Grid>
                             ))}
                         </Grid>

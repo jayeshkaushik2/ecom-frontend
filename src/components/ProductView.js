@@ -32,7 +32,7 @@ export default function ProductView(props) {
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             let ref = cart?.cartRef
             const data = await PostCartRefData({ token: token, ref: ref, lineData: { lines: [lineData] } })
-            alert("product added to cart")
+            props.setShowMsg({ show: true, type: "success", msg: "product added to cart" })
             props.getNumProduct()
         }
         catch (error) {
@@ -46,13 +46,11 @@ export default function ProductView(props) {
             product: e.target.value,
             ref: cart?.cartRef,
         }
-        console.log("data have to post", dataIs)
         postCartLineData(dataIs)
 
     }
 
     const handleBuyNow = () => {
-        
     }
 
     return (

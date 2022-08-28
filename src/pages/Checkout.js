@@ -39,6 +39,7 @@ export const Checkout = (props) => {
             const order_data = await getOrderData({ token: token, ref: ref })
             setOrderData(order_data)
             setPaymentMethod(order_data?.payment_method)
+            console.log("order_data", order_data)
             // cart Data
             const cart_data = await getCartRefData({ token: token, ref: ref })
             setCartData(cart_data)
@@ -70,22 +71,23 @@ export const Checkout = (props) => {
 
     // event handlers
     const handleConfirmOrder = async () => {
-        console.log('order placed...')
         try {
             let response = await PostPlaceOrder({ token: token, ref: ref })
-            console.log("place order response", response)
+            console.log("place order response", response.json())
             cart.clearCart()
-            alert("your order has been placed")
+            props.setShowMsg({show:true, type:"success", msg:"your order has been placed"})
             redirect("/")
         }
         catch (error) {
+            console.log('error section')
+            props.setShowMsg({show:true, type:"error", msg:"got error in response"})
             console.log(error)
         }
     }
 
     return (
-        <Box sx={{ padding: "20px", background:"#f1f1f1", marginBottom:"-40px" }}>
-            {cartLines?.length === 0 ? <NoDataFound /> :
+        <Box sx={{ padding: "20px", background: "#f1f1f1", marginBottom: "-40px" }}>
+            {cartLines?.length === 0 || OrderData === null ? <NoDataFound /> :
                 <Card sx={{ padding: "15px", background: "white", borderRadius: "20px" }}>
                     <Typography variant='h5'>Place Order</Typography>
                     <hr />
@@ -110,26 +112,29 @@ export const Checkout = (props) => {
                         </Box>
                         <Box sx={{ width: "50%" }}>
                             <Box sx={{ padding: "5px", paddingLeft: "0px", paddingTop: "0px", float: "right" }}>
-                                <Typography sx={{ fontWeight: "bold" }}>
-                                    Delivery address ({OrderAddress?.full_name})
-                                    <IconButton aria-label="edit" sx={{ float: "right", marginTop: "-8px" }}><EditIcon /></IconButton>
-                                </Typography>
-                                <Typography variant="body2">
-                                    phone: {OrderAddress?.phone}, {OrderAddress?.alternate_phone}
-                                </Typography>
-                                <Typography variant="body2">
-                                    {OrderAddress?.city}, pincode-{OrderAddress?.pincode},
-                                </Typography>
-                                <Typography variant="body2">
-                                    {OrderAddress?.area_info}, {OrderAddress?.house_info}
-                                </Typography>
-
+                                {OrderAddress ?
+                                    <>
+                                        <Typography sx={{ fontWeight: "bold" }}>
+                                            Delivery address ({OrderAddress?.full_name})
+                                            <IconButton aria-label="edit" sx={{ float: "right", marginTop: "-8px" }}><EditIcon /></IconButton>
+                                        </Typography>
+                                        <Typography variant="body2">
+                                            phone: {OrderAddress?.phone}, {OrderAddress?.alternate_phone}
+                                        </Typography>
+                                        <Typography variant="body2">
+                                            {OrderAddress?.city}, pincode-{OrderAddress?.pincode},
+                                        </Typography>
+                                        <Typography variant="body2">
+                                            {OrderAddress?.area_info}, {OrderAddress?.house_info}
+                                        </Typography>
+                                    </>
+                                    : "Address not provided"}
                             </Box>
                         </Box>
                     </Box>
 
                     <Box sx={{ borderRadius: "20px", background: "#f1f1f1", padding: "10px" }}>
-                        <Box sx={{maxHeight:"500px", overflow:"auto"}}>
+                        <Box sx={{ maxHeight: "500px", overflow: "auto" }}>
                             {cartLines?.map((data, index) => (
                                 <Box key={index}>
                                     <OrderLine line={data} />
@@ -138,34 +143,34 @@ export const Checkout = (props) => {
                         </Box>
                     </Box>
                     <Box sx={{ padding: "10px" }}>
-                            <Typography sx={{ color: "green", fontWeight: "bold" }}>
-                                Your order will be delivered in 3 to 5 working days.
-                            </Typography>
+                        <Typography sx={{ color: "green", fontWeight: "bold" }}>
+                            Your order will be delivered in 3 to 5 working days.
+                        </Typography>
 
-                            <Typography variant="body2" display="block" sx={{ color: "gray" }} gutterBottom>
-                                <Typography variant="span" sx={{ color: "gray" }}>
-                                    On this order your saving
-                                </Typography> {OrderData?.total_discount}<CurrencyRupeeIcon sx={{ fontSize: "14px" }} />.
-                            </Typography>
+                        <Typography variant="body2" display="block" sx={{ color: "gray" }} gutterBottom>
+                            <Typography variant="span" sx={{ color: "gray" }}>
+                                On this order your saving
+                            </Typography> {OrderData?.total_discount}<CurrencyRupeeIcon sx={{ fontSize: "14px" }} />.
+                        </Typography>
 
-                            <Typography variant="body2" display="block" sx={{ color: "gray" }} gutterBottom>
-                                <Typography variant="span" sx={{ color: "gray" }}>
-                                    Total
-                                </Typography> {cartLines?.length} items.
-                            </Typography>
+                        <Typography variant="body2" display="block" sx={{ color: "gray" }} gutterBottom>
+                            <Typography variant="span" sx={{ color: "gray" }}>
+                                Total
+                            </Typography> {cartLines?.length} items.
+                        </Typography>
 
-                            <Typography variant="body1" display="block" sx={{ fontWeight: "bold", color: "red" }} gutterBottom>
-                                <Typography variant="span" sx={{ color: "gray" }}>
-                                    Total Price:
-                                </Typography> {OrderData?.total_price}<CurrencyRupeeIcon sx={{ fontSize: "15px" }} />
-                            </Typography>
+                        <Typography variant="body1" display="block" sx={{ fontWeight: "bold", color: "red" }} gutterBottom>
+                            <Typography variant="span" sx={{ color: "gray" }}>
+                                Total Price:
+                            </Typography> {OrderData?.total_price}<CurrencyRupeeIcon sx={{ fontSize: "15px" }} />
+                        </Typography>
 
-                            <PaymentMethods PaymentMethod={PaymentMethod} setPaymentMethod={setPaymentMethod} PostData={PostData} />
-                            <Box sx={{ textAlign: "center" }}>
-                                <Button variant="contained" disabled={OrderData?.payment_method === "cash" ? false : true} size="small" sx={{ width: "100%" }} onClick={handleConfirmOrder}>{OrderData?.payment_method !== "cash" ? "please select payment type cash on delivery" : "Confirm order"}
-                                </Button>
-                            </Box>
-                        </Box>  
+                        <PaymentMethods PaymentMethod={PaymentMethod} setPaymentMethod={setPaymentMethod} PostData={PostData} />
+                        <Box sx={{ textAlign: "center" }}>
+                            <Button variant="contained" disabled={OrderData?.payment_method === "cash" ? false : true} size="small" sx={{ width: "100%" }} onClick={handleConfirmOrder}>{OrderData?.payment_method !== "cash" ? "please select payment type cash on delivery" : "Confirm order"}
+                            </Button>
+                        </Box>
+                    </Box>
                 </Card >
             }
         </Box >

@@ -15,6 +15,7 @@ import Box from '@mui/material/Box';
 import { PostCartRefData } from "../context/Apis"
 import CartContext from '../context/CartContext'
 import AuthContext from '../context/AuthContext'
+import Notifications from '../context/Notifications.js';
 
 
 
@@ -36,7 +37,7 @@ const SimpleCard = (props) => {
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             let ref = cart?.cartRef
             const data = await PostCartRefData({ token: token, ref: ref, lineData: { lines: [lineData] } })
-            alert("product added to cart")
+            props.setShowMsg({ show: true, type: "success", msg: "item added to cart" })
             props.getNumProduct()
         }
         catch (error) {
@@ -46,13 +47,11 @@ const SimpleCard = (props) => {
 
     const handlePostCartData = (e) => {
         // get ref, cart_id,
-        console.log("adding to cart...", e.target.value)
         let dataIs = {
             cart: cart?.cart_id,
             product: e.target.value,
             ref: cart?.cartRef,
         }
-        console.log("data have to post", dataIs)
         postCartLineData(dataIs)
     }
 

@@ -13,6 +13,7 @@ import AuthContext from '../context/AuthContext'
 import Profile from './Profile'
 import { ProductList } from './ProductList'
 import { Checkout } from './Checkout';
+import Notifications from '../context/Notifications';
 
 export const Homepage = (props) => {
     let cart = React.useContext(CartContext)
@@ -20,6 +21,7 @@ export const Homepage = (props) => {
     const [Page, setPage] = useState("")
     const [FooterData, setFooterData] = useState(null)
     const [NumProduct, setNumProduct] = React.useState(0);
+    const [ShowMsg, setShowMsg] = React.useState({ show: false, type: "error", msg: null })
     const [Query, setQuery] = React.useState("");
 
 
@@ -55,25 +57,29 @@ export const Homepage = (props) => {
 
     return (
         <>
-            <Navbar setQuery={setQuery} setPage={setPage}/>
+            <Navbar setQuery={setQuery} setPage={setPage} />
 
             <Header num_product={NumProduct} />
 
+            {ShowMsg ?
+                <Notifications msgType="success" msg="item added to cart" ShowMsg={ShowMsg} setShowMsg={setShowMsg} />
+                : null}
+
             {Page === "" ? <Default /> : null}
 
-            {Page === "home" ? <Home setPage={setPage} getNumProduct={getNumProduct} /> : null}
+            {Page === "home" ? <Home setPage={setPage} setShowMsg={setShowMsg} getNumProduct={getNumProduct} /> : null}
 
-            {Page === "searched_products" ? <ProductList ProductData={null} Query={Query} getNumProduct={getNumProduct} /> : null}
+            {Page === "searched_products" ? <ProductList ProductData={null} setShowMsg={setShowMsg} Query={Query} getNumProduct={getNumProduct} /> : null}
 
-            {Page === "all_products" ? <ItemsList setPage={setPage} ProductData={null} getNumProduct={getNumProduct} /> : null}
+            {Page === "all_products" ? <ItemsList setPage={setPage} setShowMsg={setShowMsg} ProductData={null} getNumProduct={getNumProduct} /> : null}
 
-            {Page === "subcategory" ? <CategoryList setPage={setPage} ProductData={null} getNumProduct={getNumProduct} /> : null}
+            {Page === "subcategory" ? <CategoryList setPage={setPage} setShowMsg={setShowMsg} ProductData={null} getNumProduct={getNumProduct} /> : null}
 
-            {Page === "order" ? <OrderList ProductData={null} getNumProduct={getNumProduct} /> : null}
+            {Page === "order" ? <OrderList ProductData={null} setShowMsg={setShowMsg} getNumProduct={getNumProduct} /> : null}
 
-            {Page === "profile" ? <Profile getNumProduct={getNumProduct} /> : null}
-            
-            {Page === "checkout" ? <Checkout /> : null}
+            {Page === "profile" ? <Profile setShowMsg={setShowMsg} getNumProduct={getNumProduct} /> : null}
+
+            {Page === "checkout" ? <Checkout setShowMsg={setShowMsg} /> : null}
 
             <Footer FooterData={FooterData} />
         </>

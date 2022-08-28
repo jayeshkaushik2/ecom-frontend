@@ -1,5 +1,6 @@
 import AuthContext from './AuthContext'
 import { useContext } from 'react'
+import Notifications from './Notifications';
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
 
 export function GetToken() {
@@ -172,14 +173,11 @@ export async function getOrderData({ token: token, ref: ref }) {
         method: "GET",
         headers: { "Authorization": token, "Content-Type": "application/json" }
     })
-
     let order_data = await response.json()
     if (response.ok) {
         return order_data
     }
-    else {
-        throw response;
-    }
+    return order_data
 }
 
 export async function PostOrderData({ token: token, ref: ref, orderData: orderData }) {
