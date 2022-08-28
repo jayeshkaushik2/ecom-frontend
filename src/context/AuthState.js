@@ -36,7 +36,6 @@ const AuthState = ({ children }) => {
     }
 
     let RefreshUserAccess = async () => {
-        console.log("refreshing token...")
         let response = await fetch(`${API_ENDPOINT}/token/refresh/`, {
             method: "post",
             headers: { "content-type": "application/json" },
@@ -44,13 +43,11 @@ const AuthState = ({ children }) => {
         })
         let data = await response.json()
         if (response.status === 200) {
-            console.log("token refreshed")
             setAuthToken(data)
             setUser(jwt_decode(data.access))
             localStorage.getItem("AuthToken", JSON.stringify(data))
         }
         else {
-            console.log("unable to refresh token")
             logoutUser()
         }
     }

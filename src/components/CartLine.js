@@ -22,9 +22,8 @@ const CartLine = (props) => {
         try {
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             let ref = cart?.cartRef
-            console.log("::::", { token: token, ref: ref, line_ids: ids })
             DeleteCartLine({ token: token, ref: ref, line_ids: { line_ids: ids } })
-            props.setShowMsg({ show: true, type: "success", msg: "deleted successfully, please refresh the page" })
+            props.setShowMsg({ show: true, type: "success", msg: "item removed successfully" })
             props.getUpdatedData()
             props.getNumProduct()
         }

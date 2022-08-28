@@ -23,11 +23,9 @@ const Profile = () => {
 
     const postData = async (userData) => {
         try {
-            console.log("running profile api...", userData)
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             if (token !== null && user.Login !== "Login" && user.AuthToken !== null) {
                 const response_data = await PostUserData({ token: token, userData: userData })
-                console.log("data got user-profile, ", response_data)
             }
         }
         catch (error) {

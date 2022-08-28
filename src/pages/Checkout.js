@@ -39,7 +39,6 @@ export const Checkout = (props) => {
             const order_data = await getOrderData({ token: token, ref: ref })
             setOrderData(order_data)
             setPaymentMethod(order_data?.payment_method)
-            console.log("order_data", order_data)
             // cart Data
             const cart_data = await getCartRefData({ token: token, ref: ref })
             setCartData(cart_data)
@@ -47,7 +46,6 @@ export const Checkout = (props) => {
             // order address Data
             const order_address_data = await getOrderDetailAddress({ token: token, id: order_data?.address })
             setOrderAddress(order_address_data)
-            console.log("order_address_data", order_address_data)
         }
         catch (error) {
             console.log(error)

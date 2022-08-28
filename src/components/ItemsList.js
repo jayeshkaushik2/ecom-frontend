@@ -35,7 +35,6 @@ export const ItemsList = (props) => {
     //     }
     // }, [location.state])
 
-    console.log("props", props)
     return (
         <Box sx={{ paddingBottom: "10px", bottom: "0px", background: "#f1f1f1", marginBottom: "-40px", }}>
             <Box sx={{ marginTop: '20px', marginBottom: '20px', maxWidth: "100%", flexGrow: 1 }} id="promoted-items">

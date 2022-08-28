@@ -55,13 +55,11 @@ const ItemCard = (props) => {
 
     const handlePostCartData = (e) => {
         // get ref, cart_id,
-        console.log("adding to cart...", e.target.value)
         let dataIs = {
             cart: cart?.cart_id,
             product: e.target.value,
             ref: cart?.cartRef,
         }
-        console.log("data have to post", dataIs)
         postCartLineData(dataIs)
 
     }

@@ -31,7 +31,6 @@ const PromotedItemsList = (props) => {
 
     const handleViewAll = (e) => {
         e.preventDefault()
-        console.log("working button")
         navigate("/items", { ProductData: props.productData ? props.productData : null })
     }
 
