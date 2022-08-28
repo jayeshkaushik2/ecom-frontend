@@ -9,6 +9,8 @@ import Button from '@mui/material/Button';
 import camera_icon from '../assets/images/camera_icon.png'
 import { getUserData, PostUserData } from '../context/Apis'
 import AuthContext from '../context/AuthContext'
+import { IconButton } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 
 const Profile = () => {
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
@@ -95,17 +97,10 @@ const Profile = () => {
                         <Typography component="h1" variant="h5" style={{ textAlign: "center", marginTop: "10px" }}>
                             {userData?.name ? userData.name : "Anonymous"}
                         </Typography>
+                        <IconButton aria-label="edit" sx={{ float: "right", marginTop: "-8px" }}><EditIcon /></IconButton>
                         <Typography style={{ textAlign: "center", marginTop: "10px" }}>
                             This is the about section.
                         </Typography>
-
-                        {/* <Typography style={{ textAlign: "", marginTop: "10px" }}>
-                            Phone: 9090909090
-                        </Typography>
-
-                        <Typography style={{ textAlign: "", marginTop: "10px" }}>
-                            Email: new@gmail.com
-                        </Typography> */}
                     </Box>
 
                     <Box sx={{ margin: "10px" }}>
