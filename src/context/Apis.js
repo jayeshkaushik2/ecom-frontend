@@ -211,7 +211,20 @@ export async function PostPlaceOrder({ token: token, ref: ref, orderData: orderD
 }
 
 // order address
-export async function getOrderAddresses({ token: token, }) {
+export async function getOrderDetailAddress({ token: token, ref: ref }) {
+    let response = await fetch(`${API_ENDPOINT}/order_address/${ref}/`, {
+        method: "GET",
+        headers: { "Authorization": token, "Content-Type": "application/json" }
+    })
+    let order_data = await response.json()
+    if (response.ok) {
+        return order_data
+    }
+    return order_data
+}
+
+
+export async function getAddresses({ token: token, }) {
     let response = await fetch(`${API_ENDPOINT}/adresses/`, {
         method: "GET",
         headers: { "Authorization": token, "Content-Type": "application/json" }
@@ -225,7 +238,7 @@ export async function getOrderAddresses({ token: token, }) {
     }
 }
 
-export async function getOrderDetailAddress({ token: token, id: id }) {
+export async function getDetailAddress({ token: token, id: id }) {
     let response = await fetch(`${API_ENDPOINT}/addresses/${id}/`, {
         method: "GET",
         headers: { "Authorization": token, "Content-Type": "application/json" }

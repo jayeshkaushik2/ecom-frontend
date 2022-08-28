@@ -44,7 +44,7 @@ export const Checkout = (props) => {
             setCartData(cart_data)
             setCartLines(cart_data.lines)
             // order address Data
-            const order_address_data = await getOrderDetailAddress({ token: token, id: order_data?.address })
+            const order_address_data = await getOrderDetailAddress({ token: token, ref: ref })
             setOrderAddress(order_address_data)
         }
         catch (error) {
