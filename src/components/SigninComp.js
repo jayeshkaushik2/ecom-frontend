@@ -38,7 +38,7 @@ const SigninComp = (props) => {
             <Typography component="h1" variant="h5">
                 Sign in
             </Typography>
-            <Box noValidate sx={{ marginTop: 1, maxWidth: "360px", backgroundColor:"#e3e3e3", padding: "15px", borderRadius: "10px", }}>
+            <Box noValidate sx={{ marginTop: 1, maxWidth: "360px", backgroundColor:"white", padding: "15px", borderRadius: "10px", }}>
                 <TextField
                     margin="normal"
                     required
@@ -48,6 +48,7 @@ const SigninComp = (props) => {
                     name="username"
                     autoComplete="name"
                     autoFocus
+                    size="small"
                 />
                 <TextField
                     margin="normal"
@@ -58,6 +59,7 @@ const SigninComp = (props) => {
                     type="password"
                     id="password"
                     autoComplete="current-password"
+                    size="small"
                 />
                 <Button
                     type="submit"
@@ -65,17 +67,18 @@ const SigninComp = (props) => {
                     variant="contained"
                     onClick={(e) => handleLoginUser(e)}
                     sx={{ marginTop: 3, marginBottom: 2 }}
+                    size="small"
                 >
                     Sign In <LoginIcon />
                 </Button>
                 <Grid container>
                     <Grid item xs>
-                        <Button variant="outlined" onClick={handleForgotPass}>
+                        <Button variant="outlined" onClick={handleForgotPass} size="small">
                             Forgot password?
                         </Button>
                     </Grid>
                     <Grid item>
-                        <Button variant="outlined" onClick={() => props.setAuthPage("signup")}>
+                        <Button variant="outlined" onClick={() => props.setAuthPage("signup")} size="small">
                             {"Sign Up"}
                         </Button>
                     </Grid>

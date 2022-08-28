@@ -58,9 +58,8 @@ export const Signup = (props) => {
     }
 
     return (
-        <>
-            <Container maxWidth="xl" sx={{ height: "100%", backgroundSize: "100% 100%", maxWidth: "100%", paddingTop: "20px", paddingBottom: "20px" }}>
-
+        <Box>
+            <Box sx={{ height: "100vh", Width: "100%", backgroundColor: "#e3e3e3" }}>
                 <Box
                     component="form"
                     sx={{
@@ -80,7 +79,7 @@ export const Signup = (props) => {
                         Sign up
                     </Typography>
 
-                    <Box component="form" noValidate sx={{ marginTop: 1, maxWidth: "360px", backgroundColor: "#e3e3e3", padding: "15px", borderRadius: "10px", marginBottom: "15px", }}>
+                    <Box component="form" noValidate sx={{ marginTop: 1, maxWidth: "360px", backgroundColor: "white", padding: "15px", borderRadius: "10px", marginBottom: "15px", }}>
 
                         <TextField
                             margin="normal"
@@ -91,6 +90,7 @@ export const Signup = (props) => {
                             name="first_name"
                             autoComplete="first_name"
                             autoFocus
+                            size="small"
                             onChange={(e) => setFirstName(e.target.value)}
                         />
                         <TextField
@@ -102,6 +102,7 @@ export const Signup = (props) => {
                             name="last_name"
                             autoComplete="last_name"
                             autoFocus
+                            size="small"
                             onChange={(e) => setLastName(e.target.value)}
                         />
                         <TextField
@@ -113,6 +114,7 @@ export const Signup = (props) => {
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            size="small"
                             onChange={(e) => setEmail(e.target.value)}
                         />
 
@@ -125,6 +127,7 @@ export const Signup = (props) => {
                             name="username"
                             autoComplete="username"
                             autoFocus
+                            size="small"
                             onChange={(e) => setUsername(e.target.value)}
                         />
                         <TextField
@@ -136,6 +139,7 @@ export const Signup = (props) => {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            size="small"
                             onChange={(e) => setPassword(e.target.value)}
                         />
                         <TextField
@@ -146,12 +150,14 @@ export const Signup = (props) => {
                             label="Confirm Password"
                             type="password"
                             id="conform_password"
+                            size="small"
                             onChange={(e) => setPassword2(e.target.value)}
                         />
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
+                            size="small"
                             sx={{ marginTop: 3, marginBottom: 2 }}
                             onClick={(e) => handleSignUp(e)}
                         >
@@ -159,15 +165,15 @@ export const Signup = (props) => {
                         </Button>
                         <Grid container>
                             <Grid item>
-                                <Button onClick={() => { props.setAuthPage("signin") }} variant="outlined">
+                                <Button onClick={() => { props.setAuthPage("signin") }} size="small" variant="outlined">
                                     {"Sign In?"}
                                 </Button>
                             </Grid>
                         </Grid>
                     </Box>
                 </Box>
-            </Container>
+            </Box>
 
-        </>
+        </Box>
     );
 }

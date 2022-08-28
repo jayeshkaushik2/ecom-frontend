@@ -12,9 +12,8 @@ export const Signin = (props) => {
   const [Comp, setComp] = useState("signin")
 
   return (
-    <>
-      <Typography variant="body2" color="text.secondary" align="center"></Typography>
-      <Container sx={{ height: "100vh", backgroundSize: "100% 100%", maxWidth: "100%", paddingTop: "50px" }}>
+    <Box>
+      <Box sx={{ height: "100vh", Width: "100%", backgroundColor: "#e3e3e3", paddingTop: "50px" }}>
         <Box
           component="form"
           sx={{
@@ -42,7 +41,7 @@ export const Signin = (props) => {
           >Go to Home</Link>
 
         </Box>
-      </Container>
-    </>
+      </Box>
+    </Box>
   );
 }

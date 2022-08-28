@@ -26,7 +26,7 @@ const ForgotPassword = (props) => {
             <Typography component="h1" variant="h5">
                 Forgot password
             </Typography>
-            <Box noValidate sx={{ marginTop: 1, maxWidth: "360px", minWidth:"300px", backgroundColor: "#e3e3e3", padding: "15px", borderRadius: "10px", }}>
+            <Box noValidate sx={{ marginTop: 1, maxWidth: "360px", minWidth:"300px", backgroundColor: "white", padding: "15px", borderRadius: "10px", }}>
                 <TextField
                     margin="normal"
                     required
@@ -36,17 +36,18 @@ const ForgotPassword = (props) => {
                     name="email"
                     autoComplete="email"
                     autoFocus
+                    size="small"
                 />
                 <Grid container sx={{ marginTop: "10px" }}>
                     <Grid item xs>
-                        <Button size="large" variant="contained">
+                        <Button size="large" variant="contained" size="small">
                             {"Send OTP"}
                         </Button>
 
                     </Grid>
 
                     <Grid item>
-                        <Button size="large" onClick={() => { props.setComp("signin") }} variant="outlined">
+                        <Button size="large" onClick={() => { props.setComp("signin") }} variant="outlined" size="small">
                             {"Sign in"}
                         </Button>
                         <Grid />
