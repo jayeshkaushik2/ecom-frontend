@@ -13,10 +13,30 @@ import AuthContext from '../context/AuthContext';
 import Typography from '@mui/material/Typography';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Box from '@mui/material/Box';
+import { postForgotEmail } from '../context/Apis';
+import { useNavigate } from 'react-router-dom'
 
 const ForgotPassword = (props) => {
-    const handleResendOtp = () => {
-        console.log("resend otp")
+    const [Email, setEmail] = useState("")
+    let redirect = useNavigate()
+
+
+    const postData = async (data) => {
+        try {
+            let response = postForgotEmail({ Data: data })
+            redirect("/verify-opt")
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleSendOTP = () => {
+        localStorage.setItem("email", Email)
+        let data = {
+            "email": Email
+        }
+        postData(data)
     }
     return (
         <>
@@ -26,7 +46,7 @@ const ForgotPassword = (props) => {
             <Typography component="h1" variant="h5">
                 Forgot password
             </Typography>
-            <Box noValidate sx={{ marginTop: 1, maxWidth: "360px", minWidth:"300px", backgroundColor: "white", padding: "15px", borderRadius: "10px", }}>
+            <Box noValidate sx={{ marginTop: 1, maxWidth: "360px", minWidth: "300px", backgroundColor: "white", padding: "15px", borderRadius: "10px", }}>
                 <TextField
                     margin="normal"
                     required
@@ -36,18 +56,19 @@ const ForgotPassword = (props) => {
                     name="email"
                     autoComplete="email"
                     autoFocus
+                    onChange={(e) => setEmail(e.target.value)}
                     size="small"
                 />
                 <Grid container sx={{ marginTop: "10px" }}>
                     <Grid item xs>
-                        <Button size="large" variant="contained" size="small">
+                        <Button variant="contained" size="small" onClick={handleSendOTP}>
                             {"Send OTP"}
                         </Button>
 
                     </Grid>
 
                     <Grid item>
-                        <Button size="large" onClick={() => { props.setComp("signin") }} variant="outlined" size="small">
+                        <Button onClick={() => { props.setComp("signin") }} variant="outlined" size="small">
                             {"Sign in"}
                         </Button>
                         <Grid />

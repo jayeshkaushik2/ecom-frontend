@@ -16,7 +16,7 @@ import Colors from './Colors.js';
 import AuthContext from '../context/AuthContext';
 import Link from '@mui/material/Link';
 import { useNavigate } from 'react-router-dom';
-import { getUserData } from '../context/Apis'
+import { getProfileData } from '../context/Apis'
 
 const ResponsiveAppBar = (props) => {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -30,7 +30,7 @@ const ResponsiveAppBar = (props) => {
         try {
             let token = userData.AuthToken ? `Bearer ${userData.AuthToken.access}` : null
             if (token !== null && userData.Login !== "Login" && userData.AuthToken !== null) {
-                const data = await getUserData({ token: token })
+                const data = await getProfileData({ token: token })
                 setProfileuserData(data)
             }
         }

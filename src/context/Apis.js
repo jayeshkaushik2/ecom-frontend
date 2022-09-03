@@ -136,7 +136,7 @@ export async function DeleteCartLine({ token: token, ref: ref, line_ids: line_id
 
 // user profile apis -> POST
 export async function PostUserData({ token: token, userData: userData }) {
-    let response = await fetch(`${API_ENDPOINT}/user-profile/`, {
+    let response = await fetch(`${API_ENDPOINT}/create-user/`, {
         method: "POST",
         headers: { "Authorization": token, "Content-Type": "application/json" },
         body: JSON.stringify(userData)
@@ -150,9 +150,39 @@ export async function PostUserData({ token: token, userData: userData }) {
     }
 }
 
+export async function postForgotEmail({ Data:Data  }) {
+    let response = await fetch(`${API_ENDPOINT}/forgot-password/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(Data)
+    })
+    let profile_data = await response.json()
+    if (response.ok) {
+        return profile_data
+    }
+    else {
+        throw response;
+    }
+}
+
+export async function PostValidationOTP({ ValidateData:ValidateData  }) {
+    let response = await fetch(`${API_ENDPOINT}/validate-siginup-otp/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(ValidateData)
+    })
+    let profile_data = await response.json()
+    if (response.ok) {
+        return profile_data
+    }
+    else {
+        throw response;
+    }
+}
+
 
 // user profile apis -> GET
-export async function getUserData({ token: token }) {
+export async function getProfileData({ token: token }) {
     let response = await fetch(`${API_ENDPOINT}/user-profile/`, {
         method: "GET",
         headers: { "Authorization": token }
@@ -160,6 +190,22 @@ export async function getUserData({ token: token }) {
     let user_data = await response.json()
     if (response.ok) {
         return user_data
+    }
+    else {
+        throw response;
+    }
+}
+
+
+export async function PostProfileData({ token: token, userData: userData }) {
+    let response = await fetch(`${API_ENDPOINT}/user-profile/`, {
+        method: "POST",
+        headers: { "Authorization": token, "Content-Type": "application/json" },
+        body: JSON.stringify(userData)
+    })
+    let user_updated_data = await response.json()
+    if (response.ok) {
+        return user_updated_data
     }
     else {
         throw response;

@@ -7,7 +7,7 @@ import profile_d from '../assets/images/profile_d.jpg'
 import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
 import camera_icon from '../assets/images/camera_icon.png'
-import { getUserData, PostUserData } from '../context/Apis'
+import { getProfileData, PostProfileData } from '../context/Apis'
 import AuthContext from '../context/AuthContext'
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
@@ -27,7 +27,7 @@ const Profile = () => {
         try {
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             if (token !== null && user.Login !== "Login" && user.AuthToken !== null) {
-                const response_data = await PostUserData({ token: token, userData: userData })
+                const response_data = await PostProfileData({ token: token, userData: userData })
             }
         }
         catch (error) {
@@ -47,7 +47,7 @@ const Profile = () => {
         try {
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             if (token !== null && user.Login !== "Login" && user.AuthToken !== null) {
-                const data = await getUserData({ token: token })
+                const data = await getProfileData({ token: token })
                 setUserData(data)
             }
         }
