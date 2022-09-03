@@ -53,53 +53,52 @@ const HomeHeader = (props) => {
 
     const LeftbuttonStyle = {
         position: 'absolute',
-        top: '40%',
+        top: '50%',
         left: '10px',
     }
 
     const RightbuttonStyle = {
         position: "absolute",
-        top: "40%",
+        top: "50%",
         right: "10px",
     }
 
     return (
-        <Box id="promoted-subcategory" minHeight="300px" sx={{ maxHeight: "450px", overflow: "hidden" }}>
-            <Box sx={{ position: "absolute", top: "40%", left: "50%", transform: "translate(-50%, -50%)", color: "white" }}>
-                <Typography variant="h5" sx={{ textAlign: "center" }}>
-                    {HomepageData ? HomepageData["title"] : "Title"}
-                </Typography>
-
-                <Typography sx={{ textAlign: "center", color: "grey" }}>
-                    {HomepageData ? HomepageData["description"] : "Description"}
-                </Typography>
-            </Box>
-
+        <Box id="promoted-subcategory" minHeight="500px" sx={{ backgroundColor: "#ffe6c1", maxHeight: "450px", overflow: "hidden" }}>
             {HomepageData !== null && HomepageData["images"]?.length > 0 ?
                 <Box height="inherit">
+                    <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", color: `${HomepageData.images[CurrentImageIndex].is_dark === true? "white": "black" }` }}>
+                        <Typography variant="h5" sx={{ textAlign: "center" }}>
+                            {HomepageData?.title ? HomepageData.title : "Title"}
+                        </Typography>
+
+                        <Typography sx={{ textAlign: "center", }}>
+                            {HomepageData?.description ? HomepageData.description : "Description"}
+                        </Typography>
+                    </Box>
                     <img
                         width="100%"
                         height="100%"
                         src={HomepageData["images"]?.length >= CurrentImageIndex ? `${API_ENDPOINT}${HomepageData["images"][CurrentImageIndex]?.image}` : defaultImage}
                         alt="homepage image"
                     />
-                    <Button
-                        type="btn"
-                        variant="contained"
-                        onClick={(e) => handleLeftImageClick(e)}
-                        sx={LeftbuttonStyle}>
-                        <ArrowCircleLeftIcon />
-                    </Button>
-                    <Button
-                        type="btn"
-                        variant="contained"
-                        id="right-btn"
-                        onClick={(e) => handleRightImageClick(e)}
-                        sx={RightbuttonStyle}>
-                        <ArrowCircleRightIcon />
-                    </Button>
                 </Box>
                 : null}
+            <Button
+                type="btn"
+                variant="contained"
+                onClick={(e) => handleLeftImageClick(e)}
+                sx={LeftbuttonStyle}>
+                <ArrowCircleLeftIcon />
+            </Button>
+            <Button
+                type="btn"
+                variant="contained"
+                id="right-btn"
+                onClick={(e) => handleRightImageClick(e)}
+                sx={RightbuttonStyle}>
+                <ArrowCircleRightIcon />
+            </Button>
 
         </Box >
     )

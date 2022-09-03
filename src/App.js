@@ -11,7 +11,6 @@ import NoDataFound from './pages/NoDataFound';
 import Authentication from './pages/Authentication'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-
 const theme = createTheme({
   palette: {
     primary: {
@@ -19,6 +18,11 @@ const theme = createTheme({
       light:"#1769aa",
       dark:"#4dabf5",
     },
+    secondary: {
+      main: "#ffe0b2",
+      light: "#ffe6c1",
+      dark: "#b29c7c",
+    }
   },
 });
 

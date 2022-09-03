@@ -92,8 +92,8 @@ export const Header = (props) => {
 
                         ))}
                         <MenuItem sx={YourCartMobileStyle}>
-                            <Link href="/order" underline="none" color="inherit">
-                                Your Cart ({props.num_product})
+                            <Link href="/order" underline="none" color="black">
+                                Your Cart
                             </Link>
                         </MenuItem>
                     </Menu>
@@ -103,7 +103,7 @@ export const Header = (props) => {
                         <Link href={`/category/?query=${sub_category.name}`} key={index} underline="none" color="inherit" params={{ query: sub_category.name }}>
                             <Button
                                 value={sub_category.name}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                sx={{ my: 2, color: 'inherit', display: 'block' }}
                             >
                                 {sub_category["name"]}
                             </Button>
