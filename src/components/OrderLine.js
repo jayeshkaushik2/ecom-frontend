@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 import { Button } from '@mui/material';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
-import defaultImage from '../assets/images/defaultImage.png'
+import ProductImage from '../assets/images/ProductImage.png'
 import DeleteIcon from '@mui/icons-material/Delete';
 import CartContext from '../context/CartContext'
 import AuthContext from '../context/AuthContext'
@@ -26,7 +26,7 @@ const OrderLine = (props) => {
                         component="img"
                         width="100%"
                         style={{ maxHeight: "100px", minHeight: "100px" }}
-                        image={props.line?.product?.images.length > 0 ? `${API_ENDPOINT}${props.line.product.images[0].image}` : defaultImage}
+                        image={props.line?.product?.images.length > 0 ? `${API_ENDPOINT}${props.line.product.images[0].image}` : ProductImage}
                         alt="green iguana"
                     />
                 </Box>

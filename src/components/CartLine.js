@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 import { Button } from '@mui/material';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
-import defaultImage from '../assets/images/defaultImage.png'
+import ProductImage from '../assets/images/ProductImage.png'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DeleteCartLine } from '../context/Apis'
 import CartContext from '../context/CartContext'
@@ -48,7 +48,7 @@ const CartLine = (props) => {
                         component="img"
                         width="100%"
                         style={{ maxHeight: "250px", minHeight: "250px" }}
-                        image={props.line?.product?.images.length > 0 ? `${API_ENDPOINT}${props.line.product.images[0].image}` : defaultImage}
+                        image={props.line?.product?.images.length > 0 ? `${API_ENDPOINT}${props.line.product.images[0].image}` : ProductImage}
                         alt="green iguana"
                     />
                 </Box>

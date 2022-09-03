@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import defaultImage from '../assets/images/defaultImage.png'
+import ProductImage from '../assets/images/ProductImage.png'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import Rating from '@mui/material/Rating'
 import Box from '@mui/material/Box';
@@ -57,7 +57,7 @@ const SimpleCard = (props) => {
                     component="img"
                     width="100%"
                     style={{ maxHeight: "250px", minHeight: "250px" }}
-                    image={props.product.images?.length > 0 ? props.product.images[0]["image"] : defaultImage}
+                    image={props.product.images?.length > 0 ? props.product.images[0]["image"] : ProductImage}
                     alt="green iguana"
                     sx={{ objectFit: "contain" }}
                 />

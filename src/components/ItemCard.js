@@ -14,7 +14,7 @@ import Button from '@mui/material/Button';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import defaultImage from '../assets/images/defaultImage.png'
+import ProductImage from '../assets/images/ProductImage.png'
 import { PostCartRefData } from '../context/Apis'
 import CartContext from '../context/CartContext'
 import AuthContext from '../context/AuthContext'
@@ -78,7 +78,7 @@ const ItemCard = (props) => {
                 <CardMedia
                     component="img"
                     height="200"
-                    image={props.product.images?.length > 0 ? props.product.images[0]["image"] : defaultImage}
+                    image={props.product.images?.length > 0 ? props.product.images[0]["image"] : ProductImage}
                     alt="promoted item image"
                     sx={{ objectFit: "contain" }}
                 />
