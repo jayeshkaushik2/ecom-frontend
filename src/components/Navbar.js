@@ -12,7 +12,6 @@ import AdbIcon from '@mui/icons-material/Adb';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import Colors from './Colors.js';
 import AuthContext from '../context/AuthContext';
 import Link from '@mui/material/Link';
 import { useNavigate } from 'react-router-dom';
@@ -20,7 +19,6 @@ import { getProfileData } from '../context/Apis'
 
 const ResponsiveAppBar = (props) => {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const main_color_dark = Colors("main_color_dark")
     let redirect = useNavigate()
     let userData = React.useContext(AuthContext)
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
@@ -105,7 +103,7 @@ const ResponsiveAppBar = (props) => {
 
     return (
         <AppBar position="static" sx={{ position: "sticky", top: 0, zIndex: "100", maxWidth: "100%" }}>
-            <Box sx={{ backgroundColor: main_color_dark, paddingLeft: "10px", paddingRight: "10px" }}>
+            <Box sx={{ paddingLeft: "10px", paddingRight: "10px" }}>
                 <Toolbar disableGutters>
                     <Typography
                         variant="h6"

@@ -30,7 +30,7 @@ export const CategoryList = (props) => {
     return (
         <>
             {ProductData ?
-                <Box minHeight="300px" sx={{  paddingBottom: "10px", bottom: "0px", background:"#f1f1f1", marginBottom:"-40px", minHeight:"300px" }}>
+                <Box minHeight="300px" sx={{  paddingBottom: "10px", bottom: "0px", marginBottom:"-40px", minHeight:"300px" }}>
                     <Box sx={{ marginTop: '20px', marginBottom: '20px' }}>
                         <Grid container spacing={{ xs: 2, md: 3, marginLeft: "auto" }} columns={{ xs: 2, sm: 8, md: 12 }}>
                             {ProductData?.map((data, index) => (

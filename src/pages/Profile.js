@@ -11,6 +11,7 @@ import { getProfileData, PostProfileData } from '../context/Apis'
 import AuthContext from '../context/AuthContext'
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import defaultprofile from '../assets/images/defaultprofile.jpg'
 
 const Profile = () => {
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
@@ -68,11 +69,11 @@ const Profile = () => {
                 marginTop: "-10px",
                 marginBottom: "70px",
             }}>
-                <Box style={{ maxWidth: "100%", minHeight: "300px", backgroundColor: "rgb(172, 172, 172) ", marginTop: "10px", maxHeight: "300px", overflow: "hidden" }}>
+                <Box style={{ maxWidth: "100%", minHeight: "300px", marginTop: "10px", maxHeight: "300px", overflow: "hidden" }}>
                     {userData ?
                         <img
                             width="100%"
-                            src={userData?.banner_image ? `${API_ENDPOINT}${userData.banner_image}` : null}
+                            src={userData?.banner_image ? `${API_ENDPOINT}${userData.banner_image}` : defaultprofile}
                             alt="homepage image"
                             height="100%"
                         />

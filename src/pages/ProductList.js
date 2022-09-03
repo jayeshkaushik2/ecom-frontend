@@ -48,7 +48,6 @@ export const ProductList = (props) => {
     padding: "15px",
     marginTop: "12px",
     borderRadius: "15px",
-    backgroundColor: "white",
     boxShadow: "2px 2px 12px grey",
     position: "sticky",
     top: "5rem",
@@ -59,7 +58,7 @@ export const ProductList = (props) => {
   }
 
   return (
-    <Box sx={{ display: "flex", padding: "15px", background: "#f1f1f1", marginBottom: "-40px", minHeight: "300px", maxWidth: "100%" }}>
+    <Box sx={{ display: "flex", padding: "15px", marginBottom: "-40px", minHeight: "300px", maxWidth: "100%" }}>
       <Box sx={filterStyle}>
         <Typography variant="h6">
           Filters

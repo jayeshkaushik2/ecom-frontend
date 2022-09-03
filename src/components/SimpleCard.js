@@ -7,7 +7,6 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import Colors from './Colors.js'
 import defaultImage from '../assets/images/defaultImage.png'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import Rating from '@mui/material/Rating'
@@ -22,15 +21,7 @@ import Notifications from '../context/Notifications.js';
 const SimpleCard = (props) => {
     let cart = React.useContext(CartContext)
     let user = React.useContext(AuthContext)
-    const main_color = Colors("main_color")
-    const main_color_dark = Colors("main_color_dark")
 
-    const buttonStyle = {
-        backgroundColor: main_color,
-        '&:hover': {
-            backgroundColor: main_color_dark
-        }
-    }
 
     const postCartLineData = async (lineData) => {
         try {
@@ -74,15 +65,12 @@ const SimpleCard = (props) => {
 
             <CardContent>
                 <Box sx={{ display: "flex" }}>
-                    <Button size="small" variant="contained" sx={buttonStyle} onClick={handleBuyNow}>
+                    <Button size="small" variant="contained" onClick={handleBuyNow}>
                         Buy now<ShoppingCartIcon />
                     </Button>
                     <Button size="small" variant="outlined"
                         value={props.product.id}
                         onClick={handlePostCartData} sx={{
-                            color: main_color, '&:hover': {
-                                color: main_color_dark
-                            },
                             marginLeft: "30px",
                         }}>
                         Add to cart<ShoppingCartIcon />
@@ -107,29 +95,8 @@ const SimpleCard = (props) => {
                         : props.product.description}
                 </Typography>
 
-                <Button size="small" variant="text" sx={{ marginLeft: 'auto', color: main_color_dark }}>View More <ArrowForwardIcon sx={{ fontSize: '15px' }} /></Button>
+                <Button size="small" variant="text" sx={{ marginLeft: 'auto' }}>View More <ArrowForwardIcon sx={{ fontSize: '15px' }} /></Button>
             </CardContent>
-
-
-            {/* <CardContent style={{ display: "flex", paddingBottom: "0", marginBottom: "0" }}>
-                <Typography gutterBottom variant="h5" component="div" style={{ paddingBottom: "0", marginBottom: "0" }}>
-                    {props.product.title.slice(0, 30)}
-                </Typography>
-            </CardContent>
-
-            <CardContent sx={{ display: "flex" }}>
-                <Typography gutterBottom variant="h6" component="div" sx={{ margin: '0', fontSize: "17px" }}>
-                    Price: {props.product.price}<CurrencyRupeeIcon sx={{ fontSize: "14px" }} />
-                </Typography>
-                <Rating name="read-only" value={props.product.rating ? props.product.rating : 0} readOnly />
-            </CardContent>
-
-            <CardActions>
-                <Button size="small" variant="contained" value={props.product.id} onClick={(e) => handlePostCartData(e)} sx={buttonStyle}>Add to cart <ShoppingCartIcon /></Button>
-                <Link href="#" underline="none" color="inherit">
-                    <Button size="small" variant="text" sx={{ marginLeft: 'auto', color: main_color_dark }}>View details<ArrowForwardIcon sx={{ fontSize: '15px' }} /></Button>
-                </Link>
-            </CardActions> */}
         </Card>
     );
 }

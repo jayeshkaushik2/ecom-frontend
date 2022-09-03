@@ -7,7 +7,6 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import defaultImage from '../assets/images/defaultImage.png'
-import Colors from './Colors.js'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { PostCartRefData } from '../context/Apis'
 import CartContext from '../context/CartContext'
@@ -17,15 +16,6 @@ import AuthContext from '../context/AuthContext'
 export default function ProductView(props) {
     let cart = React.useContext(CartContext)
     let user = React.useContext(AuthContext)
-
-    const main_color = Colors("main_color")
-    const main_color_dark = Colors("main_color_dark")
-    const buttonStyle = {
-        backgroundColor: main_color,
-        '&:hover': {
-            backgroundColor: main_color_dark
-        }
-    }
 
     const postCartLineData = async (lineData) => {
         try {
@@ -117,8 +107,8 @@ export default function ProductView(props) {
                 </Typography>
 
                 <CardActions padding="4px" margin="0px">
-                    <Button size="small" variant="contained" sx={buttonStyle} onClick={handleBuyNow}>Buy Now</Button>
-                    <Button size="small" variant="contained" value={props.productData?.id} sx={buttonStyle} onClick={handlePostCartData}>Add to Cart</Button>
+                    <Button size="small" variant="contained" onClick={handleBuyNow}>Buy Now</Button>
+                    <Button size="small" variant="contained" value={props.productData?.id} onClick={handlePostCartData}>Add to Cart</Button>
                 </CardActions>
             </CardContent>
 

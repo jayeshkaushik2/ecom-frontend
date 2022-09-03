@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import signin_img from '../assets/images/signin_img.jpg'
-import { Container } from '@mui/system';
 import SigninComp from '../components/SigninComp';
 import ForgotPassword from '../components/ForgotPassword';
 

@@ -6,7 +6,6 @@ import Container from '@mui/material/Container';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import Colors from './Colors.js'
 import CopyrightIcon from '@mui/icons-material/Copyright';
 import Link from '@mui/material/Link';
 import defaultImage from '../assets/images/defaultImage.png'
@@ -15,15 +14,8 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 
 export const Footer = (props) => {
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
-    // eslint-disable-next-line
-    const main_color = Colors("main_color")
-    const main_color_dark = Colors("main_color_dark")
 
     const buttonStyle = {
-        backgroundColor: main_color_dark,
-        '&:hover': {
-            backgroundColor: main_color_dark,
-        },
         fontSize: "18px", marginTop: "10px", float: "right"
     }
 
@@ -34,16 +26,9 @@ export const Footer = (props) => {
         height: "auto",
         flexDirection: "row",
         justifyContent: "space-between",
-        backgroundColor: "#26c6da",
+        backgroundColor: "primary",
         textAlign: "center",
         minHeight: "200px",
-    }
-
-    const temp = {
-        backgroundColor: "#26c6da",
-        bottom: "0",
-        position: "absolute",
-        width: "100%"
     }
 
     return (

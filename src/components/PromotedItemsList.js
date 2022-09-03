@@ -1,6 +1,5 @@
 import React from 'react'
 import { Grid, Link } from '@mui/material';
-import Colors from './Colors.js'
 import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box';
 import SimpleCard from './SimpleCard'
@@ -10,8 +9,6 @@ import Default from '../pages/Default'
 
 
 const PromotedItemsList = (props) => {
-    const main_color = Colors("main_color")
-    const main_color_dark = Colors("main_color_dark")
     const [Product, setProductData] = React.useState(null)
     let navigate = useNavigate();
 
@@ -23,10 +20,6 @@ const PromotedItemsList = (props) => {
         marginTop: "10px",
         marginBottom: "10px",
         marginTop: "-17px",
-        backgroundColor: main_color,
-        '&:hover': {
-            backgroundColor: main_color_dark
-        }
     }
 
     const handleViewAll = (e) => {
@@ -52,7 +45,7 @@ const PromotedItemsList = (props) => {
     return (
         <>
             {Product ?
-                <Box  sx={{ paddingBottom: "10px", bottom: "0px", background:"#f1f1f1", marginBottom:"-40px", minHeight:"300px",}}>
+                <Box  sx={{ paddingBottom: "10px", bottom: "0px", marginBottom:"-40px", minHeight:"300px",}}>
                     <Box sx={{ marginTop: '20px', marginBottom: '20px', maxWidth: "100%", flexGrow: 1 }} id="promoted-items">
                         <Grid container id="grid-id" spacing={{ xs: 2, md: 3, marginLeft: "auto" }} columns={{ xs: 2, sm: 8, md: 12 }}>
                             {Product?.map((data, index) => (

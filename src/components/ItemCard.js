@@ -10,7 +10,6 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Rating from '@mui/material/Rating'
-import Colors from './Colors.js'
 import Button from '@mui/material/Button';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
@@ -36,8 +35,6 @@ const ExpandMore = styled((props) => {
 const ItemCard = (props) => {
     let cart = React.useContext(CartContext)
     let user = React.useContext(AuthContext)
-    const main_color = Colors("main_color")
-    const main_color_dark = Colors("main_color_dark")
 
     const postCartLineData = async (lineData) => {
         try {
@@ -74,12 +71,6 @@ const ItemCard = (props) => {
         
     }
 
-    const buttonStyle = {
-        backgroundColor: main_color,
-        '&:hover': {
-            backgroundColor: main_color_dark
-        }
-    }
 
     return (
         <Box id="promoted-items">
@@ -110,7 +101,7 @@ const ItemCard = (props) => {
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
                         <Box sx={{ display: "flex" }}>
-                            <Button size="small" variant="contained" sx={buttonStyle} onClick={handleBuyNow}>
+                            <Button size="small" variant="contained" onClick={handleBuyNow}>
                                 Buy now<ShoppingCartIcon />
                             </Button>
                             <Button size="small" variant="outlined"

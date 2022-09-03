@@ -5,14 +5,11 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-import Colors from './Colors.js'
 import { getHomepageData } from '../context/Apis'
 
 
 const HomeHeader = (props) => {
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
-    const main_color = Colors("main_color")
-    const main_color_dark = Colors("main_color_dark")
 
     const [HomepageData, setHomepageData] = React.useState(null)
     const [CurrentImageIndex, setCurrentImageIndex] = React.useState(0)
@@ -58,24 +55,16 @@ const HomeHeader = (props) => {
         position: 'absolute',
         top: '40%',
         left: '10px',
-        backgroundColor: main_color,
-        '&:hover': {
-            backgroundColor: main_color_dark
-        }
     }
 
     const RightbuttonStyle = {
         position: "absolute",
         top: "40%",
         right: "10px",
-        backgroundColor: main_color,
-        '&:hover': {
-            backgroundColor: main_color_dark
-        }
     }
 
     return (
-        <Box id="promoted-subcategory" minHeight="300px" sx={{ backgroundColor: "#fff4e0", maxHeight: "450px", overflow: "hidden" }}>
+        <Box id="promoted-subcategory" minHeight="300px" sx={{ maxHeight: "450px", overflow: "hidden" }}>
             <Box sx={{ position: "absolute", top: "40%", left: "50%", transform: "translate(-50%, -50%)", color: "white" }}>
                 <Typography variant="h5" sx={{ textAlign: "center" }}>
                     {HomepageData ? HomepageData["title"] : "Title"}

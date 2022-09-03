@@ -7,7 +7,6 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import Colors from './Colors.js'
 import Link from '@mui/material/Link';
 import { getSubCategory } from '../context/Apis'
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
@@ -39,16 +38,8 @@ export const Header = (props) => {
         getData()
     }, [])
 
-
-    const main_color = Colors("main_color")
-    const main_color_dark = Colors("main_color_dark")
-
     const YourCartMobileStyle = {
         color: "white",
-        backgroundColor: main_color,
-        '&:hover': {
-            backgroundColor: main_color_dark
-        }
     }
 
     const YourCartStyle = {
@@ -62,7 +53,7 @@ export const Header = (props) => {
 
     return (
         <AppBar position="static" sx={{ maxWidth: "100%" }}>
-            <Box sx={{ backgroundColor: main_color }}>
+            <Box>
                 <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                     <IconButton
                         size="large"

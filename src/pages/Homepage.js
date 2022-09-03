@@ -81,7 +81,7 @@ export const Homepage = (props) => {
 
             {Page === "checkout" ? <Checkout setShowMsg={setShowMsg} /> : null}
 
-            <Footer FooterData={FooterData} />
+            {/* <Footer FooterData={FooterData} /> */}
         </>
     )
 }
