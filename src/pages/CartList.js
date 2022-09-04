@@ -38,7 +38,7 @@ const OrderList = (props) => {
         // check if user is logged in or not
         console.log("user.user", user.user)
         if (user.user === null){
-            redirect("/authentication")
+            redirect("/signin")
         }
         else{
             redirect("/checkout")
