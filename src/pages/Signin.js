@@ -1,45 +1,82 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
+import Link from '@mui/material/Link';
+import LoginIcon from '@mui/icons-material/Login';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import AuthContext from '../context/AuthContext';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
-import SigninComp from '../components/SigninComp';
-import ForgotPassword from '../components/ForgotPassword';
 
 
 export const Signin = (props) => {
-  const [Comp, setComp] = useState("signin")
+  let { loginUser } = useContext(AuthContext)
+
+  const handleLoginUser = (e) => {
+    e.preventDefault()
+    let data = {}
+    data["username"] = document.getElementById("username").value
+    data["password"] = document.getElementById("password").value
+    loginUser(e, data)
+  }
 
   return (
-    <Box>
-      <Box sx={{ height: "100vh", Width: "100%", backgroundColor: "#e3e3e3", paddingTop: "50px" }}>
-        <Box
-          component="form"
-          sx={{
-            marginTop: "15",
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: "100%",
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
+    <>
+      <Typography component="h1" variant="h5">
+        Sign in
+      </Typography>
+      <Box noValidate sx={{ marginTop: 1, maxWidth: "360px", backgroundColor: "white", padding: "15px", borderRadius: "10px", }}>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="username"
+          label="Username"
+          name="username"
+          autoComplete="name"
+          autoFocus
+          size="small"
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="Password"
+          type="password"
+          id="password"
+          autoComplete="current-password"
+          size="small"
+        />
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          onClick={(e) => handleLoginUser(e)}
+          sx={{ marginTop: 3, marginBottom: 2 }}
+          size="small"
         >
-          {Comp === "signin" ?
-            <SigninComp setComp={setComp} setAuthPage={props.setAuthPage} />
-            : null}
-
-          {Comp === "forgot_password" ?
-            <ForgotPassword setComp={setComp} />
-            : null}
-
-          <Link
-            href="/"
-            variant="contained"
-            sx={{ marginTop: "15px" }}
-          >Go to Home</Link>
-
-        </Box>
+          Sign In <LoginIcon />
+        </Button>
+        <Grid container>
+          <Grid item xs>
+            <Link variant="outlined" underline="none" href="/forgot-password" size="small">
+              Forgot password?
+            </Link>
+          </Grid>
+          <Grid item>
+            <Link variant="outlined" underline="none" href="/signup" size="small">
+              {"Sign Up"}
+            </Link>
+          </Grid>
+        </Grid>
       </Box>
-    </Box>
+      <Link
+        href="/"
+        variant="contained"
+        underline="none"
+        sx={{ marginTop: "15px" }}
+      >Go to Home</Link>
+    </>
   );
 }

@@ -10,6 +10,7 @@ import Default from '../pages/Default'
 export const CategoryList = (props) => {
     let location = useLocation()
     const [ProductData, setProductData] = useState(null)
+    console.log("category page here.")
 
     const getData = async () => {
         try {

@@ -34,9 +34,6 @@ const ForgotPassword = (props) => {
     }
     return (
         <>
-            <Avatar sx={{ padding: 1, marginTop: 10, bgcolor: 'blue' }}>
-                <LockOutlinedIcon />
-            </Avatar>
             <Typography component="h1" variant="h5">
                 Forgot password
             </Typography>
@@ -62,9 +59,9 @@ const ForgotPassword = (props) => {
                     </Grid>
 
                     <Grid item>
-                        <Button onClick={() => { props.setComp("signin") }} variant="outlined" size="small">
+                        <Link href="/signin" underline="none" variant="outlined" size="small">
                             {"Sign in"}
-                        </Button>
+                        </Link>
                         <Grid />
                     </Grid>
                 </Grid>
