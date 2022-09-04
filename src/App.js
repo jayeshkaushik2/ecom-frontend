@@ -20,7 +20,7 @@ import { Signin } from './pages/Signin';
 import Authentication from './pages/Authentication';
 import { ValidateOtp } from './components/ValidateOtp';
 import ForgotPassword from './components/ForgotPassword';
-
+import {getFooter, getHomepageData, getSubCategory} from './context/Apis'
 
 const theme = createTheme({
   palette: {
@@ -38,25 +38,47 @@ const theme = createTheme({
 });
 
 function App() {
+  const [FooterData, setFooterData] = React.useState(null)
+  const [HomepageData, setHomepageData] = React.useState(null)
+  const [SubCategory, setSubCategory] = React.useState(null)
 
+  
+  const getData = async () => {
+    try {
+      const footerData = await getFooter()
+      setFooterData(footerData)
+      const homepageData = await getHomepageData()
+      setHomepageData(homepageData)
+      const data = await getSubCategory()
+      setSubCategory(data["results"])
+  }
+  catch (error) {
+      console.log(error)
+  }
+  }
+
+  React.useEffect(() => {
+    getData()
+  }, [])
+ 
   return (
     <ThemeProvider theme={theme}>
       <AuthState>
         <CartState>
           <Navbar />
-          <Header />
+          <Header SubCategory={SubCategory} />
           <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/all-products" element={<ProductList />} />
-            <Route path="/products" element={<ItemsList />} />
-            <Route path="/subcategory" element={<CategoryList />} />
+            <Route path="/" element={<Homepage HomepageData={HomepageData} />} />
+            <Route path="/all-products" element={<ItemsList />} />
+            <Route path="/products" element={<ProductList />} />
+            <Route path="/category" element={<CategoryList />} />
             <Route path="/order" element={<OrderList />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/checkout" element={<Checkout />} />
-            <Route path="/:page" element={<Authentication />} />
             <Route path="*" element={<NoDataFound />} />
+            <Route path="/:page" element={<Authentication />} />
           </Routes>
-          {/* <Footer /> */}
+          <Footer FooterData={FooterData} />
         </CartState>
       </AuthState>
     </ThemeProvider>

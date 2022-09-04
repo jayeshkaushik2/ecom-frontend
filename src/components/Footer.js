@@ -6,7 +6,6 @@ import Container from '@mui/material/Container';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import CopyrightIcon from '@mui/icons-material/Copyright';
 import Link from '@mui/material/Link';
 import defaultImage from '../assets/images/defaultImage.png'
 import TextField from '@mui/material/TextField'
@@ -14,6 +13,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 
 export const Footer = (props) => {
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
+
 
     const buttonStyle = {
         fontSize: "18px", marginTop: "10px", float: "right"
@@ -26,7 +26,7 @@ export const Footer = (props) => {
         height: "auto",
         flexDirection: "row",
         justifyContent: "space-between",
-        backgroundColor: "primary",
+        backgroundColor: "#0d77b9",
         textAlign: "center",
         minHeight: "200px",
     }
@@ -38,13 +38,15 @@ export const Footer = (props) => {
                     <Typography varient="h6" sx={{ fontWeight: "bold" }}>
                         EcomBUY
                     </Typography>
-                    <Typography>
-                        <img
-                            width="45px"
-                            src={props.FooterData !== null && props.FooterData?.logo !== null ? `${API_ENDPOINT}${props.FooterData.logo}` : defaultImage}
-                            alt="Logo"
-                        />
-                    </Typography>
+                    {props.FooterData !== null && props.FooterData?.logo !== null ?
+                        <Typography>
+                            <img
+                                width="45px"
+                                src={`${API_ENDPOINT}${props.FooterData.logo}`}
+                                alt="Logo"
+                            />
+                        </Typography>
+                        : null}
 
                 </Container>
 

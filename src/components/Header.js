@@ -15,7 +15,7 @@ import Badge from '@mui/material/Badge';
 
 export const Header = (props) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [SubCategory, setSubCategory] = React.useState(null)
+    // const [SubCategory, setSubCategory] = React.useState(null)
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -25,18 +25,18 @@ export const Header = (props) => {
         setAnchorElNav(null);
     };
 
-    const getData = async () => {
-        try {
-            const data = await getSubCategory()
-            setSubCategory(data["results"])
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
-    React.useEffect(() => {
-        getData()
-    }, [])
+    // const getData = async () => {
+    //     try {
+    //         const data = await getSubCategory()
+    //         setSubCategory(data["results"])
+    //     }
+    //     catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+    // React.useEffect(() => {
+    //     getData()
+    // }, [])
 
     const YourCartMobileStyle = {
         color: "white",
@@ -83,7 +83,7 @@ export const Header = (props) => {
                             display: { xs: 'block', md: 'none' },
                         }}
                     >
-                        {SubCategory?.map((sub_category, index) => (
+                        {props.SubCategory?.map((sub_category, index) => (
                             <MenuItem key={index} onClick={handleCloseNavMenu} value={sub_category["name"]}>
                                 <Link href={`/category/?query=${sub_category.name}`} underline="none" color="inherit">
                                     <Typography textAlign="center" >{sub_category.name}</Typography>
@@ -99,7 +99,7 @@ export const Header = (props) => {
                     </Menu>
                 </Box>
                 <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                    {SubCategory?.map((sub_category, index) => (
+                    {props.SubCategory?.map((sub_category, index) => (
                         <Link href={`/category/?query=${sub_category.name}`} key={index} underline="none" color="inherit" params={{ query: sub_category.name }}>
                             <Button
                                 value={sub_category.name}

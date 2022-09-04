@@ -7,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import NoDataFound from './NoDataFound';
+import { useLocation } from 'react-router-dom';
 
 export const ProductList = (props) => {
   const [ProductsData, setProductsData] = React.useState(null)
@@ -14,6 +15,8 @@ export const ProductList = (props) => {
   const [Rating, setRating] = React.useState('');
   const [Discount, setDiscount] = React.useState('');
   const [Prev_query, setPrev_query] = React.useState('');
+  const [Search, setSearch] = React.useState("");
+  let location = useLocation()
 
 
   const handlePriceFilterChange = (event) => {
@@ -28,15 +31,21 @@ export const ProductList = (props) => {
     setDiscount(event.target.value);
   };
 
-  const getData = async () => {
+  const getData = async (query) => {
     try {
-      const data = await getProductData_WithFilter({ search_with: "sub_category__name", query: props.Query })
+      const data = await getProductData_WithFilter({ search_with: "sub_category__name", query })
       setProductsData(data["results"])
     }
     catch (error) {
       console.log(error)
     }
   }
+
+  React.useEffect(() => {
+    const query = location?.state.query
+    getData(query)
+  }, [location?.state])
+  
 
   if (props.Query !== Prev_query) {
     setPrev_query(props.Query)
@@ -117,12 +126,11 @@ export const ProductList = (props) => {
               </Select>
             </FormControl>
           </Box>
-          {/* <FormControlLabel control={<Checkbox />} label="With discount" /> */}
         </Box>
 
       </Box >
 
-      <Box sx={{ padding: "15px", marginLeft: "15px", width:"100%" }}>
+      <Box sx={{ padding: "15px", marginLeft: "15px", width: "100%" }}>
         {ProductsData?.length > 0 ? ProductsData.map((data, index) => (
           <ProductView setShowMsg={props.setShowMsg} key={index} productData={data} PriceRange={PriceRange} getNumProduct={props.getNumProduct} />
         )) :

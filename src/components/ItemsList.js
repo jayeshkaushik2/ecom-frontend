@@ -3,9 +3,11 @@ import SimpleCard from './SimpleCard'
 import { Grid, } from '@mui/material';
 import Box from '@mui/material/Box';
 import { getProductData } from '../context/Apis'
+import { useLocation } from 'react-router-dom';
 
 
 export const ItemsList = (props) => {
+    const location = useLocation()
     const [ProductData, setProductsData] = useState(null)
 
     const getData = async () => {
@@ -21,19 +23,17 @@ export const ItemsList = (props) => {
         getData()
     }, [])
 
-    // useEffect(() => {
-    //     console.log(location.state?.query, Query, location.state !== undefined && location.state?.query !== undefined && location.state?.query !== Query)
-    //     let interval = setInterval(() => {
-    //         if (location.state !== undefined && location.state?.query !== undefined && location.state?.query !== Query) {
-    //             console.log("calling api")
-    //             getProductData()
-    //             setQuery(location.state?.query)
-    //         }
-    //     }, 60 * 1000)
-    //     return () => {
-    //         clearInterval(interval)
-    //     }
-    // }, [location.state])
+    useEffect(() => {
+        console.log(location.state?.query, location.state !== undefined && location.state?.query !== undefined)
+        let interval = setInterval(() => {
+            if (location.state !== undefined && location.state?.query !== undefined) {
+                getProductData()
+            }
+        }, 60 * 1000)
+        return () => {
+            clearInterval(interval)
+        }
+    }, [location.state])
 
     return (
         <Box sx={{ paddingBottom: "10px", bottom: "0px", marginBottom: "-40px", }}>

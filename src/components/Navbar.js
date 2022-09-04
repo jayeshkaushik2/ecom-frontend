@@ -23,6 +23,7 @@ const ResponsiveAppBar = (props) => {
     let userData = React.useContext(AuthContext)
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
     const [ProfileuserData, setProfileuserData] = React.useState(null)
+    const [Query, setQuery] = React.useState("")
 
     const getData = async () => {
         try {
@@ -38,13 +39,14 @@ const ResponsiveAppBar = (props) => {
     }
 
     React.useEffect(() => {
+        console.log("query", Query)
         getData()
     }, [])
 
-    const handleSearch = (e) => {
+    const handleSearchChange = (e) => {
         let query = e.target.value
-        props.setQuery(query)
-        redirect("/products")
+        console.log("runing fuc...s", query)
+        redirect("/products", { state: { query: query } })
     }
 
 
@@ -149,7 +151,7 @@ const ResponsiveAppBar = (props) => {
                                 <SearchIcon />
                             </SearchIconWrapper>
                             <StyledInputBase
-                                onKeyPress={(e) => { if (e.key === "Enter") { handleSearch(e) } }}
+                                onKeyPress={(e) => { if (e.key === "Enter") { handleSearchChange(e) } }}
                                 placeholder="Search your product"
                                 inputProps={{ 'aria-label': 'search' }}
                             />

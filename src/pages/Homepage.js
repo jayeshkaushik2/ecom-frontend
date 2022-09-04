@@ -7,7 +7,7 @@ export const Homepage = (props) => {
 
     return (
         <>
-            <Home />
+            <Home HomepageData={props.HomepageData} />
             {ShowMsg ?
                 <Notifications msgType="success" msg="item added to cart" ShowMsg={ShowMsg}  />
                 : null}

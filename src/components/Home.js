@@ -10,7 +10,7 @@ export const Home = (props) => {
 
   return (
     <Box>
-      <HomeHeader />
+      <HomeHeader HomepageData={props.HomepageData} />
       <PromotedItemsList getNumProduct={props.getNumProduct} setShowMsg={props.setShowMsg} setPage={props.setPage} />
     </Box>
   )

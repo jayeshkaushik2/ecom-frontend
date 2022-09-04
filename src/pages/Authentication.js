@@ -11,7 +11,7 @@ const Authentication = () => {
     const page = useParams("page").page
     return (
         <Box>
-            <Box sx={{  Width: "100%", height:"81vh", backgroundColor: "#e3e3e3" }}>
+            <Box sx={{  Width: "100%", height:"100vh", backgroundColor: "#e3e3e3" }}>
                 <Box
                     component="form"
                     sx={{
@@ -21,6 +21,7 @@ const Authentication = () => {
                         width: "100%",
                         marginLeft: "auto",
                         marginRight: "auto",
+                        position: "relative", top: "50%", left: "50%", transform: "translate(-50%, -50%)"
                     }}
                 >
                 {page === "signin"? <Signin />: null}
