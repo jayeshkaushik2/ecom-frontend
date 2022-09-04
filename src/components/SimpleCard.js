@@ -55,8 +55,7 @@ const SimpleCard = (props) => {
             <Box style={{ maxWidth: "100%", minWidth: "100px", width: "100%" }}>
                 <CardMedia
                     component="img"
-                    width="100%"
-                    style={{ maxHeight: "250px", minHeight: "250px" }}
+                    style={{ width: "100%", Height: "100%" }}
                     image={props.product.images?.length > 0 ? props.product.images[0]["image"] : ProductImage}
                     alt="green iguana"
                     sx={{ objectFit: "contain" }}
