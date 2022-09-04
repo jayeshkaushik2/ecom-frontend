@@ -45,6 +45,8 @@ const OrderList = (props) => {
         }
     }
 
+    console.log(cartLines?.length === 0)
+
     return (
         <Box>
             <Box style={{ padding: "10px", minHeight: "300px" }}>
@@ -60,7 +62,7 @@ const OrderList = (props) => {
                     }}>
                         <NoDataFound />
                     </Box>}
-                <Button variant="contained" sx={{ position: "fixed", width: "98.5%", bottom: "10px" }} disabled={cartLines?.length === 0? true: false} onClick={handleContinueToBuy}>Continue to buy</Button>
+                <Button variant="contained" sx={{ width: "98.5%", bottom: "0", top:"20px" }} disabled={cartLines?.length === 0? true: false} onClick={handleContinueToBuy}>Continue to buy</Button>
             </Box>
         </Box>
     )
