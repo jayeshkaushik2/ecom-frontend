@@ -10,12 +10,11 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Rating from '@mui/material/Rating'
-import Colors from './Colors.js'
 import Button from '@mui/material/Button';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import defaultImage from '../assets/images/defaultImage.png'
+import ProductImage from '../assets/images/ProductImage.png'
 import { PostCartRefData } from '../context/Apis'
 import CartContext from '../context/CartContext'
 import AuthContext from '../context/AuthContext'
@@ -36,8 +35,6 @@ const ExpandMore = styled((props) => {
 const ItemCard = (props) => {
     let cart = React.useContext(CartContext)
     let user = React.useContext(AuthContext)
-    const main_color = Colors("main_color")
-    const main_color_dark = Colors("main_color_dark")
 
     const postCartLineData = async (lineData) => {
         try {
@@ -55,13 +52,11 @@ const ItemCard = (props) => {
 
     const handlePostCartData = (e) => {
         // get ref, cart_id,
-        console.log("adding to cart...", e.target.value)
         let dataIs = {
             cart: cart?.cart_id,
             product: e.target.value,
             ref: cart?.cartRef,
         }
-        console.log("data have to post", dataIs)
         postCartLineData(dataIs)
 
     }
@@ -72,12 +67,10 @@ const ItemCard = (props) => {
         setExpanded(!expanded)
     };
 
-    const buttonStyle = {
-        backgroundColor: main_color,
-        '&:hover': {
-            backgroundColor: main_color_dark
-        }
+    const handleBuyNow = () => {
+        
     }
+
 
     return (
         <Box id="promoted-items">
@@ -85,7 +78,7 @@ const ItemCard = (props) => {
                 <CardMedia
                     component="img"
                     height="200"
-                    image={props.product.images?.length > 0 ? props.product.images[0]["image"] : defaultImage}
+                    image={props.product.images?.length > 0 ? props.product.images[0]["image"] : ProductImage}
                     alt="promoted item image"
                     sx={{ objectFit: "contain" }}
                 />
@@ -108,7 +101,7 @@ const ItemCard = (props) => {
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
                         <Box sx={{ display: "flex" }}>
-                            <Button size="small" variant="contained" sx={buttonStyle}>
+                            <Button size="small" variant="contained" onClick={handleBuyNow}>
                                 Buy now<ShoppingCartIcon />
                             </Button>
                             <Button size="small" variant="outlined"

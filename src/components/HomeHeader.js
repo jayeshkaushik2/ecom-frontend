@@ -5,101 +5,87 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-import Colors from './Colors.js'
-import { getHomepageData } from '../context/Apis'
 
 
 const HomeHeader = (props) => {
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
-    const main_color = Colors("main_color")
-    const main_color_dark = Colors("main_color_dark")
-
-    const [HomepageData, setHomepageData] = React.useState(null)
     const [CurrentImageIndex, setCurrentImageIndex] = React.useState(0)
-    const getData = async () => {
-        try {
-            const data = await getHomepageData()
-            setHomepageData(data)
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
-
-
-
+    
     React.useEffect(() => {
-        getData()
+        let interval = setInterval(() => {
+            document.getElementById("right-btn").click()
+        }, 5 * 1000)
+        return () => {
+            clearInterval(interval)
+        }
     }, [])
 
     const handleRightImageClick = (e) => {
-        if (CurrentImageIndex + 1 < HomepageData?.images?.length) {
-            setCurrentImageIndex(CurrentImageIndex-1)
-         }
+        if (CurrentImageIndex + 1 >= props.HomepageData?.images?.length) {
+            setCurrentImageIndex(0)
+        }
+        if (CurrentImageIndex + 1 < props.HomepageData?.images?.length) {
+            setCurrentImageIndex(CurrentImageIndex + 1)
+        }
     }
 
     const handleLeftImageClick = (e) => {
+        if (CurrentImageIndex - 1 <= -1) {
+            setCurrentImageIndex(props.HomepageData?.images?.length - 1)
+        }
         if (CurrentImageIndex - 1 > -1) {
-            setCurrentImageIndex(CurrentImageIndex-1)
-         }
+            setCurrentImageIndex(CurrentImageIndex - 1)
+        }
     }
 
     const LeftbuttonStyle = {
         position: 'absolute',
-        top: '40%',
+        top: '50%',
         left: '10px',
-        backgroundColor: main_color,
-        '&:hover': {
-            backgroundColor: main_color_dark
-        }
     }
 
     const RightbuttonStyle = {
         position: "absolute",
-        top: "40%",
+        top: "50%",
         right: "10px",
-        backgroundColor: main_color,
-        '&:hover': {
-            backgroundColor: main_color_dark
-        }
     }
 
     return (
-        <Box id="promoted-subcategory" minHeight="300px" sx={{ backgroundColor: "#fff4e0" }}>
-            <Box sx={{ position: "absolute", top: "40%", left: "50%", transform: "translate(-50%, -50%)", color: "white" }}>
-                <Typography variant="h5" sx={{ textAlign: "center" }}>
-                    {HomepageData ? HomepageData["title"] : "Title"}
-                </Typography>
-
-                <Typography sx={{ textAlign: "center", color: "grey" }}>
-                    {HomepageData ? HomepageData["description"] : "Description"}
-                </Typography>
-            </Box>
-
-            {HomepageData !== null && HomepageData["images"]?.length > 0 ?
+        <Box id="promoted-subcategory" minHeight="500px" sx={{ backgroundColor: "#ffe6c1", maxHeight: "450px", overflow: "hidden" }}>
+            {props.HomepageData !== null && props.HomepageData["images"]?.length > 0 ?
                 <Box height="inherit">
+                    <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", color: `${props.HomepageData.images[CurrentImageIndex].is_dark === true? "white": "black" }` }}>
+                        <Typography variant="h5" sx={{ textAlign: "center" }}>
+                            {props.HomepageData?.title ? props.HomepageData.title : "Title"}
+                        </Typography>
+
+                        <Typography sx={{ textAlign: "center", }}>
+                            {props.HomepageData?.description ? props.HomepageData.description : "Description"}
+                        </Typography>
+                    </Box>
                     <img
                         width="100%"
-                        src={HomepageData["images"]?.length >= CurrentImageIndex ? `${API_ENDPOINT}${HomepageData["images"][CurrentImageIndex]?.image}` : defaultImage}
+                        height="100%"
+                        src={props.HomepageData["images"]?.length >= CurrentImageIndex ? `${API_ENDPOINT}${props.HomepageData["images"][CurrentImageIndex]?.image}` : defaultImage}
                         alt="homepage image"
-                        height="350px"
                     />
-                    <Button
-                        type="btn"
-                        variant="contained"
-                        onClick={(e) => handleLeftImageClick(e)}
-                        sx={LeftbuttonStyle}>
-                        <ArrowCircleLeftIcon />
-                    </Button>
-                    <Button
-                        type="btn"
-                        variant="contained"
-                        onClick={(e) => handleRightImageClick(e)}
-                        sx={RightbuttonStyle}>
-                        <ArrowCircleRightIcon />
-                    </Button>
                 </Box>
                 : null}
+            <Button
+                type="btn"
+                variant="contained"
+                onClick={(e) => handleLeftImageClick(e)}
+                sx={LeftbuttonStyle}>
+                <ArrowCircleLeftIcon />
+            </Button>
+            <Button
+                type="btn"
+                variant="contained"
+                id="right-btn"
+                onClick={(e) => handleRightImageClick(e)}
+                sx={RightbuttonStyle}>
+                <ArrowCircleRightIcon />
+            </Button>
 
         </Box >
     )

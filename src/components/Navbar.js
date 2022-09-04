@@ -12,25 +12,24 @@ import AdbIcon from '@mui/icons-material/Adb';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import Colors from './Colors.js';
 import AuthContext from '../context/AuthContext';
 import Link from '@mui/material/Link';
 import { useNavigate } from 'react-router-dom';
-import { getUserData } from '../context/Apis'
+import { getProfileData } from '../context/Apis'
 
 const ResponsiveAppBar = (props) => {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const main_color_dark = Colors("main_color_dark")
     let redirect = useNavigate()
     let userData = React.useContext(AuthContext)
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
     const [ProfileuserData, setProfileuserData] = React.useState(null)
+    const [Query, setQuery] = React.useState("")
 
     const getData = async () => {
         try {
             let token = userData.AuthToken ? `Bearer ${userData.AuthToken.access}` : null
             if (token !== null && userData.Login !== "Login" && userData.AuthToken !== null) {
-                const data = await getUserData({ token: token })
+                const data = await getProfileData({ token: token })
                 setProfileuserData(data)
             }
         }
@@ -40,13 +39,14 @@ const ResponsiveAppBar = (props) => {
     }
 
     React.useEffect(() => {
+        console.log("query", Query)
         getData()
     }, [])
 
-    const handleSearch = (e) => {
+    const handleSearchChange = (e) => {
         let query = e.target.value
-        props.setQuery(query)
-        redirect("/products")
+        console.log("runing fuc...s", query)
+        redirect("/products", { state: { query: query } })
     }
 
 
@@ -104,8 +104,8 @@ const ResponsiveAppBar = (props) => {
     }));
 
     return (
-        <AppBar position="static" sx={{ position: "sticky", top: 0, zIndex: "100", maxWidth: "100%" }}>
-            <Box sx={{ backgroundColor: main_color_dark, paddingLeft: "10px", paddingRight: "10px" }}>
+        <AppBar position="static" sx={{ position: "sticky", top: 0, zIndex: "100", background:"#1769aa", maxWidth: "100%" }}>
+            <Box sx={{ paddingLeft: "10px", paddingRight: "10px" }}>
                 <Toolbar disableGutters>
                     <Typography
                         variant="h6"
@@ -151,7 +151,7 @@ const ResponsiveAppBar = (props) => {
                                 <SearchIcon />
                             </SearchIconWrapper>
                             <StyledInputBase
-                                onKeyPress={(e) => { if (e.key === "Enter") { handleSearch(e) } }}
+                                onKeyPress={(e) => { if (e.key === "Enter") { handleSearchChange(e) } }}
                                 placeholder="Search your product"
                                 inputProps={{ 'aria-label': 'search' }}
                             />
@@ -160,9 +160,8 @@ const ResponsiveAppBar = (props) => {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp"
+                                <Avatar
                                     src={ProfileuserData?.profile_image ? `${API_ENDPOINT}${ProfileuserData.profile_image}` : "/static/images/avatar/1.jpg"} />
-                                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -191,7 +190,7 @@ const ResponsiveAppBar = (props) => {
 
                             {userData?.login === "Login" && userData.user === null ?
                                 <MenuItem onClick={() => handleCloseUserMenu()}>
-                                    <Link href="/authentication" underline="none" color="inherit">
+                                    <Link href="/signin" underline="none" color="inherit">
                                         <Typography textAlign="center">Login</Typography>
                                     </Link>
                                 </MenuItem>

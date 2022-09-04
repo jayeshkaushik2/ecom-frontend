@@ -7,8 +7,11 @@ import profile_d from '../assets/images/profile_d.jpg'
 import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
 import camera_icon from '../assets/images/camera_icon.png'
-import { getUserData, PostUserData } from '../context/Apis'
+import { getProfileData, PostProfileData } from '../context/Apis'
 import AuthContext from '../context/AuthContext'
+import { IconButton } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import defaultprofile from '../assets/images/defaultprofile.jpg'
 
 const Profile = () => {
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
@@ -23,11 +26,9 @@ const Profile = () => {
 
     const postData = async (userData) => {
         try {
-            console.log("running profile api...", userData)
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             if (token !== null && user.Login !== "Login" && user.AuthToken !== null) {
-                const response_data = await PostUserData({ token: token, userData: userData })
-                console.log("data got user-profile, ", response_data)
+                const response_data = await PostProfileData({ token: token, userData: userData })
             }
         }
         catch (error) {
@@ -47,7 +48,7 @@ const Profile = () => {
         try {
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             if (token !== null && user.Login !== "Login" && user.AuthToken !== null) {
-                const data = await getUserData({ token: token })
+                const data = await getProfileData({ token: token })
                 setUserData(data)
             }
         }
@@ -68,48 +69,46 @@ const Profile = () => {
                 marginTop: "-10px",
                 marginBottom: "70px",
             }}>
-                <Box style={{ maxWidth: "100%", height: "246px", backgroundColor: "rgb(172, 172, 172) ", marginTop: "10px" }}>
+                <Box style={{ maxWidth: "100%", minHeight: "300px", marginTop: "10px", maxHeight: "300px", overflow: "hidden" }}>
                     {userData ?
                         <img
                             width="100%"
-                            src={userData?.banner_image ? `${API_ENDPOINT}${userData.banner_image}` : null}
+                            src={userData?.banner_image ? `${API_ENDPOINT}${userData.banner_image}` : defaultprofile}
                             alt="homepage image"
-                            height="246px"
+                            height="100%"
                         />
                         : null}
                 </Box>
-                <Stack direction="row" spacing={2} sx={{ width: 56, height: 56 }}>
-                    <Avatar style={{
-                        width: "120px",
-                        height: "120px",
-                        display: "flex",
-                        marginTop: "-50px",
-                        marginLeft: "30px",
-                        border: "5px solid",
-                        boxShadow: "4px 3px 6px grey",
-                    }} alt="Remy Sharp"
-                    >
-                        <img style={{ width: "100%", position: "absolute" }}
-                            src={userData?.profile_image ? `${API_ENDPOINT}${userData.profile_image}` : profile_d}
-                            alt="profile image"
-                            loading="lazy" />
-                        <Button type="submit"
-                            variant="text"
-                            onClick={handleBtnClick}
-                            style={{ marginTop: "80px", borderRadius: "15px" }}>
-                            <img style={{ width: "33px" }} src={camera_icon} alt="" />
-                        </Button>
-                        <Input type="file" id="imageUpload" accept="image/*" style={{ display: "none" }} onChange={(e) => setProfileImage(e.target.files[0])}></Input>
 
-                    </Avatar>
-                </Stack>
-                <Button variant="contained" disabled={Save} onClick={handleProfileEdit}>
-                    Save
-                </Button>
-                <Typography component="h1" variant="h5" style={{ textAlign: "center", marginTop: "-50px", marginLeft: "100px" }}>
-                    {userData?.name ? userData.name : "Anonymous"}
-                </Typography>
+                <Box sx={{ display: "flex", margin: "10px" }}>
+                    <Box sx={{ margin: "10px", marginTop: "-100px" }}>
+                        <Stack direction="row" spacing={2}>
+                            <Avatar style={{
+                                width: "200px",
+                                height: "200px",
+                                display: "flex",
+                                boxShadow: "3px 3px 6px grey",
+                            }}>
+                                <img style={{ width: "100%", position: "absolute" }}
+                                    src={userData?.profile_image ? `${API_ENDPOINT}${userData.profile_image}` : profile_d}
+                                    alt="profile image"
+                                    loading="lazy" />
+                            </Avatar>
+                        </Stack>
+                        <Typography component="h1" variant="h5" style={{ textAlign: "center", marginTop: "10px" }}>
+                            {userData?.name ? userData.name : "Anonymous"}
+                        </Typography>
+                        <IconButton aria-label="edit" sx={{ float: "right", marginTop: "-8px" }}><EditIcon /></IconButton>
+                        <Typography style={{ textAlign: "center", marginTop: "10px" }}>
+                            This is the about section.
+                        </Typography>
+                    </Box>
 
+                    <Box sx={{ margin: "10px" }}>
+                        Your orders,
+                        Your profile info
+                    </Box>
+                </Box>
             </Box>
         </>
     );
@@ -117,3 +116,16 @@ const Profile = () => {
 
 
 export default Profile;
+
+
+{/* <Button type="submit"
+                            variant="text"
+                            onClick={handleBtnClick}
+                            style={{ marginTop: "80px", borderRadius: "15px" }}>
+                            <img style={{ width: "33px" }} src={camera_icon} alt="" />
+                        </Button>
+                        <Input type="file" id="imageUpload" accept="image/*" style={{ display: "none" }} onChange={(e) => setProfileImage(e.target.files[0])}></Input> */}
+
+                //         <Button variant="contained" disabled={Save} onClick={handleProfileEdit}>
+                //     Save
+                // </Button>

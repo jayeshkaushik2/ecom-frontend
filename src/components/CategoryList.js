@@ -10,6 +10,7 @@ import Default from '../pages/Default'
 export const CategoryList = (props) => {
     let location = useLocation()
     const [ProductData, setProductData] = useState(null)
+    console.log("category page here.")
 
     const getData = async () => {
         try {
@@ -30,12 +31,12 @@ export const CategoryList = (props) => {
     return (
         <>
             {ProductData ?
-                <Box minHeight="300px" sx={{  paddingBottom: "10px", bottom: "0px", background:"#f1f1f1", marginBottom:"-40px", minHeight:"300px" }}>
+                <Box minHeight="300px" sx={{  paddingBottom: "10px", bottom: "0px", marginBottom:"-40px", minHeight:"300px" }}>
                     <Box sx={{ marginTop: '20px', marginBottom: '20px' }}>
                         <Grid container spacing={{ xs: 2, md: 3, marginLeft: "auto" }} columns={{ xs: 2, sm: 8, md: 12 }}>
                             {ProductData?.map((data, index) => (
                                 <Grid item xs={2} sm={4} md={4} key={index}>
-                                    <SimpleCard product={data} getNumProduct={props.getNumProduct} />
+                                    <SimpleCard setShowMsg={props.setShowMsg} product={data} setPage={props.setPage} getNumProduct={props.getNumProduct} />
                                 </Grid>
                             ))}
                         </Grid>

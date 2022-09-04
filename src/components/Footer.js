@@ -6,8 +6,6 @@ import Container from '@mui/material/Container';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import Colors from './Colors.js'
-import CopyrightIcon from '@mui/icons-material/Copyright';
 import Link from '@mui/material/Link';
 import defaultImage from '../assets/images/defaultImage.png'
 import TextField from '@mui/material/TextField'
@@ -15,15 +13,9 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 
 export const Footer = (props) => {
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
-    // eslint-disable-next-line
-    const main_color = Colors("main_color")
-    const main_color_dark = Colors("main_color_dark")
+
 
     const buttonStyle = {
-        backgroundColor: main_color_dark,
-        '&:hover': {
-            backgroundColor: main_color_dark,
-        },
         fontSize: "18px", marginTop: "10px", float: "right"
     }
 
@@ -34,14 +26,10 @@ export const Footer = (props) => {
         height: "auto",
         flexDirection: "row",
         justifyContent: "space-between",
-        backgroundColor: "#26c6da",
+        backgroundColor: "#1769aa",
         textAlign: "center",
-    }
-
-    const temp = {
-        backgroundColor: "#26c6da",
-        bottom: "0",
-        position: "absolute",
+        minHeight: "200px",
+        bottom: 0,
         width: "100%"
     }
 
@@ -52,20 +40,24 @@ export const Footer = (props) => {
                     <Typography varient="h6" sx={{ fontWeight: "bold" }}>
                         EcomBUY
                     </Typography>
-                    <Typography>
-                        <img
-                            width="45px"
-                            src={props.FooterData ? `${API_ENDPOINT}${props.FooterData.logo}` : defaultImage}
-                            alt="Logo"
-                        />
-                    </Typography>
+                    {props.FooterData !== null && props.FooterData?.logo !== null ?
+                        <Typography>
+                            <img
+                                width="45px"
+                                src={`${API_ENDPOINT}${props.FooterData.logo}`}
+                                alt="Logo"
+                            />
+                        </Typography>
+                        : null}
 
                 </Container>
 
                 <Container sx={containerStyle}>
-                    <Typography varient="h6" sx={{ fontWeight: "bold" }}>
-                        Contact us
-                    </Typography>
+                    {props.FooterData !== null && props.FooterData?.contact !== null ?
+                        <Typography varient="h6" sx={{ fontWeight: "bold" }}>
+                            Contact us
+                        </Typography>
+                        : ""}
 
                     <Typography>
                         {props.FooterData ? props.FooterData.email : ""}
@@ -106,36 +98,30 @@ export const Footer = (props) => {
 
             </Box>
 
-            <hr style={{ color: "white", width: "90%" }} />
-
             <Box>
-                {props.FooterData ?
+                {props.FooterData !== null && props.FooterData?.twitter_link !== null ?
                     <Link target="_blank" href={props.FooterData.twitter_link} >
                         <TwitterIcon style={{ color: "white", marginRight: "25px", marginTop: "10px" }} />
                     </Link>
                     : ""}
 
-                {props.FooterData ?
+                {props.FooterData !== null && props.FooterData?.facebook_link !== null ?
                     <Link target="_blank" href={props.FooterData.facebook_link} >
                         <FacebookIcon style={{ color: "white", marginRight: "25px", marginTop: "10px" }} />
                     </Link>
                     : ""}
 
-                {props.FooterData ?
+                {props.FooterData !== null && props.FooterData?.instagram_link !== null ?
                     <Link target="_blank" href={props.FooterData.instagram_link} >
                         <InstagramIcon style={{ color: "white", marginRight: "25px", marginTop: "10px" }} />
                     </Link>
                     : ""}
 
-                {props.FooterData ?
+                {props.FooterData !== null && props.FooterData?.youtube_link !== null ?
                     <Link target="_blank" href={props.FooterData.youtube_link} >
                         <YouTubeIcon style={{ color: "white", marginTop: "10px" }} />
                     </Link>
                     : ""}
-
-                <Box style={{ display: "flex", justifyContent: "center", height: "60px", marginTop: " 13px", color: "white", fontSize: "larger", }}>
-                    Copyright <CopyrightIcon />  All Rights Reserved
-                </Box>
             </Box>
         </Box >
     )

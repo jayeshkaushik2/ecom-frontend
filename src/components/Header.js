@@ -7,7 +7,6 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import Colors from './Colors.js'
 import Link from '@mui/material/Link';
 import { getSubCategory } from '../context/Apis'
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
@@ -16,7 +15,7 @@ import Badge from '@mui/material/Badge';
 
 export const Header = (props) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [SubCategory, setSubCategory] = React.useState(null)
+    // const [SubCategory, setSubCategory] = React.useState(null)
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -26,29 +25,21 @@ export const Header = (props) => {
         setAnchorElNav(null);
     };
 
-    const getData = async () => {
-        try {
-            const data = await getSubCategory()
-            setSubCategory(data["results"])
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
-    React.useEffect(() => {
-        getData()
-    }, [])
-
-
-    const main_color = Colors("main_color")
-    const main_color_dark = Colors("main_color_dark")
+    // const getData = async () => {
+    //     try {
+    //         const data = await getSubCategory()
+    //         setSubCategory(data["results"])
+    //     }
+    //     catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+    // React.useEffect(() => {
+    //     getData()
+    // }, [])
 
     const YourCartMobileStyle = {
         color: "white",
-        backgroundColor: main_color,
-        '&:hover': {
-            backgroundColor: main_color_dark
-        }
     }
 
     const YourCartStyle = {
@@ -62,7 +53,7 @@ export const Header = (props) => {
 
     return (
         <AppBar position="static" sx={{ maxWidth: "100%" }}>
-            <Box sx={{ backgroundColor: main_color }}>
+            <Box>
                 <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                     <IconButton
                         size="large"
@@ -92,7 +83,7 @@ export const Header = (props) => {
                             display: { xs: 'block', md: 'none' },
                         }}
                     >
-                        {SubCategory?.map((sub_category, index) => (
+                        {props.SubCategory?.map((sub_category, index) => (
                             <MenuItem key={index} onClick={handleCloseNavMenu} value={sub_category["name"]}>
                                 <Link href={`/category/?query=${sub_category.name}`} underline="none" color="inherit">
                                     <Typography textAlign="center" >{sub_category.name}</Typography>
@@ -101,18 +92,18 @@ export const Header = (props) => {
 
                         ))}
                         <MenuItem sx={YourCartMobileStyle}>
-                            <Link href="/order" underline="none" color="inherit">
-                                Your Cart ({props.num_product})
+                            <Link href="/order" underline="none" color="black">
+                                Your Cart
                             </Link>
                         </MenuItem>
                     </Menu>
                 </Box>
                 <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                    {SubCategory?.map((sub_category, index) => (
+                    {props.SubCategory?.map((sub_category, index) => (
                         <Link href={`/category/?query=${sub_category.name}`} key={index} underline="none" color="inherit" params={{ query: sub_category.name }}>
                             <Button
                                 value={sub_category.name}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                sx={{ my: 2, color: 'inherit', display: 'block' }}
                             >
                                 {sub_category["name"]}
                             </Button>
