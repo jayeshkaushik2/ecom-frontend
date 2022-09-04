@@ -104,7 +104,7 @@ const ResponsiveAppBar = (props) => {
     }));
 
     return (
-        <AppBar position="static" sx={{ position: "sticky", top: 0, zIndex: "100", maxWidth: "100%" }}>
+        <AppBar position="static" sx={{ position: "sticky", top: 0, zIndex: "100", background:"#1769aa", maxWidth: "100%" }}>
             <Box sx={{ paddingLeft: "10px", paddingRight: "10px" }}>
                 <Toolbar disableGutters>
                     <Typography

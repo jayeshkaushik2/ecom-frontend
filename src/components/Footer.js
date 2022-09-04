@@ -26,9 +26,11 @@ export const Footer = (props) => {
         height: "auto",
         flexDirection: "row",
         justifyContent: "space-between",
-        backgroundColor: "#0d77b9",
+        backgroundColor: "#1769aa",
         textAlign: "center",
         minHeight: "200px",
+        bottom: 0,
+        width: "100%"
     }
 
     return (
