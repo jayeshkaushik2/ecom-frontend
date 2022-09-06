@@ -1,6 +1,6 @@
 import React from 'react'
 import { Home } from '../components/Home';
-import Notifications from '../context/Notifications';
+import Notifications from '../context/NotificationState';
 
 export const Homepage = (props) => {
     const [ShowMsg, setShowMsg] = React.useState({ show: false, type: "error", msg: null })
@@ -8,9 +8,6 @@ export const Homepage = (props) => {
     return (
         <>
             <Home HomepageData={props.HomepageData} />
-            {ShowMsg ?
-                <Notifications msgType="success" msg="item added to cart" ShowMsg={ShowMsg}  />
-                : null}
         </>
     )
 }

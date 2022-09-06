@@ -14,13 +14,14 @@ import Box from '@mui/material/Box';
 import { PostCartRefData } from "../context/Apis"
 import CartContext from '../context/CartContext'
 import AuthContext from '../context/AuthContext'
-import Notifications from '../context/Notifications.js';
+import NotificationContext from '../context/NotificationContext';
 
 
 
 const SimpleCard = (props) => {
     let cart = React.useContext(CartContext)
     let user = React.useContext(AuthContext)
+    let notify = React.useContext(NotificationContext)
 
 
     const postCartLineData = async (lineData) => {
@@ -29,6 +30,7 @@ const SimpleCard = (props) => {
             let ref = cart?.cartRef
             const data = await PostCartRefData({ token: token, ref: ref, lineData: { lines: [lineData] } })
             cart.getCartData({ token: token, ref: cart?.cartRef })
+            notify?.sendNotification({type:"success", msg:"item add successfully"})
         }
         catch (error) {
             console.log(error)

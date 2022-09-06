@@ -1,6 +1,6 @@
 import AuthContext from './AuthContext'
 import { useContext } from 'react'
-import Notifications from './Notifications';
+import Notifications from './NotificationState';
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
 
 export function GetToken() {

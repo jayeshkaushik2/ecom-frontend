@@ -8,24 +8,18 @@ import { Button } from '@mui/material';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import ProductImage from '../assets/images/ProductImage.png'
 import DeleteIcon from '@mui/icons-material/Delete';
-import CartContext from '../context/CartContext'
-import AuthContext from '../context/AuthContext'
 
 
 const OrderLine = (props) => {
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
-    let cart = React.useContext(CartContext)
-    let user = React.useContext(AuthContext)
-
 
     return (
-        <Box sx={{background:"#f1f1f1", paddingTop:"10px" }}>
+        <Box sx={{background:"#f1f1f1" }}>
             <Box style={{ display: "flex" }}>
-                <Box style={{ maxWidth: "300px", minWidth: "100px", width: "100%" }}>
+                <Box style={{ maxWidth: "300px", minWidth: "100px", width: "100%", maxHeight:"200px" }}>
                     <CardMedia
                         component="img"
-                        width="100%"
-                        style={{ maxHeight: "100px", minHeight: "100px" }}
+                        style={{ height: "fit-content" }}
                         image={props.line?.product?.images.length > 0 ? `${API_ENDPOINT}${props.line.product.images[0].image}` : ProductImage}
                         alt="green iguana"
                     />

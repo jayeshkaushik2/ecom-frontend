@@ -20,7 +20,8 @@ import { Signin } from './pages/Signin';
 import Authentication from './pages/Authentication';
 import { ValidateOtp } from './components/ValidateOtp';
 import ForgotPassword from './components/ForgotPassword';
-import {getFooter, getHomepageData, getSubCategory} from './context/Apis'
+import { getFooter, getHomepageData, getSubCategory } from './context/Apis'
+import NotificationState from './context/NotificationState';
 
 const theme = createTheme({
   palette: {
@@ -42,7 +43,7 @@ function App() {
   const [HomepageData, setHomepageData] = React.useState(null)
   const [SubCategory, setSubCategory] = React.useState(null)
 
-  
+
   const getData = async () => {
     try {
       const footerData = await getFooter()
@@ -51,36 +52,38 @@ function App() {
       setHomepageData(homepageData)
       const data = await getSubCategory()
       setSubCategory(data["results"])
-  }
-  catch (error) {
+    }
+    catch (error) {
       console.log(error)
-  }
+    }
   }
 
   React.useEffect(() => {
     getData()
   }, [])
- 
+
   return (
     <ThemeProvider theme={theme}>
-      <AuthState>
-        <CartState>
-          <Navbar />
-          <Header SubCategory={SubCategory} />
-          <Routes>
-            <Route path="/" element={<Homepage HomepageData={HomepageData} />} />
-            <Route path="/all-products" element={<ItemsList />} />
-            <Route path="/products" element={<ProductList />} />
-            <Route path="/category" element={<CategoryList />} />
-            <Route path="/order" element={<OrderList />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="*" element={<NoDataFound />} />
-            <Route path="/:page" element={<Authentication />} />
-          </Routes>
-          <Footer FooterData={FooterData} />
-        </CartState>
-      </AuthState>
+      <NotificationState>
+        <AuthState>
+          <CartState>
+            <Navbar />
+            <Header SubCategory={SubCategory} />
+            <Routes>
+              <Route path="/" element={<Homepage HomepageData={HomepageData} />} />
+              <Route path="/all-products" element={<ItemsList />} />
+              <Route path="/products" element={<ProductList />} />
+              <Route path="/category" element={<CategoryList />} />
+              <Route path="/order" element={<OrderList />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="*" element={<NoDataFound />} />
+              <Route path="/:page" element={<Authentication />} />
+            </Routes>
+            <Footer FooterData={FooterData} />
+          </CartState>
+        </AuthState>
+      </NotificationState>
     </ThemeProvider>
   );
 }

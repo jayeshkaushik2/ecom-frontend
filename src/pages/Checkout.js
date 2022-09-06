@@ -71,19 +71,19 @@ export const Checkout = (props) => {
     const handleConfirmOrder = async () => {
         try {
             let response = await PostPlaceOrder({ token: token, ref: ref })
-            props.setShowMsg({show:true, type:"success", msg:"your order has been placed"})
+            props.setShowMsg({ show: true, type: "success", msg: "your order has been placed" })
             cart.clearCart()
             redirect("/")
         }
         catch (error) {
             console.log('error section')
-            props.setShowMsg({show:true, type:"error", msg:"got error in response"})
+            props.setShowMsg({ show: true, type: "error", msg: "got error in response" })
             console.log(error)
         }
     }
 
     return (
-        <Box sx={{ padding: "20px", background: "#f1f1f1", marginBottom: "-40px" }}>
+        <Box sx={{ padding: "10px", background: "#f1f1f1", marginBottom: "-40px" }}>
             {cartLines?.length === 0 || OrderData === null ? <NoDataFound /> :
                 <Card sx={{ padding: "15px", background: "white", borderRadius: "20px" }}>
                     <Typography variant='h5'>Place Order</Typography>
@@ -130,14 +130,12 @@ export const Checkout = (props) => {
                         </Box>
                     </Box>
 
-                    <Box sx={{ borderRadius: "20px", background: "#f1f1f1", padding: "10px" }}>
-                        <Box sx={{ maxHeight: "500px", overflow: "auto" }}>
-                            {cartLines?.map((data, index) => (
-                                <Box key={index}>
-                                    <OrderLine line={data} />
-                                </Box>
-                            ))}
-                        </Box>
+                    <Box sx={{ maxHeight: "250px", overflow:"hidden" }}>
+                        {cartLines?.map((data, index) => (
+                            <Box key={index}>
+                                <OrderLine line={data} />
+                            </Box>
+                        ))}
                     </Box>
                     <Box sx={{ padding: "10px" }}>
                         <Typography sx={{ color: "green", fontWeight: "bold" }}>
@@ -164,7 +162,7 @@ export const Checkout = (props) => {
 
                         <PaymentMethods PaymentMethod={PaymentMethod} setPaymentMethod={setPaymentMethod} PostData={PostData} />
                         <Box sx={{ textAlign: "center" }}>
-                            <Button variant="contained" disabled={OrderData?.payment_method === "cash" ? false : true} size="small" sx={{ width: "100%" }} onClick={handleConfirmOrder}>{OrderData?.payment_method !== "cash" ? "please select payment type cash on delivery" : "Confirm order"}
+                            <Button variant="contained" disabled={OrderData?.payment_method === "cash" ? false : true} sx={{ width: "100%" }} onClick={handleConfirmOrder}>{OrderData?.payment_method !== "cash" ? "please select payment type cash on delivery" : "Confirm order"}
                             </Button>
                         </Box>
                     </Box>
