@@ -28,8 +28,7 @@ const SimpleCard = (props) => {
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             let ref = cart?.cartRef
             const data = await PostCartRefData({ token: token, ref: ref, lineData: { lines: [lineData] } })
-            props.setShowMsg({ show: true, type: "success", msg: "item added to cart" })
-            props.getNumProduct()
+            cart.getCartData({ token: token, ref: cart?.cartRef })
         }
         catch (error) {
             console.log(error)
@@ -37,7 +36,6 @@ const SimpleCard = (props) => {
     }
 
     const handlePostCartData = (e) => {
-        // get ref, cart_id,
         let dataIs = {
             cart: cart?.cart_id,
             product: e.target.value,

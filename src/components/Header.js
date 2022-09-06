@@ -8,14 +8,16 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Link from '@mui/material/Link';
-import { getSubCategory } from '../context/Apis'
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import Badge from '@mui/material/Badge';
+import CartContext from '../context/CartContext';
+
 
 
 export const Header = (props) => {
+    let cart = React.useContext(CartContext)
     const [anchorElNav, setAnchorElNav] = React.useState(null);
-    // const [SubCategory, setSubCategory] = React.useState(null)
+
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -25,18 +27,16 @@ export const Header = (props) => {
         setAnchorElNav(null);
     };
 
-    // const getData = async () => {
-    //     try {
-    //         const data = await getSubCategory()
-    //         setSubCategory(data["results"])
-    //     }
-    //     catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-    // React.useEffect(() => {
-    //     getData()
-    // }, [])
+    const getData = async () => {
+        cart.getCartData({ token: null, ref: cart?.cartRef })
+    }
+
+    React.useEffect(
+        () => {
+            getData()
+        }, [])
+
+
 
     const YourCartMobileStyle = {
         color: "white",
@@ -111,7 +111,7 @@ export const Header = (props) => {
                     ))}
                     <Box style={YourCartStyle}>
                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={props.num_product} color="error">
+                            <Badge badgeContent={cart?.CartRefData?.lines.length} color="error">
                                 <Link href="/order" underline="none" color="inherit">
                                     <ShoppingCartCheckoutIcon sx={{ fontSize: "30px" }} />
                                 </Link>

@@ -24,14 +24,11 @@ const CartLine = (props) => {
             let ref = cart?.cartRef
             DeleteCartLine({ token: token, ref: ref, line_ids: { line_ids: ids } })
             props.getUpdatedData()
-            props.getNumProduct()
-            props.setShowMsg({ show: true, type: "success", msg: "item removed successfully" })
         }
         catch (error) {
             console.log(error)
         }
     }
-
 
     const handleLineDelete = (e) => {
         let ids = []

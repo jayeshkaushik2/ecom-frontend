@@ -22,8 +22,7 @@ export default function ProductView(props) {
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             let ref = cart?.cartRef
             const data = await PostCartRefData({ token: token, ref: ref, lineData: { lines: [lineData] } })
-            props.setShowMsg({ show: true, type: "success", msg: "product added to cart" })
-            props.getNumProduct()
+            cart.getCartData({ token: token, ref: cart?.cartRef })
         }
         catch (error) {
             console.log(error)

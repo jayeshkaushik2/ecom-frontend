@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom'
 
 const OrderList = (props) => {
     // eslint-disable-next-line
-    const [cartData, setCartData] = React.useState(null)
     const [cartLines, setCartLines] = React.useState(null)
     let cart = React.useContext(CartContext)
     let user = React.useContext(AuthContext)
@@ -21,9 +20,8 @@ const OrderList = (props) => {
         try {
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             let ref = cart?.cartRef
-            const data = await getCartRefData({ token: token, ref: ref })
-            setCartData(data)
-            setCartLines(data.lines)
+            let response = await cart?.getCartData({token:token, ref:ref})
+            setCartLines(response.lines)
         }
         catch (error) {
             console.log(error)
@@ -53,7 +51,7 @@ const OrderList = (props) => {
                 <Typography variant="h5" style={{ padding: "5px" }}>Shopping Cart</Typography>
                 <hr style={{ marginBottom: "30px" }} />
                 {cartLines?.length > 0 ? cartLines.map((line, index) => (
-                    <CartLine setShowMsg={props.setShowMsg} key={index} line={line} getUpdatedData={getData} getNumProduct={props.getNumProduct} />
+                    <CartLine key={index} line={line} getUpdatedData={getData} />
                 )) :
                     <Box sx={{
                         maxWidth: "100%",

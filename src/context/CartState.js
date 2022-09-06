@@ -1,23 +1,36 @@
 import { useState, useEffect } from "react"
-import { getCartRef } from "./Apis"
+import { getCartRef, getCartRefData } from "./Apis"
 import CartContext from './CartContext'
 
 const CartState = ({ children }) => {
-
+    const [CartRefData, setCartRefData] = useState(null)
     const [Cart, setCart] = useState(localStorage.getItem("Cart") ? JSON.parse(localStorage.getItem("Cart")) : null)
+    let token = null
 
     const getCart = async () => {
-        let token = null
         if (localStorage.getItem("AuthToken") !== null && localStorage.getItem("AuthToken")?.access !== null) {
             token = `Bearer ${JSON.parse(localStorage.getItem("AuthToken"))?.access}`
             let data = await getCartRef({ token: token })
             setCart(data)
+            getCartData(data?.ref)
             localStorage.setItem("Cart", JSON.stringify(data))
         }
         else {
             let data = await getCartRef({ token: null })
             setCart(data)
+            getCartData(data?.ref)
             localStorage.setItem("Cart", JSON.stringify(data))
+        }
+    }
+
+    const getCartData = async ({token:token, ref:ref}) => {
+        try {
+            let response = await getCartRefData({ token: token, ref: ref })
+            setCartRefData(response)
+            return response
+        }
+        catch (error) {
+            console.log(error)
         }
     }
 
@@ -29,7 +42,9 @@ const CartState = ({ children }) => {
     let CartData = {
         cartRef: Cart?.ref,
         cart_id: Cart?.id,
-        clearCart:clearCart,
+        CartRefData: CartRefData,
+        clearCart: clearCart,
+        getCartData: getCartData,
     }
 
     useEffect(() => {

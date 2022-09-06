@@ -41,9 +41,7 @@ const ItemCard = (props) => {
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             let ref = cart?.cartRef
             const data = await PostCartRefData({ token: token, ref: ref, lineData: { lines: [lineData] } })
-            alert("product added to cart")
-            props.getNumProduct()
-            // props.getUpdatedData()
+            cart.getCartData({ token: token, ref: cart?.cartRef })
         }
         catch (error) {
             console.log(error)
