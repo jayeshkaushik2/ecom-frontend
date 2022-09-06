@@ -45,7 +45,7 @@ const CartLine = (props) => {
                         component="img"
                         width="100%"
                         style={{ maxHeight: "250px", minHeight: "250px" }}
-                        image={props.line?.product?.images.length > 0 ? `${API_ENDPOINT}${props.line.product.images[0].image}` : ProductImage}
+                        image={props.line?.product?.images?.length > 0 ? `${API_ENDPOINT}${props.line.product.images[0].image}` : ProductImage}
                         alt="green iguana"
                     />
                 </Box>
