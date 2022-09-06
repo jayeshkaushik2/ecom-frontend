@@ -21,7 +21,7 @@ const OrderList = (props) => {
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             let ref = cart?.cartRef
             let response = await cart?.getCartData({token:token, ref:ref})
-            setCartLines(response.lines)
+            setCartLines(response?.lines)
         }
         catch (error) {
             console.log(error)
