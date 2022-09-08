@@ -29,6 +29,7 @@ export const Signup = (props) => {
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             const resp_data = await PostUserData({ token: token, userData: data })
             alert("user created")
+            redirect("/verify-newuser-otp")
         }
         catch (error) {
             console.log(error)

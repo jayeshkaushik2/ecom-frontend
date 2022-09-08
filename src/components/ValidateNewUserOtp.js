@@ -4,19 +4,18 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { postValidationForgotOtp, postForgotEmail } from '../context/Apis'
+import { PostValidationNewUserOtp, postForgotEmail } from '../context/Apis'
 import { useNavigate } from 'react-router-dom';
 
-export const ValidateOtp = (props) => {
+export const ValidateNewUserOtp = (props) => {
     let redirect = useNavigate()
     const [OTP, setOTP] = useState("")
 
     const postData = async (data) => {
         try {
-            let response = await postValidationForgotOtp({ Data: data })
-            if (response?.success === true){
-                localStorage.setItem("post_key", response?.post_key)
-                redirect("/change-password")
+            let response = await PostValidationNewUserOtp({ ValidateData: data })
+            if (response?.name !== null) {
+                redirect("/signin")
             }
             else if (response?.success === false) {
                 alert("invalid otp")
@@ -26,7 +25,6 @@ export const ValidateOtp = (props) => {
             console.log(error)
         }
     }
-
     const handleSubmit = () => {
         let email = localStorage.getItem("email")
         let data = {
@@ -39,7 +37,7 @@ export const ValidateOtp = (props) => {
     const postResendData = async (data) => {
         try {
             let response = postForgotEmail({ Data: data })
-            if (response?.success === true){
+            if (response?.success === true) {
                 alert("OTP resend successfully")
             }
         }
@@ -47,14 +45,13 @@ export const ValidateOtp = (props) => {
             console.log(error)
         }
     }
-
     const handleResend = () => {
         let email = localStorage.getItem("email")
         let data = {
             "email": email
         }
         postResendData(data)
-    } 
+    }
 
     return (
         <>

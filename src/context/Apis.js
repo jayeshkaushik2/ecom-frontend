@@ -165,7 +165,39 @@ export async function postForgotEmail({ Data:Data  }) {
     }
 }
 
-export async function PostValidationOTP({ ValidateData:ValidateData  }) {
+export async function postValidationForgotOtp({ Data:Data  }) {
+    let response = await fetch(`${API_ENDPOINT}/validate-forgotpass-otp/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(Data)
+    })
+    let profile_data = await response.json()
+    if (response.ok) {
+        return profile_data
+    }
+    else {
+        throw response;
+    }
+}
+
+
+export async function postUpdatedPasswordData({updatedPassword:updatedPassword}) {
+    let response = await fetch(`${API_ENDPOINT}/change-password/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedPassword)
+    })
+    let profile_data = await response.json()
+    if (response.ok) {
+        return profile_data
+    }
+    else {
+        throw response;
+    }
+}
+
+
+export async function PostValidationNewUserOtp({ ValidateData:ValidateData  }) {
     let response = await fetch(`${API_ENDPOINT}/validate-siginup-otp/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

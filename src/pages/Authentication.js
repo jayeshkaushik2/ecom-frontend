@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import ForgotPassword from '../components/ForgotPassword';
 import { ValidateOtp } from '../components/ValidateOtp';
+import { ChangePassword } from '../components/ChangePassword';
+import { ValidateNewUserOtp } from '../components/ValidateNewUserOtp';
 
 const Authentication = () => {
     const page = useParams("page").page
@@ -28,6 +30,8 @@ const Authentication = () => {
                 {page === "forgot-password"? <ForgotPassword />: null}
                 {page === "signup"? <Signup />: null}
                 {page === "verify-otp"? <ValidateOtp />: null}
+                {page === "verify-newuser-otp"? <ValidateNewUserOtp />: null}
+                {page === "change-password"? <ChangePassword />: null}
                 </Box>
             </Box>
         </Box>

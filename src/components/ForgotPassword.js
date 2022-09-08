@@ -18,7 +18,9 @@ const ForgotPassword = (props) => {
     const postData = async (data) => {
         try {
             let response = postForgotEmail({ Data: data })
-            redirect("/verify-opt")
+            redirect("/verify-otp")
+            if (response?.success === true){
+            }
         }
         catch (error) {
             console.log(error)
