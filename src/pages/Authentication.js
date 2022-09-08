@@ -13,7 +13,7 @@ const Authentication = () => {
     const page = useParams("page").page
     return (
         <Box>
-            <Box sx={{  Width: "100%", height:"100vh", backgroundColor: "#e3e3e3" }}>
+            <Box sx={{  Width: "100%", height:"100vh", backgroundColor: "#e3e3e3", marginBottom:"-40px" }}>
                 <Box
                     component="form"
                     sx={{
