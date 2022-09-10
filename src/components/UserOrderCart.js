@@ -72,10 +72,9 @@ export default function UserOrderCart(props) {
             console.log(error)
         }
     }
-
-    React.useEffect(() => {
+    if (props?.open === true){
         getData()
-    }, [])
+    }
 
     return (
         <Box>
