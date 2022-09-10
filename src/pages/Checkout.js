@@ -71,13 +71,12 @@ export const Checkout = (props) => {
     const handleConfirmOrder = async () => {
         try {
             let response = await PostPlaceOrder({ token: token, ref: ref })
-            props.setShowMsg({ show: true, type: "success", msg: "your order has been placed" })
             cart.clearCart()
+            alert("order placed")
             redirect("/")
         }
         catch (error) {
             console.log('error section')
-            props.setShowMsg({ show: true, type: "error", msg: "got error in response" })
             console.log(error)
         }
     }

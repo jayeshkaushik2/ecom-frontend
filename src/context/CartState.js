@@ -25,9 +25,14 @@ const CartState = ({ children }) => {
 
     const getCartData = async ({token:token, ref:ref}) => {
         try {
-            let response = await getCartRefData({ token: token, ref: ref })
-            setCartRefData(response)
-            return response
+            if (ref !== undefined && ref !== null){
+                let response = await getCartRefData({ token: token, ref: ref })
+                setCartRefData(response)
+                return response
+            }
+            else {
+                setCartRefData(null)
+            }
         }
         catch (error) {
             console.log(error)
@@ -45,6 +50,7 @@ const CartState = ({ children }) => {
         CartRefData: CartRefData,
         clearCart: clearCart,
         getCartData: getCartData,
+        getCart: getCart,
     }
 
     useEffect(() => {
