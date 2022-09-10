@@ -57,7 +57,6 @@ export default function ProfileInfo() {
         try {
             const data = await getUserOrdersData({ token: token, user_id: user_id })
             setOrders(data)
-            console.log("order data", data)
         }
         catch (error) {
             console.log(error)
@@ -68,6 +67,10 @@ export default function ProfileInfo() {
         getData()
     }, [])
 
+    const tabStyle = {
+        paddingTop:2
+    }
+
     return (
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -77,15 +80,15 @@ export default function ProfileInfo() {
                     <Tab label="Completed Order" {...a11yProps(2)} />
                 </Tabs>
             </Box>
-            <TabPanel value={value} index={0}>
+            <Box sx={tabStyle} value={value} index={0}>
                 <UserOrders orders={Orders} />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
+            </Box>
+            <Box sx={tabStyle} value={value} index={1}>
                 <UserOrders orders={Orders} />
-            </TabPanel>
-            <TabPanel value={value} index={2}>
+            </Box>
+            <Box sx={tabStyle} value={value} index={2}>
                 <UserOrders orders={Orders} />
-            </TabPanel>
+            </Box>
         </Box>
     );
 }

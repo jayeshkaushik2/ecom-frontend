@@ -78,7 +78,7 @@ export default function UserOrderCart(props) {
     }, [])
 
     return (
-        <div>
+        <Box>
             <BootstrapDialog
                 onClose={props.handleClose}
                 aria-labelledby="customized-dialog-title"
@@ -100,6 +100,6 @@ export default function UserOrderCart(props) {
                         </Box>}
                 </DialogContent>
             </BootstrapDialog>
-        </div>
+        </Box>
     );
 }
