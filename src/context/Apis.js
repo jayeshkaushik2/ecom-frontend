@@ -228,6 +228,20 @@ export async function getProfileData({ token: token }) {
     }
 }
 
+export async function getUserOrdersData({ token: token, user_id }) {
+    let response = await fetch(`${API_ENDPOINT}/user-orders/${user_id}`, {
+        method: "GET",
+        headers: { "Authorization": token }
+    })
+    let user_data = await response.json()
+    if (response.ok) {
+        return user_data
+    }
+    else {
+        throw response;
+    }
+}
+
 
 export async function PostProfileData({ token: token, userData: userData }) {
     let response = await fetch(`${API_ENDPOINT}/user-profile/`, {

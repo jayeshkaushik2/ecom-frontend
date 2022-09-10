@@ -12,6 +12,7 @@ import AuthContext from '../context/AuthContext'
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import defaultprofile from '../assets/images/defaultprofile.jpg'
+import ProfileInfo from '../components/ProfileInfo';
 
 const Profile = () => {
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
@@ -103,10 +104,8 @@ const Profile = () => {
                             This is the about section.
                         </Typography>
                     </Box>
-
-                    <Box sx={{ margin: "10px" }}>
-                        Your orders,
-                        Your profile info
+                    <Box sx={{ margin: "10px", width:"100%" }}>
+                        <ProfileInfo/>
                     </Box>
                 </Box>
             </Box>
@@ -116,16 +115,3 @@ const Profile = () => {
 
 
 export default Profile;
-
-
-{/* <Button type="submit"
-                            variant="text"
-                            onClick={handleBtnClick}
-                            style={{ marginTop: "80px", borderRadius: "15px" }}>
-                            <img style={{ width: "33px" }} src={camera_icon} alt="" />
-                        </Button>
-                        <Input type="file" id="imageUpload" accept="image/*" style={{ display: "none" }} onChange={(e) => setProfileImage(e.target.files[0])}></Input> */}
-
-                //         <Button variant="contained" disabled={Save} onClick={handleProfileEdit}>
-                //     Save
-                // </Button>
