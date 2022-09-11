@@ -129,10 +129,11 @@ export const Checkout = (props) => {
                         </Box>
                     </Box>
 
-                    <Box sx={{ maxHeight: "250px", overflow:"hidden" }}>
+                    <Box sx={{ maxHeight: "500px", overflow:"auto" }}>
                         {cartLines?.map((data, index) => (
                             <Box key={index}>
                                 <OrderLine line={data} />
+                                <hr></hr>
                             </Box>
                         ))}
                     </Box>

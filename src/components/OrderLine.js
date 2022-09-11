@@ -18,7 +18,7 @@ const OrderLine = (props) => {
                 <Box style={{ maxWidth: "300px", minWidth: "100px", width: "100%", maxHeight:"200px" }}>
                     <CardMedia
                         component="img"
-                        style={{ height: "fit-content" }}
+                        style={{ height:"100%" }}
                         image={props.line?.product?.images.length > 0 ? `${API_ENDPOINT}${props.line.product.images[0].image}` : ProductImage}
                         alt="green iguana"
                     />
