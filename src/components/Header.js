@@ -110,13 +110,13 @@ export const Header = (props) => {
                         </Link>
                     ))}
                     <Box style={YourCartStyle}>
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={cart?.CartRefData?.lines.length} color="error">
-                                <Link href="/order" underline="none" color="inherit">
+                        <Link href="/order" underline="none" color="inherit">
+                            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                                <Badge badgeContent={cart?.CartRefData?.lines.length} color="error">
                                     <ShoppingCartCheckoutIcon sx={{ fontSize: "30px" }} />
-                                </Link>
-                            </Badge>
-                        </IconButton>
+                                </Badge>
+                            </IconButton>
+                        </Link>
                     </Box>
                 </Box>
             </Box>
