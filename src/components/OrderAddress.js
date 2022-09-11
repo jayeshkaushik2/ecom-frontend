@@ -58,6 +58,35 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function OrderAddress(props) {
+    const [FullName, setFullName] = React.useState("")
+    const [Phone, setPhone] = React.useState("")
+    const [AlternatePhone, setAlternatePhone] = React.useState("")
+    const [Pincode, setPincode] = React.useState("")
+    const [City, setCity] = React.useState("")
+    const [AreaInfo, setAreaInfo] = React.useState("")
+    const [HouseInfo, setHouseInfo] = React.useState("")
+    const [State, setState] = React.useState("")
+
+    const handleSaveAddress = async () => {
+        try {
+            let data = {
+                full_name: FullName,
+                phone: Phone,
+                alternate_phone: AlternatePhone,
+                pincode: Pincode,
+                city: City,
+                area_info: AreaInfo,
+                house_info: HouseInfo,
+                state: State,
+            }
+            console.log(data)
+            // const response = await PostAddress()
+
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <Box>
@@ -79,6 +108,7 @@ export default function OrderAddress(props) {
                         autoComplete="full_name"
                         value={props?.OrderAddressData?.full_name}
                         size="small"
+                        onChange={(e) => setFullName(e.target.value)}
                     />
                     <TextField
                         margin="normal"
@@ -89,6 +119,7 @@ export default function OrderAddress(props) {
                         autoComplete="phone"
                         value={props?.OrderAddressData?.phone}
                         size="small"
+                        onChange={(e) => setPhone(e.target.value)}
                     />
                     <TextField
                         margin="normal"
@@ -99,6 +130,7 @@ export default function OrderAddress(props) {
                         autoComplete="alternate_phone"
                         value={props?.OrderAddressData?.alternate_phone}
                         size="small"
+                        onChange={(e) => setAlternatePhone(e.target.value)}
                     />
                     <TextField
                         margin="normal"
@@ -109,6 +141,7 @@ export default function OrderAddress(props) {
                         autoComplete="pincode"
                         value={props?.OrderAddressData?.pincode}
                         size="small"
+                        onChange={(e) => setPincode(e.target.value)}
                     />
                     <TextField
                         margin="normal"
@@ -119,6 +152,7 @@ export default function OrderAddress(props) {
                         autoComplete="city"
                         value={props?.OrderAddressData?.city}
                         size="small"
+                        onChange={(e) => setCity(e.target.value)}
                     />
                     <TextField
                         margin="normal"
@@ -129,6 +163,7 @@ export default function OrderAddress(props) {
                         autoComplete="Area_info"
                         value={props?.OrderAddressData?.area_info}
                         size="small"
+                        onChange={(e) => setAreaInfo(e.target.value)}
                     />
                     <TextField
                         margin="normal"
@@ -139,6 +174,7 @@ export default function OrderAddress(props) {
                         autoComplete="full_name"
                         value={props?.OrderAddressData?.house_info}
                         size="small"
+                        onChange={(e) => setHouseInfo(e.target.value)}
                     />
                     <TextField
                         margin="normal"
@@ -149,12 +185,13 @@ export default function OrderAddress(props) {
                         autoComplete="state"
                         value={props?.OrderAddressData?.state}
                         size="small"
+                        onChange={(e) => setState(e.target.value)}
                     />
                     <DialogActions>
                         <Button onClick={props.handleClose}>
                             Close
                         </Button>
-                        <Button>
+                        <Button onClick={handleSaveAddress}>
                             Save Changes
                         </Button>
                         <Button>
