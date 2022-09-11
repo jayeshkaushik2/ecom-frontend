@@ -13,12 +13,12 @@ import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import defaultprofile from '../assets/images/defaultprofile.jpg'
 import ProfileInfo from '../components/ProfileInfo';
+import ProfileDetail from '../components/ProfileDetail';
 
 const Profile = () => {
     let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
     let user = React.useContext(AuthContext)
     const [userData, setUserData] = React.useState(null)
-    const [ProfileImage, setProfileImage] = React.useState(null)
     const [Save, setSave] = React.useState(false)
 
     const handleBtnClick = () => {
@@ -37,13 +37,6 @@ const Profile = () => {
         }
     }
 
-    const handleProfileEdit = () => {
-        const post_userData = new FormData();
-        console.log("profile image", ProfileImage)
-        post_userData.append('post_image', ProfileImage, ProfileImage.name)
-        console.log("posting data", post_userData)
-        postData(post_userData)
-    }
 
     const getData = async () => {
         try {
@@ -61,6 +54,15 @@ const Profile = () => {
     React.useEffect(() => {
         getData()
     }, [])
+
+
+    const [open, setOpen] = React.useState(false);
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
 
 
     return (
@@ -98,14 +100,14 @@ const Profile = () => {
                         </Stack>
                         <Typography component="h1" variant="h5" style={{ textAlign: "center", marginTop: "10px" }}>
                             {userData?.name ? userData.name : "Anonymous"}
+                            <IconButton aria-label="edit" sx={{}} onClick={handleClickOpen}>
+                                <EditIcon />
+                            </IconButton>
                         </Typography>
-                        <IconButton aria-label="edit" sx={{ float: "right", marginTop: "-8px" }}><EditIcon /></IconButton>
-                        <Typography style={{ textAlign: "center", marginTop: "10px" }}>
-                            This is the about section.
-                        </Typography>
+                        <ProfileDetail handleClose={handleClose} open={open} userData={userData} setUserData={setUserData} />
                     </Box>
-                    <Box sx={{ margin: "10px", width:"100%" }}>
-                        <ProfileInfo/>
+                    <Box sx={{ margin: "10px", width: "100%" }}>
+                        <ProfileInfo />
                     </Box>
                 </Box>
             </Box>
