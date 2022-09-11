@@ -68,7 +68,7 @@ export default function ProfileInfo() {
     }, [])
 
     const tabStyle = {
-        paddingTop:2
+        paddingTop: 2
     }
 
     return (
@@ -80,14 +80,19 @@ export default function ProfileInfo() {
                     <Tab label="Completed Order" {...a11yProps(2)} />
                 </Tabs>
             </Box>
-            <Box sx={tabStyle} value={value} index={0}>
-                <UserOrders orders={Orders} />
-            </Box>
-            <Box sx={tabStyle} value={value} index={1}>
-                <UserOrders orders={Orders} />
-            </Box>
-            <Box sx={tabStyle} value={value} index={2}>
-                <UserOrders orders={Orders} />
+            <Box sx={{
+                maxHeight: "500px",
+                overflow: "auto"
+            }}>
+                <Box sx={tabStyle} value={value} index={0}>
+                    <UserOrders orders={Orders} />
+                </Box>
+                <Box sx={tabStyle} value={value} index={1}>
+                    <UserOrders orders={Orders} />
+                </Box>
+                <Box sx={tabStyle} value={value} index={2}>
+                    <UserOrders orders={Orders} />
+                </Box>
             </Box>
         </Box>
     );
