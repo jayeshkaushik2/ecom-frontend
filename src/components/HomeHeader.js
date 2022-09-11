@@ -42,12 +42,14 @@ const HomeHeader = (props) => {
         position: 'absolute',
         top: '50%',
         left: '10px',
+        display: "none",
     }
 
     const RightbuttonStyle = {
         position: "absolute",
         top: "50%",
         right: "10px",
+        display: "none",
     }
 
     return (
