@@ -17,6 +17,7 @@ import PaymentMethods from '../components/PaymentMethods';
 import NoDataFound from './NoDataFound';
 import { useNavigate } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
+import OrderAddress from '../components/OrderAddress'
 
 export const Checkout = (props) => {
     // api contexts
@@ -29,7 +30,7 @@ export const Checkout = (props) => {
     const [OrderData, setOrderData] = React.useState(null)
     const [cartData, setCartData] = React.useState(null)
     const [cartLines, setCartLines] = React.useState(null)
-    const [OrderAddress, setOrderAddress] = React.useState(null)
+    const [OrderAddressData, setOrderAddressData] = React.useState(null)
     const [PaymentMethod, setPaymentMethod] = React.useState("")
 
     // apis hits
@@ -45,7 +46,7 @@ export const Checkout = (props) => {
             setCartLines(cart_data.lines)
             // order address Data
             const order_address_data = await getOrderDetailAddress({ token: token, ref: ref })
-            setOrderAddress(order_address_data)
+            setOrderAddressData(order_address_data)
         }
         catch (error) {
             console.log(error)
@@ -81,6 +82,14 @@ export const Checkout = (props) => {
         }
     }
 
+    const [open, setOpen] = React.useState(false);
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     return (
         <Box sx={{ padding: "10px", background: "#f1f1f1", marginBottom: "-40px" }}>
             {cartLines?.length === 0 || OrderData === null ? <NoDataFound /> :
@@ -108,28 +117,39 @@ export const Checkout = (props) => {
                         </Box>
                         <Box sx={{ width: "50%" }}>
                             <Box sx={{ padding: "5px", paddingLeft: "0px", paddingTop: "0px", float: "right" }}>
-                                {OrderAddress ?
+                                {OrderAddressData ?
                                     <>
-                                        <Typography sx={{ fontWeight: "bold" }}>
-                                            Delivery address ({OrderAddress?.full_name})
-                                            <IconButton aria-label="edit" sx={{ float: "right", marginTop: "-8px" }}><EditIcon /></IconButton>
-                                        </Typography>
-                                        <Typography variant="body2">
-                                            phone: {OrderAddress?.phone}, {OrderAddress?.alternate_phone}
-                                        </Typography>
-                                        <Typography variant="body2">
-                                            {OrderAddress?.city}, pincode-{OrderAddress?.pincode},
-                                        </Typography>
-                                        <Typography variant="body2">
-                                            {OrderAddress?.area_info}, {OrderAddress?.house_info}
-                                        </Typography>
+                                        {OrderAddressData?.full_name ?
+                                            <Typography sx={{ fontWeight: "bold" }}>
+                                                Delivery address ({OrderAddressData?.full_name})
+                                                <OrderAddress handleClose={handleClose} open={open} OrderAddressData={OrderAddressData} setOrderAddressData={setOrderAddressData} />
+                                                <IconButton aria-label="edit" sx={{ float: "right", marginTop: "-8px" }} onClick={handleClickOpen}>
+                                                    <EditIcon />
+                                                </IconButton>
+                                            </Typography>
+                                            : null}
+                                        {OrderAddressData?.phone !== null || OrderAddressData?.alternate_phone !== null ?
+                                            <Typography variant="body2">
+                                                phone: {OrderAddressData?.phone}, {OrderAddressData?.alternate_phone}
+                                            </Typography>
+                                            : null}
+                                        {OrderAddressData?.city !== null && OrderAddressData?.pincode !== null ?
+                                            <Typography variant="body2">
+                                                {OrderAddressData?.city}, pincode-{OrderAddressData?.pincode},
+                                            </Typography>
+                                            : null}
+                                        {OrderAddressData?.area_info !== null && OrderAddressData?.house_info !== null ?
+                                            <Typography variant="body2">
+                                                {OrderAddressData?.area_info}, {OrderAddressData?.house_info}
+                                            </Typography>
+                                            : null}
                                     </>
                                     : "Address not provided"}
                             </Box>
                         </Box>
                     </Box>
 
-                    <Box sx={{ maxHeight: "500px", overflow:"auto" }}>
+                    <Box sx={{ maxHeight: "500px", overflow: "auto" }}>
                         {cartLines?.map((data, index) => (
                             <Box key={index}>
                                 <OrderLine line={data} />

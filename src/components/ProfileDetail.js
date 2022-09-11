@@ -94,7 +94,7 @@ export default function ProfileDetail(props) {
                 aria-labelledby="customized-dialog-title"
                 open={props.open}
             >
-                <BootstrapDialogTitle id="customized-dialog-title" onClose={props.handleClose}>
+                <BootstrapDialogTitle id="customized-dialog-title">
                     Profile
                 </BootstrapDialogTitle>
                 <DialogContent dividers>
