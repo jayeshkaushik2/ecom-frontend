@@ -315,6 +315,20 @@ export async function getOrderDetailAddress({ token: token, ref: ref }) {
     return order_data
 }
 
+export async function postOrderDetailAddress({ token: token, ref: ref, address_data }) {
+    let response = await fetch(`${API_ENDPOINT}/order_address/${ref}/`, {
+        method: "POST",
+        headers: { "Authorization": token, "Content-Type": "application/json" },
+        body : JSON.stringify(address_data)
+    })
+    let order_address_data = await response.json()
+    if (response.ok) {
+        return order_address_data
+    }
+    return order_address_data
+}
+
+
 
 export async function getAddresses({ token: token, }) {
     let response = await fetch(`${API_ENDPOINT}/adresses/`, {

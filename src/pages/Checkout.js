@@ -37,14 +37,42 @@ export const Checkout = (props) => {
     const getData = async () => {
         try {
             // order Data
+            getOrderData()
+            // cart Data
+            getCartData()
+            // order address Data
+            getOrderAddressData()
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    const getOrderData = async () => {
+        try {
             const order_data = await getOrderData({ token: token, ref: ref })
             setOrderData(order_data)
             setPaymentMethod(order_data?.payment_method)
-            // cart Data
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    const getCartData = async () => {
+        try {
             const cart_data = await getCartRefData({ token: token, ref: ref })
             setCartData(cart_data)
             setCartLines(cart_data.lines)
-            // order address Data
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    const getOrderAddressData = async () => {
+        try {
             const order_address_data = await getOrderDetailAddress({ token: token, ref: ref })
             setOrderAddressData(order_address_data)
         }
@@ -122,7 +150,7 @@ export const Checkout = (props) => {
                                         {OrderAddressData?.full_name ?
                                             <Typography sx={{ fontWeight: "bold" }}>
                                                 Delivery address ({OrderAddressData?.full_name})
-                                                <OrderAddress handleClose={handleClose} open={open} OrderAddressData={OrderAddressData} setOrderAddressData={setOrderAddressData} />
+                                                <OrderAddress handleClose={handleClose} open={open} OrderAddressData={OrderAddressData} setOrderAddressData={setOrderAddressData} getOrderAddressData={getOrderAddressData} />
                                                 <IconButton aria-label="edit" sx={{ float: "right", marginTop: "-8px" }} onClick={handleClickOpen}>
                                                     <EditIcon />
                                                 </IconButton>
