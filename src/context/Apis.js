@@ -3,12 +3,6 @@ import { useContext } from 'react'
 import Notifications from './NotificationState';
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
 
-export function GetToken() {
-    const user = useContext(AuthContext);
-    let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null;
-    return token;
-}
-
 
 export async function getFooter() {
     let response = await fetch(`${API_ENDPOINT}/details/`, {

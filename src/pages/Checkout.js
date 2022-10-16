@@ -37,7 +37,7 @@ export const Checkout = (props) => {
     const getData = async () => {
         try {
             // order Data
-            getOrderData()
+            getOrderData_fun()
             // cart Data
             getCartData()
             // order address Data
@@ -48,7 +48,7 @@ export const Checkout = (props) => {
         }
     }
 
-    const getOrderData = async () => {
+    const getOrderData_fun = async () => {
         try {
             const order_data = await getOrderData({ token: token, ref: ref })
             setOrderData(order_data)
@@ -74,6 +74,7 @@ export const Checkout = (props) => {
     const getOrderAddressData = async () => {
         try {
             const order_address_data = await getOrderDetailAddress({ token: token, ref: ref })
+            console.log("order data", order_address_data)
             setOrderAddressData(order_address_data)
         }
         catch (error) {
@@ -145,15 +146,18 @@ export const Checkout = (props) => {
                         </Box>
                         <Box sx={{ width: "50%" }}>
                             <Box sx={{ padding: "5px", paddingLeft: "0px", paddingTop: "0px", float: "right" }}>
-                                {OrderAddressData ?
+                                <OrderAddress handleClose={handleClose} open={open} OrderAddressData={OrderAddressData} setOrderAddressData={setOrderAddressData} getOrderAddressData={getOrderAddressData} PostData={PostData} />
+                                <Typography sx={{ fontWeight: "bold", display:"block" }}>
+                                    Delivery address
+                                    <IconButton aria-label="edit" onClick={handleClickOpen}>
+                                        <EditIcon />
+                                    </IconButton>
+                                </Typography>
+                                {OrderAddressData && OrderAddressData != {} ?
                                     <>
                                         {OrderAddressData?.full_name ?
-                                            <Typography sx={{ fontWeight: "bold" }}>
-                                                Delivery address ({OrderAddressData?.full_name})
-                                                <OrderAddress handleClose={handleClose} open={open} OrderAddressData={OrderAddressData} setOrderAddressData={setOrderAddressData} getOrderAddressData={getOrderAddressData} />
-                                                <IconButton aria-label="edit" sx={{ float: "right", marginTop: "-8px" }} onClick={handleClickOpen}>
-                                                    <EditIcon />
-                                                </IconButton>
+                                            <Typography>
+                                                ({OrderAddressData?.full_name})
                                             </Typography>
                                             : null}
                                         {OrderAddressData?.phone !== null || OrderAddressData?.alternate_phone !== null ?

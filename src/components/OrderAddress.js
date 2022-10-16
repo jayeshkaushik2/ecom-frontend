@@ -84,7 +84,9 @@ export default function OrderAddress(props) {
             console.log(data)
             const response = await postOrderDetailAddress({token:token, ref:ref, address_data:data})
             setOrderAddress(response)
-            console.log("response.data", response)
+            props.getOrderAddressData()
+            props.PostData({"address":response?.id})
+            props.handleClose()
         }
         catch (error) {
             console.log(error)
@@ -131,12 +133,13 @@ export default function OrderAddress(props) {
                         fullWidth
                         id="full_name"
                         label="Full Name"
-                        name="full_name"
-                        autoComplete="full_name"
+                        name="name"
+                        autoComplete="name"
                         value={FullName}
                         size="small"
+                        type="text"
                         onChange={(e) => setFullName(e.target.value)}
-                    />
+                        />
                     <TextField
                         margin="normal"
                         fullWidth
@@ -146,6 +149,7 @@ export default function OrderAddress(props) {
                         autoComplete="phone"
                         value={Phone}
                         size="small"
+                        type="phone"
                         onChange={(e) => setPhone(e.target.value)}
                     />
                     <TextField
@@ -157,6 +161,7 @@ export default function OrderAddress(props) {
                         autoComplete="alternate_phone"
                         value={AlternatePhone}
                         size="small"
+                        type="phone"
                         onChange={(e) => setAlternatePhone(e.target.value)}
                     />
                     <TextField
@@ -168,6 +173,7 @@ export default function OrderAddress(props) {
                         autoComplete="pincode"
                         value={Pincode}
                         size="small"
+                        type="number"
                         onChange={(e) => setPincode(e.target.value)}
                     />
                     <TextField
@@ -179,6 +185,7 @@ export default function OrderAddress(props) {
                         autoComplete="city"
                         value={City}
                         size="small"
+                        type="text"
                         onChange={(e) => setCity(e.target.value)}
                     />
                     <TextField
@@ -190,6 +197,7 @@ export default function OrderAddress(props) {
                         autoComplete="Area_info"
                         value={AreaInfo}
                         size="small"
+                        type="text"
                         onChange={(e) => setAreaInfo(e.target.value)}
                     />
                     <TextField
@@ -200,6 +208,7 @@ export default function OrderAddress(props) {
                         name="full_name"
                         autoComplete="full_name"
                         value={HouseInfo}
+                        type="text"
                         size="small"
                         onChange={(e) => setHouseInfo(e.target.value)}
                     />
@@ -211,13 +220,11 @@ export default function OrderAddress(props) {
                         name="state"
                         autoComplete="state"
                         value={State}
+                        type="text"
                         size="small"
                         onChange={(e) => setState(e.target.value)}
                     />
                     <DialogActions>
-                        <Button disabled onClick={handleNewAddress}>
-                            Add new address
-                        </Button>
                         <Button onClick={props.handleClose}>
                             Close
                         </Button>
