@@ -57,22 +57,24 @@ BootstrapDialogTitle.propTypes = {
 
 export default function UserOrderCart(props) {
     const [cartLines, setCartLines] = React.useState(null)
+    let [checked, setChecked] = React.useState(false);
     let cart = React.useContext(CartContext)
     let user = React.useContext(AuthContext)
 
     const getData = async () => {
         try {
+            setChecked(true);
             let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
             let ref = cart?.cartRef
             let response = await cart?.getCartData({ token: token, ref: ref })
-            console.log(response?.lines)
+            console.log("******", response, response?.lines)
             setCartLines(response?.lines)
         }
         catch (error) {
             console.log(error)
         }
     }
-    if (props?.open === true){
+    if (checked === false) {
         getData()
     }
 

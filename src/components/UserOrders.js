@@ -17,7 +17,7 @@ export const UserOrders = (props) => {
     return (
         <Box>
             {props.orders?.map((key, index) => (
-                <Box key={index} sx={{padding: "10px", background: "#f1f1f1", marginBottom:"10px"}}>
+                <Box key={index} sx={{ padding: "10px", background: "#f1f1f1", marginBottom: "10px" }}>
                     <Box id="cart-details">
                         this is the cart
                     </Box>
@@ -33,11 +33,11 @@ export const UserOrders = (props) => {
                             </Typography> {key?.total_discount}<CurrencyRupeeIcon sx={{ fontSize: "14px" }} />.
                         </Typography>
 
-                        <Typography variant="body2" display="block" sx={{ color: "gray" }} gutterBottom>
+                        {/* <Typography variant="body2" display="block" sx={{ color: "gray" }} gutterBottom>
                             <Typography variant="span" sx={{ color: "gray" }}>
                                 Total
                             </Typography> {0} items.
-                        </Typography>
+                        </Typography> */}
 
                         <Typography variant="body1" display="block" sx={{ fontWeight: "bold", color: "red" }} gutterBottom>
                             <Typography variant="span" sx={{ color: "gray" }}>
@@ -46,7 +46,10 @@ export const UserOrders = (props) => {
                         </Typography>
 
                     </Box>
-                    <UserOrderCart handleClose={handleClose} open={open} cart_id={3} />
+                    {open ?
+                        <UserOrderCart handleClose={handleClose} open={open} cart_id={3} />
+                        :
+                        null}
                     <Button variant="contained" fullWidth onClick={handleClickOpen}>Show Items</Button>
                 </Box>
             ))}</Box>
