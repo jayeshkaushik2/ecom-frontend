@@ -1,16 +1,11 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
-import AuthContext from '../context/AuthContext'
-import CartContext from '../context/CartContext'
 import CartLine from './CartLine';
 import { Box } from '@mui/system';
 import NoDataFound from '../pages/NoDataFound';
@@ -56,27 +51,6 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function UserOrderCart(props) {
-    const [cartLines, setCartLines] = React.useState(null)
-    let [checked, setChecked] = React.useState(false);
-    let cart = React.useContext(CartContext)
-    let user = React.useContext(AuthContext)
-
-    const getData = async () => {
-        try {
-            setChecked(true);
-            let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
-            let ref = cart?.cartRef
-            let response = await cart?.getCartData({ token: token, ref: ref })
-            console.log("******", response, response?.lines)
-            setCartLines(response?.lines)
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
-    if (checked === false) {
-        getData()
-    }
 
     return (
         <Box>
@@ -89,8 +63,8 @@ export default function UserOrderCart(props) {
                     Items
                 </BootstrapDialogTitle>
                 <DialogContent dividers>
-                    {cartLines?.length > 0 ? cartLines.map((line, index) => (
-                        <CartLine key={index} line={line} getUpdatedData={getData} />
+                    {props.cart_data && props.cart_data?.lines ? props.cart_data.lines.map((line, index) => (
+                        <CartLine key={index} line={line} />
                     )) :
                         <Box sx={{
                             maxWidth: "100%",

@@ -47,7 +47,7 @@ export const UserOrders = (props) => {
 
                     </Box>
                     {open ?
-                        <UserOrderCart handleClose={handleClose} open={open} cart_id={3} />
+                        <UserOrderCart handleClose={handleClose} open={open} cart_data={key?.cart} />
                         :
                         null}
                     <Button variant="contained" fullWidth onClick={handleClickOpen}>Show Items</Button>
