@@ -99,7 +99,7 @@ const Profile = () => {
                             </Avatar>
                         </Stack>
                         <Typography component="h1" variant="h5" style={{ textAlign: "center", marginTop: "10px" }}>
-                            {userData?.name ? userData.name : "Anonymous"}
+                            {userData?.username ? userData.username : "Anonymous"}
                             <IconButton aria-label="edit" sx={{}} onClick={handleClickOpen}>
                                 <EditIcon />
                             </IconButton>

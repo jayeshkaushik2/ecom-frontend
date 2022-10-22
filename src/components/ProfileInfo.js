@@ -87,12 +87,6 @@ export default function ProfileInfo() {
                 <Box sx={tabStyle} value={value} index={0}>
                     <UserOrders orders={Orders} />
                 </Box>
-                <Box sx={tabStyle} value={value} index={1}>
-                    <UserOrders orders={Orders} />
-                </Box>
-                <Box sx={tabStyle} value={value} index={2}>
-                    <UserOrders orders={Orders} />
-                </Box>
             </Box>
         </Box>
     );

@@ -74,7 +74,7 @@ export default function ProfileDetail(props) {
     const handleProfileUpdate = async () => {
         try {
             let data = {
-                name: Username,
+                username: Username,
                 // profile_image: ProfileImage,
                 // banner_image: BannerImage,
             }
@@ -123,10 +123,10 @@ export default function ProfileDetail(props) {
                     <TextField
                         margin="normal"
                         fullWidth
-                        id="name"
-                        label="Name"
-                        value={props?.userData?.name ? props?.userData?.name : null}
-                        name="name"
+                        id="username"
+                        label="Username"
+                        value={props?.userData?.name ? props?.userData?.username : null}
+                        name="username"
                         onChange={(e) => setUsername(e.target.value)}
                     />
                     <DialogActions>

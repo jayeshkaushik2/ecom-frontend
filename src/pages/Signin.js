@@ -15,7 +15,7 @@ export const Signin = (props) => {
   const handleLoginUser = (e) => {
     e.preventDefault()
     let data = {}
-    data["username"] = document.getElementById("username").value
+    data["email"] = document.getElementById("email").value
     data["password"] = document.getElementById("password").value
     loginUser(e, data)
   }
@@ -30,10 +30,10 @@ export const Signin = (props) => {
           margin="normal"
           required
           fullWidth
-          id="username"
-          label="Username"
-          name="username"
-          autoComplete="name"
+          id="email"
+          label="Email"
+          name="email"
+          autoComplete="email"
           autoFocus
           size="small"
         />
