@@ -5,7 +5,6 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,14 +12,43 @@ import AdbIcon from '@mui/icons-material/Adb';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import Colors from './Colors.js'
+import AuthContext from '../context/AuthContext';
+import Link from '@mui/material/Link';
+import { useNavigate } from 'react-router-dom';
+import { getProfileData } from '../context/Apis'
 
-
-const settings = ['Profile', 'Logout'];
-
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = (props) => {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const main_color_dark = Colors("main_color_dark")
+    let redirect = useNavigate()
+    let userData = React.useContext(AuthContext)
+    let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
+    const [ProfileuserData, setProfileuserData] = React.useState(null)
+    const [Query, setQuery] = React.useState("")
+
+    const getData = async () => {
+        try {
+            let token = userData.AuthToken ? `Bearer ${userData.AuthToken.access}` : null
+            if (token !== null && userData.Login !== "Login" && userData.AuthToken !== null) {
+                const data = await getProfileData({ token: token })
+                setProfileuserData(data)
+            }
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    React.useEffect(() => {
+        console.log("query", Query)
+        getData()
+    }, [])
+
+    const handleSearchChange = (e) => {
+        let query = e.target.value
+        console.log("runing fuc...s", query)
+        redirect("/products", { state: { query: query } })
+    }
+
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
@@ -30,6 +58,10 @@ const ResponsiveAppBar = () => {
         setAnchorElUser(null);
     };
 
+    const handleLogout = () => {
+        userData.logoutUser()
+    }
+
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -37,7 +69,6 @@ const ResponsiveAppBar = () => {
         '&:hover': {
             backgroundColor: alpha(theme.palette.common.white, 0.25),
         },
-        marginLeft: 0,
         width: '100%',
         [theme.breakpoints.up('sm')]: {
             marginLeft: theme.spacing(1),
@@ -73,8 +104,8 @@ const ResponsiveAppBar = () => {
     }));
 
     return (
-        <AppBar position="static">
-            <Container maxWidth="xl" sx={{ backgroundColor: main_color_dark }}>
+        <AppBar position="static" sx={{ position: "sticky", top: 0, zIndex: "100", background:"#1769aa", maxWidth: "100%" }}>
+            <Box sx={{ paddingLeft: "10px", paddingRight: "10px" }}>
                 <Toolbar disableGutters>
                     <Typography
                         variant="h6"
@@ -99,7 +130,7 @@ const ResponsiveAppBar = () => {
                         variant="h5"
                         noWrap
                         component="a"
-                        href=""
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
@@ -114,22 +145,23 @@ const ResponsiveAppBar = () => {
                         EcomBUY
                     </Typography>
 
-                    <Box sx={{ mr: '10px', ml: '100px', flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                    <Box sx={{ mr: '10px', ml: '100px', flexGrow: 1, display: { xs: 'none', md: 'flex' }, marginLeft: "auto" }}>
                         <Search>
                             <SearchIconWrapper>
                                 <SearchIcon />
                             </SearchIconWrapper>
                             <StyledInputBase
-                                placeholder="Search…"
+                                onKeyPress={(e) => { if (e.key === "Enter") { handleSearchChange(e) } }}
+                                placeholder="Search your product"
                                 inputProps={{ 'aria-label': 'search' }}
                             />
                         </Search>
                     </Box>
-
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                <Avatar
+                                    src={ProfileuserData?.profile_image ? `${API_ENDPOINT}${ProfileuserData.profile_image}` : "/static/images/avatar/1.jpg"} />
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -148,15 +180,31 @@ const ResponsiveAppBar = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                            {userData?.user ?
+                                <MenuItem onClick={() => handleCloseUserMenu()}>
+                                    <Link href="/profile" underline="none" color="inherit">
+                                        <Typography textAlign="center">Profile</Typography>
+                                    </Link>
                                 </MenuItem>
-                            ))}
+                                : null}
+
+                            {userData?.login === "Login" && userData.user === null ?
+                                <MenuItem onClick={() => handleCloseUserMenu()}>
+                                    <Link href="/signin" underline="none" color="inherit">
+                                        <Typography textAlign="center">Login</Typography>
+                                    </Link>
+                                </MenuItem>
+                                :
+
+                                <MenuItem onClick={() => handleCloseUserMenu()}>
+                                    <Link onClick={handleLogout} underline="none" color="inherit">
+                                        <Typography textAlign="center">Logout</Typography>
+                                    </Link>
+                                </MenuItem>}
                         </Menu>
                     </Box>
                 </Toolbar>
-            </Container>
+            </Box>
         </AppBar>
     );
 };

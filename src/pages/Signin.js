@@ -1,92 +1,82 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
+import React, { useContext } from 'react'
+import Link from '@mui/material/Link';
+import LoginIcon from '@mui/icons-material/Login';
+import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import signin_img from '../assets/images/signin_img.jpg'
-import { Container } from '@mui/system';
-import Avatar from '@mui/material/Avatar';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import AuthContext from '../context/AuthContext';
 import Typography from '@mui/material/Typography';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import LoginIcon from '@mui/icons-material/Login';
+import Box from '@mui/material/Box';
 
-export const Signin = () => {
+
+export const Signin = (props) => {
+  let { loginUser } = useContext(AuthContext)
+
+  const handleLoginUser = (e) => {
+    e.preventDefault()
+    let data = {}
+    data["email"] = document.getElementById("email").value
+    data["password"] = document.getElementById("password").value
+    loginUser(e, data)
+  }
+
   return (
     <>
-      <Typography variant="body2" color="text.secondary" align="center"></Typography>
-      <Container maxWidth="xl" sx={{ backgroundImage: `url(${signin_img})`, height: "100vh", backgroundSize: "100% 100%", }}>
-
-        <Box
-          component="form"
-          sx={{
-            marginTop: "15",
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: "100%",
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
+      <Typography component="h1" variant="h5">
+        Sign in
+      </Typography>
+      <Box noValidate sx={{ marginTop: 1, maxWidth: "360px", backgroundColor: "white", padding: "15px", borderRadius: "10px", }}>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email"
+          name="email"
+          autoComplete="email"
+          autoFocus
+          size="small"
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="Password"
+          type="password"
+          id="password"
+          autoComplete="current-password"
+          size="small"
+        />
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          onClick={(e) => handleLoginUser(e)}
+          sx={{ marginTop: 3, marginBottom: 2 }}
+          size="small"
         >
-          <Avatar sx={{ padding: 1, marginTop: 10, bgcolor: 'blue' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-
-          <Box component="form" noValidate sx={{ marginTop: 1, width: "70%", backgroundColor: "white", padding: "15px", borderRadius: "10px", }}>
-
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ marginTop: 3, marginBottom: 2 }}
-            >
-              Sign In <LoginIcon/>
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-      </Container>
+          Sign In <LoginIcon />
+        </Button>
+        <Grid container>
+          <Grid item xs>
+            <Link variant="outlined" underline="none" href="/forgot-password" size="small">
+              Forgot password?
+            </Link>
+          </Grid>
+          <Grid item>
+            <Link variant="outlined" underline="none" href="/signup" size="small">
+              {"Sign Up"}
+            </Link>
+          </Grid>
+        </Grid>
+      </Box>
+      <Link
+        href="/"
+        variant="contained"
+        underline="none"
+        sx={{ marginTop: "15px" }}
+      >Go to Home</Link>
     </>
   );
 }
