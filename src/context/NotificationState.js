@@ -1,32 +1,48 @@
-import * as React from 'react';
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import MuiAlert from '@mui/material/Alert';
-import NotificationContext from './NotificationContext'
-import Notify from './Notify';
+import * as React from "react";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import NotificationContext from "./NotificationContext";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const NotificationState = ({ children }) => {
-  const [ShowMsg, setShowMsg] = React.useState(null)
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const sendNotification = ({ type: type, msg: msg }) => {
-    alert(`Type:${type}, ${msg}`)
-    // return (
-    //   <Notify data={{type: type, msg: msg, show: true }} />
-    // )
-  }
+    console.log("running...");
+    setOpen(true);
+    return (
+      <div>
+        <Snackbar open={true} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity={type} sx={{ width: "100%" }}>
+            {msg ? msg : "server error"}
+          </Alert>
+        </Snackbar>
+      </div>
+    );
+  };
 
-let notify = {
-  sendNotification: sendNotification
-}
+  let notify = {
+    sendNotification: sendNotification,
+  };
 
+  return (
+    <NotificationContext.Provider value={notify}>
+      {children}
+    </NotificationContext.Provider>
+  );
+};
 
-return (
-  <NotificationContext.Provider value={notify}>
-    {children}
-  </NotificationContext.Provider>
-)
-}
-
-
-export default NotificationState
+export default NotificationState;
