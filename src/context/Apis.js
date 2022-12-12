@@ -41,16 +41,27 @@ export async function getSubCategory() {
   }
 }
 
-export async function getProductData() {
-  let response = await fetch(`${API_ENDPOINT}/product/`, {
+export async function getProductData({ filters: filters }) {
+  let api_url = `${API_ENDPOINT}/product/`;
+  api_url = update_quary_params(api_url, filters);
+  let response = await fetch(api_url, {
     method: "GET",
   });
   let product_data = await response.json();
-  if (response.ok) {
-    return product_data;
-  } else {
-    throw response;
-  }
+  return product_data;
+}
+
+export async function getProductIdData({
+  productId: productId,
+  filters: filters,
+}) {
+  let api_url = `${API_ENDPOINT}/product/${productId}`;
+  api_url = update_quary_params(api_url, filters);
+  let response = await fetch(api_url, {
+    method: "GET",
+  });
+  let product_data = await response.json();
+  return product_data;
 }
 
 export async function getProductData_WithFilter({
