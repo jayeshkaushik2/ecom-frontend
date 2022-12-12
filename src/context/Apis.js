@@ -3,6 +3,20 @@ import { useContext } from "react";
 import Notifications from "./NotificationState";
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
+function update_quary_params(url, filters) {
+  // this function will add the query params to the api url
+  let is_first = true;
+  for (var key in filters) {
+    if (is_first) {
+      url += `?${key}=${filters[key]}`;
+      is_first = false;
+    } else {
+      url += `&${key}=${filters[key]}`;
+    }
+  }
+  return url;
+}
+
 export async function getFooter() {
   let response = await fetch(`${API_ENDPOINT}/details/`, {
     method: "GET",
@@ -217,17 +231,19 @@ export async function getProfileData({ token: token }) {
   }
 }
 
-export async function getUserOrdersData({ token: token, user_id }) {
-  let response = await fetch(`${API_ENDPOINT}/user-orders/${user_id}`, {
+export async function getUserOrdersData({
+  token: token,
+  filters: filters,
+  user_id,
+}) {
+  let api_url = `${API_ENDPOINT}/user-orders/${user_id}/`;
+  api_url = update_quary_params(api_url, filters);
+  let response = await fetch(api_url, {
     method: "GET",
     headers: { Authorization: token },
   });
   let user_data = await response.json();
-  if (response.ok) {
-    return user_data;
-  } else {
-    throw response;
-  }
+  return user_data;
 }
 
 export async function PostProfileData({ token: token, userData: userData }) {
