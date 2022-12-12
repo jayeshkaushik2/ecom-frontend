@@ -268,11 +268,7 @@ export async function PostOrderData({
     body: JSON.stringify(orderData),
   });
   let order_data = await response.json();
-  if (response.ok) {
-    return order_data;
-  } else {
-    throw response;
-  }
+  return order_data;
 }
 
 export async function PostPlaceOrder({
@@ -286,11 +282,7 @@ export async function PostPlaceOrder({
   });
 
   let place_order_data = await response.json();
-  if (response.ok) {
-    return place_order_data;
-  } else {
-    throw response;
-  }
+  return place_order_data;
 }
 
 // order address

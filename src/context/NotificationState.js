@@ -21,17 +21,17 @@ const NotificationState = ({ children }) => {
   };
 
   const sendNotification = ({ type: type, msg: msg }) => {
-    console.log("running...");
     setOpen(true);
-    return (
-      <div>
-        <Snackbar open={true} autoHideDuration={6000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity={type} sx={{ width: "100%" }}>
-            {msg ? msg : "server error"}
-          </Alert>
-        </Snackbar>
-      </div>
-    );
+    alert(`${type}: ${msg}`);
+    // return (
+    //   <div>
+    //     <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+    //       <Alert onClose={handleClose} severity={type} sx={{ width: "100%" }}>
+    //         {msg ? msg : "server error"}
+    //       </Alert>
+    //     </Snackbar>
+    //   </div>
+    // );
   };
 
   let notify = {
