@@ -161,10 +161,28 @@ export const Checkout = (props) => {
                   variant="body2"
                   sx={{ display: "inline-flex", marginRight: "17px" }}
                 >
-                  Order is eligble for free delivery{" "}
-                  <OfflinePinOutlinedIcon
-                    sx={{ color: "green", marginLeft: "5px", fontSize: "22px" }}
-                  />
+                  {OrderData?.address === null ||
+                  OrderAddressData?.pincode === "" ||
+                  OrderAddressData?.house_info === "" ||
+                  OrderAddressData?.city === "" ||
+                  OrderAddressData?.phone === "" ||
+                  OrderAddressData?.pincode === null ||
+                  OrderAddressData?.house_info === null ||
+                  OrderAddressData?.city === null ||
+                  OrderAddressData?.phone === null ? (
+                    "Please fill up the Address details."
+                  ) : (
+                    <>
+                      Order is eligble for free delivery{" "}
+                      <OfflinePinOutlinedIcon
+                        sx={{
+                          color: "green",
+                          marginLeft: "5px",
+                          fontSize: "22px",
+                        }}
+                      />
+                    </>
+                  )}
                 </Typography>
               </Box>
 
