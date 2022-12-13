@@ -24,7 +24,9 @@ export const ProductList = (props) => {
     for (var item in data) {
       temp[item] = data[item];
     }
+    console.log("changed", temp);
     setFilters(temp);
+    getFilterData(temp);
   }
 
   const handlePriceFilterChange = (e) => {
@@ -34,23 +36,22 @@ export const ProductList = (props) => {
     let lt = temp[1];
     let filter = {};
     if (lt !== null && lt !== undefined) {
-      filter["price__lt"] = lt;
+      filter["price__lte"] = lt;
     }
     if (gt !== null && gt !== undefined) {
-      filter["price__gt"] = gt;
+      filter["price__gte"] = gt;
     }
     update_filters(filter);
-    getFilterData(filter);
   };
 
   const handleRatingFilterChange = (e) => {
     setRating(e.target.value);
-    update_filters({ rating: e.target.value });
+    update_filters({ rating__gte: e.target.value });
   };
 
   const handleDiscountFilterChange = (e) => {
     setDiscount(e.target.value);
-    update_filters({ discount__gte: e.target.value });
+    update_filters({ discount_pct__gte: e.target.value });
   };
 
   const getFilterData = async (query_params) => {
@@ -63,10 +64,18 @@ export const ProductList = (props) => {
   };
 
   React.useEffect(() => {
-    const query = location?.state.query;
+    const query = location?.state?.query;
     update_filters(query);
+    setSearch(query);
     getFilterData(query);
   }, [location?.state]);
+
+  const handleClearFilter = () => {
+    const query = location?.state?.query;
+    console.log(query, Search);
+    setFilters(query);
+    getFilterData(query);
+  };
 
   const filterStyle = {
     minWidth: "20%",
@@ -151,9 +160,7 @@ export const ProductList = (props) => {
           <Button
             variant="contained"
             sx={{ width: "100%" }}
-            onClick={(e) => {
-              setFilters({});
-            }}
+            onClick={handleClearFilter}
           >
             Clear filters
           </Button>

@@ -9,41 +9,6 @@ import CartContext from "../context/CartContext";
 import AuthContext from "../context/AuthContext";
 import NotificationContext from "../context/NotificationContext";
 
-const productData = {
-  id: 1,
-  sub_category: 1,
-  title:
-    "In ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface. 1",
-  description:
-    "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.",
-  is_promoted: true,
-  sorting_number: 0,
-  price: 12000,
-  images: [
-    {
-      id: 1,
-      image:
-        "http://ecom.apis.com:8000/media/product_image/andras-vas-Bd7gNnWJBkU-unsplash_tjuf4Y4.jpg",
-      product: 1,
-    },
-    {
-      id: 4,
-      image:
-        "http://ecom.apis.com:8000/media/product_image/unverise2_E2eYNv4.jpg",
-      product: 1,
-    },
-    {
-      id: 5,
-      image:
-        "http://ecom.apis.com:8000/media/product_image/jonas-leupe-dZmNJKFDuVI-unsplash_sJcUHtj.jpg",
-      product: 1,
-    },
-  ],
-  rating: 3,
-  discount_pct: "20.00",
-  tags: [],
-};
-
 export const ProductDetailView = (props) => {
   let cart = React.useContext(CartContext);
   let user = React.useContext(AuthContext);
@@ -102,8 +67,8 @@ export const ProductDetailView = (props) => {
       product: e.target.value,
       ref: cart?.cartRef,
     };
-    console.log("buy these items", dataIs);
-    // postCartLineData(dataIs);
+    postCartLineData(dataIs);
+    redirect("/order");
   };
 
   return (
@@ -171,6 +136,7 @@ export const ProductDetailView = (props) => {
                   marginLeft: "auto",
                   marginRight: "auto",
                 }}
+                value={productData?.id}
                 onClick={handleBuyNow}
               >
                 Buy Now

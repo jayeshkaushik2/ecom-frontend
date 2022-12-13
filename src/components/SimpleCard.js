@@ -51,8 +51,14 @@ const SimpleCard = (props) => {
     postCartLineData(dataIs);
   };
 
-  const handleBuyNow = () => {
-    props.setPage("checkout");
+  const handleBuyNow = (e) => {
+    let dataIs = {
+      cart: cart?.cart_id,
+      product: e.target.value,
+      ref: cart?.cartRef,
+    };
+    postCartLineData(dataIs);
+    redirect("/order");
   };
 
   const handleViewMore = (product_id) => {
@@ -77,7 +83,12 @@ const SimpleCard = (props) => {
 
       <CardContent>
         <Box sx={{ display: "flex" }}>
-          <Button size="small" variant="contained" onClick={handleBuyNow}>
+          <Button
+            size="small"
+            variant="contained"
+            value={props.product.id}
+            onClick={handleBuyNow}
+          >
             Buy now
             <ShoppingCartIcon />
           </Button>
