@@ -2,6 +2,7 @@ import AuthContext from "./AuthContext";
 import React, { useState, useEffect, useContext } from "react";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import { CreateApiContext } from "./Apis";
 
 const AuthState = ({ children }) => {
   const [User, setUser] = useState(() =>
@@ -22,40 +23,72 @@ const AuthState = ({ children }) => {
 
   const redirect = useNavigate();
 
-  let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
+  // let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
+  // let loginUser = async (e, user_info) => {
+  //   let response = await fetch(`${API_ENDPOINT}/token/`, {
+  //     method: "post",
+  //     headers: { "content-type": "application/json" },
+  //     body: JSON.stringify(user_info),
+  //   });
+  //   let data = await response.json();
+  //   if (response.status === 200) {
+  //     setAuthToken(data);
+  //     setLogin("Logout");
+  //     setUser(jwt_decode(data.access));
+  //     localStorage.setItem("AuthToken", JSON.stringify(data));
+  //     redirect("/");
+  //   } else {
+  //     alert("unable to login");
+  //   }
+  // };
 
-  let loginUser = async (e, user_info) => {
-    let response = await fetch(`${API_ENDPOINT}/token/`, {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(user_info),
-    });
-    let data = await response.json();
-    if (response.status === 200) {
-      setAuthToken(data);
-      setLogin("Logout");
-      setUser(jwt_decode(data.access));
-      localStorage.setItem("AuthToken", JSON.stringify(data));
-      redirect("/");
-    } else {
-      alert("unable to login");
-    }
+  // let refreshUserAccess = async () => {
+  //   let response = await fetch(`${API_ENDPOINT}/token/refresh/`, {
+  //     method: "post",
+  //     headers: { "content-type": "application/json" },
+  //     body: JSON.stringify({ refresh: AuthToken.refresh }),
+  //   });
+  //   let data = await response.json();
+  //   if (response.status === 200) {
+  //     setAuthToken(data);
+  //     setUser(jwt_decode(data.access));
+  //     localStorage.getItem("AuthToken", JSON.stringify(data));
+  //   } else {
+  //     logoutUser();
+  //   }
+  // };
+
+  let LoginUser = async (e, info) => {
+    let res = await CreateApiContext("/login/", "POST", info);
+    setAuthToken(res);
+    setLogin("Logout");
+    setUser(jwt_decode(res.access));
+    localStorage.setItem("AuthToken", JSON.stringify(res));
+    localStorage.removeItem("Cart");
+    console.log("logged in data", res);
+    redirect("/");
   };
 
   let RefreshUserAccess = async () => {
-    let response = await fetch(`${API_ENDPOINT}/token/refresh/`, {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ refresh: AuthToken.refresh }),
+    let res = await CreateApiContext("/token/refresh/", "POST", {
+      refresh: AuthToken.refresh,
     });
-    let data = await response.json();
-    if (response.status === 200) {
-      setAuthToken(data);
-      setUser(jwt_decode(data.access));
-      localStorage.getItem("AuthToken", JSON.stringify(data));
+    if (res.status === 200) {
+      setAuthToken(res);
+      setUser(jwt_decode(res.access));
+      localStorage.getItem("AuthToken", JSON.stringify(res));
     } else {
-      logoutUser();
+      LogoutUser();
     }
+  };
+
+  const LogoutUser = () => {
+    setAuthToken(null);
+    setUser(null);
+    setLogin("Login");
+    localStorage.removeItem("AuthToken");
+    localStorage.removeItem("Cart");
+    redirect("/");
   };
 
   const logoutUser = () => {
@@ -71,7 +104,7 @@ const AuthState = ({ children }) => {
     user: User,
     AuthToken: AuthToken,
     login: Login,
-    loginUser: loginUser,
+    loginUser: LoginUser,
     logoutUser: logoutUser,
   };
 
