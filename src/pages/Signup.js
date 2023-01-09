@@ -2,8 +2,6 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Avatar from "@mui/material/Avatar";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
@@ -28,7 +26,11 @@ export const Signup = (props) => {
     try {
       let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null;
       const resp_data = await PostUserData({ token: token, userData: data });
-      alert("user created");
+      if (resp_data.ok) {
+        alert("user created.");
+      } else {
+        alert("unable to create the user.");
+      }
       redirect("/verify-newuser-otp");
     } catch (error) {
       console.log(error);

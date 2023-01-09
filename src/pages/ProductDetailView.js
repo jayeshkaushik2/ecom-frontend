@@ -3,7 +3,6 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ProductDetailImage } from "../components/ProductDetailImage";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
-import Rating from "@mui/material/Rating";
 import { getProductIdData, PostCartRefData } from "../context/Apis";
 import CartContext from "../context/CartContext";
 import AuthContext from "../context/AuthContext";

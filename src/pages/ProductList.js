@@ -14,7 +14,7 @@ export const ProductList = (props) => {
   const [PriceRange, setPriceRange] = React.useState("");
   const [Rating, setRating] = React.useState("");
   const [Discount, setDiscount] = React.useState("");
-  const [Prev_query, setPrev_query] = React.useState("");
+  // const [Prev_query, setPrev_query] = React.useState("");
   const [Search, setSearch] = React.useState("");
   const [filters, setFilters] = React.useState({});
   let location = useLocation();
@@ -68,7 +68,7 @@ export const ProductList = (props) => {
     update_filters(query);
     setSearch(query);
     getFilterData(query);
-  }, [location?.state]);
+  }, [update_filters, location?.state]);
 
   const handleClearFilter = () => {
     const query = location?.state?.query;

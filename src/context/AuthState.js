@@ -1,8 +1,8 @@
 import AuthContext from "./AuthContext";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import { CreateApiContext } from "./Apis";
+// import { CreateApiContext } from "./Apis";
 
 const AuthState = ({ children }) => {
   const [User, setUser] = useState(() =>
@@ -82,14 +82,14 @@ const AuthState = ({ children }) => {
   //   }
   // };
 
-  const LogoutUser = () => {
-    setAuthToken(null);
-    setUser(null);
-    setLogin("Login");
-    localStorage.removeItem("AuthToken");
-    localStorage.removeItem("Cart");
-    redirect("/");
-  };
+  // const LogoutUser = () => {
+  //   setAuthToken(null);
+  //   setUser(null);
+  //   setLogin("Login");
+  //   localStorage.removeItem("AuthToken");
+  //   localStorage.removeItem("Cart");
+  //   redirect("/");
+  // };
 
   const logoutUser = () => {
     setAuthToken(null);

@@ -1,11 +1,7 @@
 import React from "react";
 import { getCartRefData, PostOrderData } from "../context/Apis";
-import Default from "./Default";
-import OrderList from "./CartList";
 import CartContext from "../context/CartContext";
 import AuthContext from "../context/AuthContext";
-import Profile from "./Profile";
-import { ProductList } from "./ProductList";
 import {
   getOrderData,
   PostPlaceOrder,
@@ -34,11 +30,11 @@ export const Checkout = (props) => {
   let redirect = useNavigate();
   // use states
   const [OrderData, setOrderData] = React.useState(null);
-  const [cartData, setCartData] = React.useState(null);
+  // const [cartData, setCartData] = React.useState(null);
   const [cartLines, setCartLines] = React.useState(null);
   const [OrderAddressData, setOrderAddressData] = React.useState(null);
   const [PaymentMethod, setPaymentMethod] = React.useState("");
-  const [close, onClose] = React.useState(false);
+  // const [close, onClose] = React.useState(false);
 
   // apis hits
   const getData = async () => {
@@ -67,7 +63,7 @@ export const Checkout = (props) => {
   const getCartData = async () => {
     try {
       const cart_data = await getCartRefData({ token: token, ref: ref });
-      setCartData(cart_data);
+      // setCartData(cart_data);
       setCartLines(cart_data.lines);
     } catch (error) {
       console.log(error);
@@ -107,7 +103,7 @@ export const Checkout = (props) => {
 
   React.useEffect(() => {
     getData();
-  }, []);
+  }, [getData]);
 
   // event handlers
   const handleConfirmOrder = async () => {
@@ -225,7 +221,7 @@ export const Checkout = (props) => {
                     <EditIcon />
                   </IconButton>
                 </Typography>
-                {OrderAddressData && OrderAddressData != {} ? (
+                {OrderAddressData && OrderAddressData !== {} ? (
                   <>
                     {OrderAddressData?.full_name ? (
                       <Typography>({OrderAddressData?.full_name})</Typography>
