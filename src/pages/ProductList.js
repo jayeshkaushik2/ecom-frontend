@@ -75,6 +75,9 @@ export const ProductList = (props) => {
     console.log(query, Search);
     setFilters(query);
     getFilterData(query);
+    setPriceRange("");
+    setRating("");
+    setDiscount("");
   };
 
   const filterStyle = {

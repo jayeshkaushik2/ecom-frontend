@@ -23,64 +23,64 @@ const AuthState = ({ children }) => {
 
   const redirect = useNavigate();
 
-  // let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
-  // let loginUser = async (e, user_info) => {
-  //   let response = await fetch(`${API_ENDPOINT}/token/`, {
-  //     method: "post",
-  //     headers: { "content-type": "application/json" },
-  //     body: JSON.stringify(user_info),
-  //   });
-  //   let data = await response.json();
-  //   if (response.status === 200) {
-  //     setAuthToken(data);
-  //     setLogin("Logout");
-  //     setUser(jwt_decode(data.access));
-  //     localStorage.setItem("AuthToken", JSON.stringify(data));
-  //     redirect("/");
-  //   } else {
-  //     alert("unable to login");
-  //   }
-  // };
-
-  // let refreshUserAccess = async () => {
-  //   let response = await fetch(`${API_ENDPOINT}/token/refresh/`, {
-  //     method: "post",
-  //     headers: { "content-type": "application/json" },
-  //     body: JSON.stringify({ refresh: AuthToken.refresh }),
-  //   });
-  //   let data = await response.json();
-  //   if (response.status === 200) {
-  //     setAuthToken(data);
-  //     setUser(jwt_decode(data.access));
-  //     localStorage.getItem("AuthToken", JSON.stringify(data));
-  //   } else {
-  //     logoutUser();
-  //   }
-  // };
-
-  let LoginUser = async (e, info) => {
-    let res = await CreateApiContext("/login/", "POST", info);
-    setAuthToken(res);
-    setLogin("Logout");
-    setUser(jwt_decode(res.access));
-    localStorage.setItem("AuthToken", JSON.stringify(res));
-    localStorage.removeItem("Cart");
-    console.log("logged in data", res);
-    redirect("/");
+  let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
+  let LoginUser = async (e, user_info) => {
+    let response = await fetch(`${API_ENDPOINT}/token/`, {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(user_info),
+    });
+    let data = await response.json();
+    if (response.status === 200) {
+      setAuthToken(data);
+      setLogin("Logout");
+      setUser(jwt_decode(data.access));
+      localStorage.setItem("AuthToken", JSON.stringify(data));
+      redirect("/");
+    } else {
+      alert("unable to login");
+    }
   };
 
   let RefreshUserAccess = async () => {
-    let res = await CreateApiContext("/token/refresh/", "POST", {
-      refresh: AuthToken.refresh,
+    let response = await fetch(`${API_ENDPOINT}/token/refresh/`, {
+      method: "post",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ refresh: AuthToken.refresh }),
     });
-    if (res.status === 200) {
-      setAuthToken(res);
-      setUser(jwt_decode(res.access));
-      localStorage.getItem("AuthToken", JSON.stringify(res));
+    let data = await response.json();
+    if (response.status === 200) {
+      setAuthToken(data);
+      setUser(jwt_decode(data.access));
+      localStorage.getItem("AuthToken", JSON.stringify(data));
     } else {
-      LogoutUser();
+      logoutUser();
     }
   };
+
+  // let LoginUser = async (e, info) => {
+  //   let res = await CreateApiContext("/login/", "POST", info);
+  //   setAuthToken(res);
+  //   setLogin("Logout");
+  //   setUser(jwt_decode(res.access));
+  //   localStorage.setItem("AuthToken", JSON.stringify(res));
+  //   localStorage.removeItem("Cart");
+  //   console.log("logged in data", res);
+  //   redirect("/");
+  // };
+
+  // let RefreshUserAccess = async () => {
+  //   let res = await CreateApiContext("/token/refresh/", "POST", {
+  //     refresh: AuthToken.refresh,
+  //   });
+  //   if (res.status === 200) {
+  //     setAuthToken(res);
+  //     setUser(jwt_decode(res.access));
+  //     localStorage.getItem("AuthToken", JSON.stringify(res));
+  //   } else {
+  //     LogoutUser();
+  //   }
+  // };
 
   const LogoutUser = () => {
     setAuthToken(null);

@@ -414,7 +414,7 @@ function updateUrlFilter(url, filters) {
       }
       is_changed = true;
     }
-    if (is_changed == true) {
+    if (is_changed === true) {
       new_url += "/";
     }
   }
