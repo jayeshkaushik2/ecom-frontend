@@ -68,7 +68,7 @@ export const ProductList = (props) => {
     update_filters(query);
     setSearch(query);
     getFilterData(query);
-  }, [update_filters, location?.state]);
+  }, [location?.state]);
 
   const handleClearFilter = () => {
     const query = location?.state?.query;

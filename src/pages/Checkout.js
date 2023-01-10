@@ -103,7 +103,7 @@ export const Checkout = (props) => {
 
   React.useEffect(() => {
     getData();
-  }, [getData]);
+  }, []);
 
   // event handlers
   const handleConfirmOrder = async () => {
