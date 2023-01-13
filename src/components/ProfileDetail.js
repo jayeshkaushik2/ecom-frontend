@@ -15,7 +15,8 @@ import CartLine from "./CartLine";
 import { Box } from "@mui/system";
 import NoDataFound from "../pages/NoDataFound";
 import TextField from "@mui/material/TextField";
-import { PostProfileData } from "../context/Apis";
+// import { PostProfileData } from "../context/Apis";
+const API_URL = process.env.REACT_APP_API_ENDPOINT;
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -67,20 +68,34 @@ export default function ProfileDetail(props) {
     post_userData.append("post_image", ProfileImage, ProfileImage.name);
   };
 
+  const PostProfileData = async ({ token: token, userData: userData }) => {
+    let response = await fetch(`${API_URL}/user-profile/`, {
+      method: "POST",
+      headers: { Authorization: token },
+      body: userData,
+    });
+    let user_updated_data = await response.json();
+    if (response.ok) {
+      return user_updated_data;
+    } else {
+      throw response;
+    }
+  };
+
   const handleProfileUpdate = async () => {
     try {
-      let data = {
-        username: Username,
-        profile_image: ProfileImage,
-        banner_image: BannerImage,
-      };
-      if (ProfileImage !== null) {
-        data["profile_image"] = ProfileImage;
+      const profile_img = document.querySelector("input[type=file]").files[0];
+      const form_data = new FormData();
+      if (profile_img !== null && profile_img !== undefined) {
+        form_data.append("profile_image", profile_img);
       }
-      if (BannerImage !== null) {
-        data["banner_image"] = BannerImage;
+      if (Username !== null && Username !== "") {
+        form_data.append("username", Username);
       }
-      const response = await PostProfileData({ token: token, userData: data });
+      const response = await PostProfileData({
+        token: token,
+        userData: form_data,
+      });
       props.setUserData(response);
       props.handleClose();
     } catch (error) {
@@ -103,11 +118,11 @@ export default function ProfileDetail(props) {
             lable="upload profile image"
             onChange={(e) => setProfileImage(e.target.value)}
           ></input>
-          <input
+          {/* <input
             type="file"
             lable="upload profile image"
             onChange={(e) => setBannerImage(e.target.value)}
-          ></input>
+          ></input> */}
           {/* <TextField
                         margin="normal"
                         required

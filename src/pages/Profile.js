@@ -13,26 +13,8 @@ import ProfileInfo from "../components/ProfileInfo";
 import ProfileDetail from "../components/ProfileDetail";
 
 const Profile = () => {
-  let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
   let user = React.useContext(AuthContext);
   const [userData, setUserData] = React.useState(null);
-  //   const [Save, setSave] = React.useState(false);
-
-  // const handleBtnClick = () => {
-  //     document.getElementById("imageUpload").click()
-  // }
-
-  // const postData = async (userData) => {
-  //     try {
-  //         let token = user.AuthToken ? `Bearer ${user.AuthToken.access}` : null
-  //         if (token !== null && user.Login !== "Login" && user.AuthToken !== null) {
-  //             const response_data = await PostProfileData({ token: token, userData: userData })
-  //         }
-  //     }
-  //     catch (error) {
-  //         console.log(error);
-  //     }
-  // }
 
   const getData = async () => {
     try {
@@ -82,7 +64,7 @@ const Profile = () => {
               width="100%"
               src={
                 userData?.banner_image
-                  ? `${API_ENDPOINT}${userData.banner_image}`
+                  ? `${userData.banner_image}`
                   : defaultprofile
               }
               alt="homepage"
@@ -106,7 +88,7 @@ const Profile = () => {
                   style={{ width: "100%", position: "absolute" }}
                   src={
                     userData?.profile_image
-                      ? `${API_ENDPOINT}${userData.profile_image}`
+                      ? `${userData.profile_image}`
                       : profile_d
                   }
                   alt="profile"
