@@ -48,7 +48,7 @@ const Profile = () => {
 
   React.useEffect(() => {
     getData();
-  }, [getData]);
+  }, []);
 
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = React.useCallback(() => {
