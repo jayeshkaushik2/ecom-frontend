@@ -1,73 +1,106 @@
-import React from 'react'
-import { Grid, Link } from '@mui/material';
-import { useNavigate } from 'react-router-dom'
-import Box from '@mui/material/Box';
-import SimpleCard from './SimpleCard'
-import { getProductData_WithFilter } from '../context/Apis'
-import Button from '@mui/material/Button';
-import Default from '../pages/Default'
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import { Link, Typography } from "@mui/material";
+import { CreateApiContext } from "../context/Apis";
 
+// {
+//   category: 7;
+//   id: 17;
+//   image: null;
+//   is_promoted: true;
+//   name: "Mobiles";
+//   sorting_number: 0;
+// }
 
 const PromotedItemsList = (props) => {
-    const [Product, setProductData] = React.useState(null)
-    let navigate = useNavigate();
+  const [SubCategoriesData, setSubCategoriesData] = React.useState(null);
+  let navigate = useNavigate();
 
-    const buttonStyle = {
-        marginLeft: "auto",
-        marginRight: "auto",
-        display: "flex",
-        width: "95%",
-        marginTop: "10px",
-        marginBottom: "10px",
-        marginTop: "-17px",
+  const getSubCategories = async () => {
+    try {
+      let response = await CreateApiContext(
+        `/sub_category/`,
+        "get",
+        null,
+        null,
+        null
+      );
+      let data = await response.json();
+      console.log("SubCategoriesData:", data);
+      if (response.ok) {
+        setSubCategoriesData(data?.results);
+      }
+    } catch (e) {
+      console.log("error occured while fetching", e);
     }
+  };
 
-    const handleViewAll = (e) => {
-        e.preventDefault()
-        navigate("/items", { ProductData: props.productData ? props.productData : null })
-    }
+  React.useEffect(() => {
+    getSubCategories();
+  }, []);
 
-    const getData = async () => {
-        try {
-            const data = await getProductData_WithFilter({ search_with: "is_promoted", query: true })
-            setProductData(data["results"].slice(0, 6))
-        }
-        catch (error) {
-            console.log(error)
-        }
+  const handleClick = () => {
+    navigate("/");
+  };
 
-    }
+  // TODO set image width x height to 300 x 320
 
-    React.useEffect(() => {
-        getData()
-    }, [])
+  return (
+    <Box sx={{ backgroundColor: "#e0e0e0", height: "100%", padding: "10px" }}>
+      <Grid item xs={12}>
+        <Grid container justifyContent="center" spacing={5}>
+          {SubCategoriesData?.map((data) => (
+            <Grid key={data} item>
+              <Paper
+                sx={{
+                  height: 400,
+                  width: 300,
+                  borderRadius: 0,
+                  padding: 2,
+                }}
+              >
+                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                  {data?.name}
+                </Typography>
 
-    return (
-        <>
-            {Product ?
-                <Box  sx={{ paddingBottom: "10px", bottom: "0px", marginBottom:"-40px", minHeight:"300px",}}>
-                    <Box sx={{ marginTop: '20px', marginBottom: '20px', maxWidth: "100%", flexGrow: 1 }} id="promoted-items">
-                        <Grid container id="grid-id" spacing={{ xs: 2, md: 3, marginLeft: "auto" }} columns={{ xs: 2, sm: 8, md: 12 }}>
-                            {Product?.map((data, index) => (
-                                <Grid item xs={2} sm={4} md={4} key={index}>
-                                    <SimpleCard setPage={props.setPage} setShowMsg={props.setShowMsg} product={data} getNumProduct={props.getNumProduct} />
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </Box>
-                    {Product ?
-                        <Link href="/all-products" sx={{ color: "white", textDecoration: "none" }}>
-                            <Button variant="contained" sx={buttonStyle} style={{ marginTop: "10px" }}>
-                                View ALL Products
-                            </Button>
-                        </Link>
-                        : ""}
-                </Box>
-                : <Default />}
-        </>
-    );
-}
+                <img
+                  src={
+                    data?.image !== null
+                      ? data.image
+                      : "http://ecom.apis.com:8000/media/homepage_image/universe1_FcnqeAY.jpg"
+                  }
+                  alt="homepage image"
+                  style={{
+                    width: "100%",
+                    maxHeight: "320px",
+                    overflow: "hidden",
+                    paddingTop: 7,
+                    cursor: "pointer",
+                  }}
+                  onClick={handleClick}
+                />
+                <Link
+                  onClick={handleClick}
+                  underline="none"
+                  sx={{
+                    cursor: "pointer",
+                    fontWeight: "500",
+                    display: "block",
+                    marginTop: "10px",
+                  }}
+                >
+                  Shop now
+                </Link>
+              </Paper>
+            </Grid>
+          ))}
+        </Grid>
+      </Grid>
+    </Box>
+  );
+};
 
-
-
-export default PromotedItemsList
+export default PromotedItemsList;
