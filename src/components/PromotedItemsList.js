@@ -25,7 +25,7 @@ const PromotedItemsList = (props) => {
         `/sub_category/`,
         "get",
         null,
-        null,
+        { page_size: 6 },
         null
       );
       let data = await response.json();
