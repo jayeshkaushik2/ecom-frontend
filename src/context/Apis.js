@@ -1,10 +1,21 @@
-import AuthContext from "./AuthContext";
-import { useContext } from "react";
-import Notifications from "./NotificationState";
-const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
+const API_URL = process.env.REACT_APP_API_ENDPOINT;
+
+function update_quary_params(url, filters) {
+  // this function will add the query params to the api url
+  let is_first = true;
+  for (var key in filters) {
+    if (is_first) {
+      url += `?${key}=${filters[key]}`;
+      is_first = false;
+    } else {
+      url += `&${key}=${filters[key]}`;
+    }
+  }
+  return url;
+}
 
 export async function getFooter() {
-  let response = await fetch(`${API_ENDPOINT}/details/`, {
+  let response = await fetch(`${API_URL}/details/`, {
     method: "GET",
   });
   let details_data = await response.json();
@@ -16,7 +27,7 @@ export async function getFooter() {
 }
 
 export async function getSubCategory() {
-  let response = await fetch(`${API_ENDPOINT}/sub_category/`, {
+  let response = await fetch(`${API_URL}/sub_category/`, {
     method: "GET",
   });
   let sub_category_data = await response.json();
@@ -27,28 +38,36 @@ export async function getSubCategory() {
   }
 }
 
-export async function getProductData() {
-  let response = await fetch(`${API_ENDPOINT}/product/`, {
+export async function getProductData({ filters: filters }) {
+  let api_url = `${API_URL}/product/`;
+  api_url = update_quary_params(api_url, filters);
+  let response = await fetch(api_url, {
     method: "GET",
   });
   let product_data = await response.json();
-  if (response.ok) {
-    return product_data;
-  } else {
-    throw response;
-  }
+  return product_data;
+}
+
+export async function getProductIdData({
+  productId: productId,
+  filters: filters,
+}) {
+  let api_url = `${API_URL}/product/${productId}`;
+  api_url = update_quary_params(api_url, filters);
+  let response = await fetch(api_url, {
+    method: "GET",
+  });
+  let product_data = await response.json();
+  return product_data;
 }
 
 export async function getProductData_WithFilter({
   search_with: search_with,
   query: query,
 }) {
-  let response = await fetch(
-    `${API_ENDPOINT}/product/?${search_with}=${query}`,
-    {
-      method: "GET",
-    }
-  );
+  let response = await fetch(`${API_URL}/product/?${search_with}=${query}`, {
+    method: "GET",
+  });
   let filtered_product_data = await response.json();
   if (response.ok) {
     return filtered_product_data;
@@ -58,7 +77,7 @@ export async function getProductData_WithFilter({
 }
 
 export async function getHomepageData() {
-  let response = await fetch(`${API_ENDPOINT}/homepage/`);
+  let response = await fetch(`${API_URL}/homepage/`);
   let homepage_data = await response.json();
   if (response.ok) {
     return homepage_data;
@@ -68,7 +87,7 @@ export async function getHomepageData() {
 }
 
 export async function getCartRef({ token: token }) {
-  let response = await fetch(`${API_ENDPOINT}/create_cart/`, {
+  let response = await fetch(`${API_URL}/create_cart/`, {
     method: "GET",
     headers: { Authorization: token },
   });
@@ -81,7 +100,7 @@ export async function getCartRef({ token: token }) {
 }
 
 export async function getCartRefData({ token: token, ref: ref }) {
-  let response = await fetch(`${API_ENDPOINT}/update_cart/${ref}/`, {
+  let response = await fetch(`${API_URL}/update_cart/${ref}/`, {
     method: "GET",
     headers: { Authorization: token },
   });
@@ -98,7 +117,7 @@ export async function PostCartRefData({
   ref: ref,
   lineData: lineData,
 }) {
-  let response = await fetch(`${API_ENDPOINT}/update_cart/${ref}/`, {
+  let response = await fetch(`${API_URL}/update_cart/${ref}/`, {
     method: "POST",
     headers: { Authorization: token, "Content-Type": "application/json" },
     body: JSON.stringify(lineData),
@@ -116,7 +135,7 @@ export async function DeleteCartLine({
   ref: ref,
   line_ids: line_ids,
 }) {
-  let response = await fetch(`${API_ENDPOINT}/update_cart/${ref}/`, {
+  let response = await fetch(`${API_URL}/update_cart/${ref}/`, {
     method: "DELETE",
     headers: { Authorization: token, "Content-Type": "application/json" },
     body: JSON.stringify(line_ids),
@@ -132,7 +151,7 @@ export async function DeleteCartLine({
 // user profile apis -> POST
 export async function PostUserData({ token: token, userData: userData }) {
   // TODO : token does not required in creating a user have to remove the token from the API
-  let response = await fetch(`${API_ENDPOINT}/create-user/`, {
+  let response = await fetch(`${API_URL}/create-user/`, {
     method: "POST",
     headers: { Authorization: token, "Content-Type": "application/json" },
     body: JSON.stringify(userData),
@@ -146,7 +165,7 @@ export async function PostUserData({ token: token, userData: userData }) {
 }
 
 export async function postForgotEmail({ Data: Data }) {
-  let response = await fetch(`${API_ENDPOINT}/forgot-password/`, {
+  let response = await fetch(`${API_URL}/forgot-password/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(Data),
@@ -160,7 +179,7 @@ export async function postForgotEmail({ Data: Data }) {
 }
 
 export async function postValidationForgotOtp({ Data: Data }) {
-  let response = await fetch(`${API_ENDPOINT}/validate-forgotpass-otp/`, {
+  let response = await fetch(`${API_URL}/validate-forgotpass-otp/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(Data),
@@ -176,7 +195,7 @@ export async function postValidationForgotOtp({ Data: Data }) {
 export async function postUpdatedPasswordData({
   updatedPassword: updatedPassword,
 }) {
-  let response = await fetch(`${API_ENDPOINT}/change-password/`, {
+  let response = await fetch(`${API_URL}/change-password/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(updatedPassword),
@@ -190,7 +209,7 @@ export async function postUpdatedPasswordData({
 }
 
 export async function PostValidationNewUserOtp({ ValidateData: ValidateData }) {
-  let response = await fetch(`${API_ENDPOINT}/validate-siginup-otp/`, {
+  let response = await fetch(`${API_URL}/validate-siginup-otp/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(ValidateData),
@@ -205,7 +224,7 @@ export async function PostValidationNewUserOtp({ ValidateData: ValidateData }) {
 
 // user profile apis -> GET
 export async function getProfileData({ token: token }) {
-  let response = await fetch(`${API_ENDPOINT}/user-profile/`, {
+  let response = await fetch(`${API_URL}/user-profile/`, {
     method: "GET",
     headers: { Authorization: token },
   });
@@ -217,21 +236,23 @@ export async function getProfileData({ token: token }) {
   }
 }
 
-export async function getUserOrdersData({ token: token, user_id }) {
-  let response = await fetch(`${API_ENDPOINT}/user-orders/${user_id}`, {
+export async function getUserOrdersData({
+  token: token,
+  filters: filters,
+  user_id,
+}) {
+  let api_url = `${API_URL}/user-orders/${user_id}/`;
+  api_url = update_quary_params(api_url, filters);
+  let response = await fetch(api_url, {
     method: "GET",
     headers: { Authorization: token },
   });
   let user_data = await response.json();
-  if (response.ok) {
-    return user_data;
-  } else {
-    throw response;
-  }
+  return user_data;
 }
 
 export async function PostProfileData({ token: token, userData: userData }) {
-  let response = await fetch(`${API_ENDPOINT}/user-profile/`, {
+  let response = await fetch(`${API_URL}/user-profile/`, {
     method: "POST",
     headers: { Authorization: token, "Content-Type": "application/json" },
     body: JSON.stringify(userData),
@@ -246,7 +267,7 @@ export async function PostProfileData({ token: token, userData: userData }) {
 
 // order apis
 export async function getOrderData({ token: token, ref: ref }) {
-  let response = await fetch(`${API_ENDPOINT}/order/${ref}/`, {
+  let response = await fetch(`${API_URL}/order/${ref}/`, {
     method: "GET",
     headers: { Authorization: token, "Content-Type": "application/json" },
   });
@@ -262,17 +283,13 @@ export async function PostOrderData({
   ref: ref,
   orderData: orderData,
 }) {
-  let response = await fetch(`${API_ENDPOINT}/order/${ref}/`, {
+  let response = await fetch(`${API_URL}/order/${ref}/`, {
     method: "POST",
     headers: { Authorization: token, "Content-Type": "application/json" },
     body: JSON.stringify(orderData),
   });
   let order_data = await response.json();
-  if (response.ok) {
-    return order_data;
-  } else {
-    throw response;
-  }
+  return order_data;
 }
 
 export async function PostPlaceOrder({
@@ -280,22 +297,18 @@ export async function PostPlaceOrder({
   ref: ref,
   orderData: orderData,
 }) {
-  let response = await fetch(`${API_ENDPOINT}/place-order/${ref}/`, {
+  let response = await fetch(`${API_URL}/place-order/${ref}/`, {
     method: "GET",
     headers: { Authorization: token, "Content-Type": "application/json" },
   });
 
   let place_order_data = await response.json();
-  if (response.ok) {
-    return place_order_data;
-  } else {
-    throw response;
-  }
+  return place_order_data;
 }
 
 // order address
 export async function getOrderDetailAddress({ token: token, ref: ref }) {
-  let response = await fetch(`${API_ENDPOINT}/order_address/${ref}/`, {
+  let response = await fetch(`${API_URL}/order_address/${ref}/`, {
     method: "GET",
     headers: { Authorization: token, "Content-Type": "application/json" },
   });
@@ -311,7 +324,7 @@ export async function postOrderDetailAddress({
   ref: ref,
   address_data,
 }) {
-  let response = await fetch(`${API_ENDPOINT}/order_address/${ref}/`, {
+  let response = await fetch(`${API_URL}/order_address/${ref}/`, {
     method: "POST",
     headers: { Authorization: token, "Content-Type": "application/json" },
     body: JSON.stringify(address_data),
@@ -324,7 +337,7 @@ export async function postOrderDetailAddress({
 }
 
 export async function getAddresses({ token: token }) {
-  let response = await fetch(`${API_ENDPOINT}/adresses/`, {
+  let response = await fetch(`${API_URL}/adresses/`, {
     method: "GET",
     headers: { Authorization: token, "Content-Type": "application/json" },
   });
@@ -337,7 +350,7 @@ export async function getAddresses({ token: token }) {
 }
 
 export async function getDetailAddress({ token: token, id: id }) {
-  let response = await fetch(`${API_ENDPOINT}/addresses/${id}/`, {
+  let response = await fetch(`${API_URL}/addresses/${id}/`, {
     method: "GET",
     headers: { Authorization: token, "Content-Type": "application/json" },
   });
@@ -347,4 +360,81 @@ export async function getDetailAddress({ token: token, id: id }) {
   } else {
     throw response;
   }
+}
+
+export async function registerUser(info) {
+  let resp = await fetch(`${API_URL}/register-user/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(info),
+  });
+  let resp_json = await resp.json();
+  return resp_json;
+}
+// added Create API context functionality
+function createRequest(request_method, request_data, token, is_default = true) {
+  // creates the request info for the fetch request.
+  let req = {};
+  let headers = {};
+  if (is_default === true) {
+    headers["Content-Type"] = "application/json";
+  } else {
+    headers["Content-Type"] = "multipart/form-data";
+  }
+
+  if (token !== null && token !== undefined) {
+    headers["access"] = `Bearer ${token}`;
+  }
+
+  req["method"] = request_method;
+  if (
+    request_data !== {} &&
+    request_data !== null &&
+    request_data !== undefined &&
+    (request_method === "POST" || request_method === "PATCH")
+  ) {
+    req["body"] = JSON.stringify(request_data);
+  }
+  req["headers"] = headers;
+  return req;
+}
+
+function updateUrlFilter(url, filters) {
+  // update the filters to url
+  let new_url = url;
+  let is_first = true;
+  if (filters !== null) {
+    let is_changed = false;
+    for (var key in filters) {
+      if (is_first === true) {
+        new_url += `?${key}=${filters[key]}`;
+        is_first = false;
+      } else {
+        new_url += `&${key}=${filters[key]}`;
+      }
+      is_changed = true;
+    }
+    if (is_changed === true) {
+      new_url += "/";
+    }
+  }
+  console.log("url", new_url, url);
+  return new_url;
+}
+
+export async function CreateApiContext(
+  api_point,
+  request_method,
+  request_data = null,
+  filters = null,
+  token = null
+) {
+  // create the API context, sends the request to API.
+  let URL = `${API_URL}${api_point}`;
+  URL = updateUrlFilter(URL, filters);
+  let req = createRequest(request_method, request_data, token);
+  console.log(req);
+  let resp = await fetch(URL, req);
+  let resp_json = await resp.json();
+  return resp_json;
 }
