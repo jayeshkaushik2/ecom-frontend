@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import { Link, Typography } from "@mui/material";
+import { Input, Link, Typography } from "@mui/material";
 import { CreateApiContext } from "../context/Apis";
 
 // {
@@ -42,8 +42,8 @@ const PromotedItemsList = (props) => {
     getSubCategories();
   }, []);
 
-  const handleClick = () => {
-    navigate("/");
+  const handleClick = (e) => {
+    navigate("/all-products", { state: { sub_category_id: e.target?.name } });
   };
 
   // TODO set image width x height to 300 x 320
@@ -80,10 +80,12 @@ const PromotedItemsList = (props) => {
                     paddingTop: 7,
                     cursor: "pointer",
                   }}
-                  onClick={handleClick}
+                  name={data?.id}
+                  onClick={(e) => handleClick(e)}
                 />
                 <Link
-                  onClick={handleClick}
+                  name={data?.id}
+                  onClick={(e) => handleClick(e)}
                   underline="none"
                   sx={{
                     cursor: "pointer",
