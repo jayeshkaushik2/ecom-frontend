@@ -50,7 +50,9 @@ const ResponsiveAppBar = (props) => {
 
   const handleSearchChange = (e) => {
     let query = e.target.value;
-    redirect("/products", { state: { query: { sub_category__name: query } } });
+    redirect("/products", {
+      state: { query: { sub_category__name__icontains: query } },
+    });
   };
 
   const handleOpenUserMenu = (event) => {
