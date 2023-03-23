@@ -3,12 +3,13 @@ import SimpleCard from "./SimpleCard";
 import { Grid, Paper, Rating, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { CreateApiContext } from "../context/Apis";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ProductImage from "../assets/images/ProductImage.png";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
 export const ItemsList = (props) => {
   const location = useLocation();
+  let navigate = useNavigate();
   const [ProductData, setProductsData] = React.useState(null);
 
   const getProductData = async (sub_category_id) => {
@@ -33,6 +34,17 @@ export const ItemsList = (props) => {
   React.useEffect(() => {
     getProductData(location.state?.sub_category_id);
   }, []);
+
+  const handleItemClick = (e) => {
+    let item_id = e.target.name;
+    if (item_id === undefined) {
+      item_id = e.target.id;
+    }
+    if (item_id !== undefined) {
+      // get the item's completed data
+      navigate("/product-view", { state: { product_id: item_id } });
+    }
+  };
 
   return (
     <Box sx={{ backgroundColor: "#e0e0e0", height: "100%", padding: "10px" }}>
@@ -66,9 +78,15 @@ export const ItemsList = (props) => {
                     cursor: "pointer",
                   }}
                   name={data?.id}
+                  onClick={(e) => handleItemClick(e)}
                 />
-                <Box sx={{ padding: 1 }}>
-                  <Typography variant="body1">
+
+                <Box sx={{ padding: 1, cursor: "pointer" }}>
+                  <Typography
+                    variant="body1"
+                    id={data?.id}
+                    onClick={(e) => handleItemClick(e)}
+                  >
                     {data?.description.length > 120
                       ? data?.description.slice(0, 120) + "..."
                       : data?.description}
