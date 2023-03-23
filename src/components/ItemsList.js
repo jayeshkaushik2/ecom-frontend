@@ -53,14 +53,14 @@ export const ItemsList = (props) => {
         <Grid
           container
           justifyContent="center"
-          columnSpacing={20}
+          columnSpacing={5}
           rowSpacing={8}
         >
           {ProductData?.map((data, key) => (
             <Grid key={key} item>
               <Paper
                 sx={{
-                  height: 600,
+                  height: 400,
                   width: 320,
                   borderRadius: 0,
                 }}
