@@ -6,12 +6,12 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
-import ProductImage from "../assets/images/ProductImage.png";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { PostCartRefData } from "../context/Apis";
 import CartContext from "../context/CartContext";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import defaultImage from "../assets/images/defaultImage.png";
 
 export default function ProductView(props) {
   let cart = React.useContext(CartContext);
@@ -73,7 +73,7 @@ export default function ProductView(props) {
           image={
             props.productData?.images?.length > 0
               ? props.productData.images[0].image
-              : ProductImage
+              : defaultImage
           }
           alt="green iguana"
         />

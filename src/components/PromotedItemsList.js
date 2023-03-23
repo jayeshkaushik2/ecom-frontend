@@ -5,15 +5,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { Input, Link, Typography } from "@mui/material";
 import { CreateApiContext } from "../context/Apis";
-
-// {
-//   category: 7;
-//   id: 17;
-//   image: null;
-//   is_promoted: true;
-//   name: "Mobiles";
-//   sorting_number: 0;
-// }
+import defaultImage from "../assets/images/defaultImage.png";
 
 const PromotedItemsList = (props) => {
   const [SubCategoriesData, setSubCategoriesData] = React.useState(null);
@@ -68,9 +60,9 @@ const PromotedItemsList = (props) => {
 
                 <img
                   src={
-                    data?.image !== null
+                    data?.image !== null && data?.image !== null
                       ? data.image
-                      : "http://ecom.apis.com:8000/media/homepage_image/universe1_FcnqeAY.jpg"
+                      : defaultImage
                   }
                   alt="homepage image"
                   style={{

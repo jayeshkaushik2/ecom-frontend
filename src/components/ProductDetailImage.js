@@ -9,6 +9,7 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 export const ProductDetailImage = (props) => {
   let API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
   const [CurrentImageIndex, setCurrentImageIndex] = React.useState(0);
+  console.log("props?.productImages", props?.productImages);
 
   const handleRightImageClick = (e) => {
     if (CurrentImageIndex + 1 >= props.productImages?.length) {
@@ -51,7 +52,7 @@ export const ProductDetailImage = (props) => {
         overflow: "hidden",
       }}
     >
-      {props?.productImages !== null && props?.productImages?.length > 0 ? (
+      {props?.productImages !== null && props?.productImages?.length > -1 ? (
         <Box height="inherit">
           <Box
             sx={{
@@ -70,7 +71,8 @@ export const ProductDetailImage = (props) => {
             width="100%"
             height="100%"
             src={
-              props?.productImages?.length >= CurrentImageIndex
+              props?.productImages?.length >= CurrentImageIndex &&
+              props.productImages?.length > 0
                 ? `${props?.productImages[CurrentImageIndex]?.image}`
                 : defaultImage
             }

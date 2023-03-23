@@ -16,6 +16,8 @@ import CartContext from "../context/CartContext";
 import AuthContext from "../context/AuthContext";
 import NotificationContext from "../context/NotificationContext";
 import { useNavigate } from "react-router-dom";
+import defaultImage from "../assets/images/defaultImage.png";
+
 
 const SimpleCard = (props) => {
   let cart = React.useContext(CartContext);
@@ -74,7 +76,7 @@ const SimpleCard = (props) => {
           image={
             props.product.images?.length > 0
               ? props.product.images[0]["image"]
-              : ProductImage
+              : defaultImage
           }
           alt="green iguana"
           sx={{ objectFit: "contain" }}

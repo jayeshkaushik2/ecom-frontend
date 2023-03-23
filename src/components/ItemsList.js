@@ -6,6 +6,7 @@ import { CreateApiContext } from "../context/Apis";
 import { useLocation, useNavigate } from "react-router-dom";
 import ProductImage from "../assets/images/ProductImage.png";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import defaultImage from "../assets/images/defaultImage.png";
 
 export const ItemsList = (props) => {
   const location = useLocation();
@@ -68,7 +69,7 @@ export const ItemsList = (props) => {
                   src={
                     data?.images?.length > 0
                       ? data?.images[0]["image"]
-                      : ProductImage
+                      : defaultImage
                   }
                   alt="homepage image"
                   style={{
