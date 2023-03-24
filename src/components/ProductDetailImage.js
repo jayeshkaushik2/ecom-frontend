@@ -48,12 +48,19 @@ export const ProductDetailImage = (props) => {
       minHeight="500px"
       sx={{
         backgroundColor: "#ffe6c1",
-        maxHeight: "450px",
         overflow: "hidden",
       }}
     >
       {props?.productImages !== null && props?.productImages?.length > -1 ? (
-        <Box height="inherit">
+        <Box
+          height="inherit"
+          style={{
+            width: "100%",
+            overflow: "scroll",
+            overflowX: "hidden",
+            maxHeight: "500px",
+          }}
+        >
           <Box
             sx={{
               position: "absolute",
@@ -68,8 +75,7 @@ export const ProductDetailImage = (props) => {
             }}
           ></Box>
           <img
-            width="100%"
-            height="100%"
+            style={{ width: "100%" }}
             src={
               props?.productImages?.length >= CurrentImageIndex &&
               props.productImages?.length > 0

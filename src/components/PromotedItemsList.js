@@ -48,7 +48,7 @@ const PromotedItemsList = (props) => {
             <Grid key={data} item>
               <Paper
                 sx={{
-                  height: 400,
+                  height: 280,
                   width: 300,
                   borderRadius: 0,
                   padding: 2,
@@ -67,7 +67,7 @@ const PromotedItemsList = (props) => {
                   alt="homepage image"
                   style={{
                     width: "100%",
-                    maxHeight: "320px",
+                    maxHeight: "210px",
                     overflow: "hidden",
                     paddingTop: 7,
                     cursor: "pointer",
