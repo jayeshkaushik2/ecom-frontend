@@ -105,11 +105,7 @@ export async function getCartRefData({ token: token, ref: ref }) {
     headers: { Authorization: token },
   });
   let cart_data = await response.json();
-  if (response.ok) {
-    return cart_data;
-  } else {
-    throw response;
-  }
+  return cart_data;
 }
 
 export async function PostCartRefData({
